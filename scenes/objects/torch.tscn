@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/sprites/isopack/Smoke0000.png" type="Texture" id=1]
+[ext_resource path="res://scenes/objects/torch.gd" type="Script" id=2]
+
+[sub_resource type="CylinderMesh" id=1]
+
+[node name="Torch" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color( 0.780392, 0.662745, 0.352941, 1 )
+position = Vector2( 0, -6.5 )
+scale = Vector2( 1, 7.5 )
+mesh = SubResource( 1 )
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+modulate = Color( 0.847059, 0.494118, 0.207843, 1 )
+position = Vector2( -2.98023e-08, -14 )
+scale = Vector2( 1.5, 2 )
+mesh = SubResource( 1 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -25 )
+scale = Vector2( 0.25, 0.215909 )
+texture = ExtResource( 1 )
+color = Color( 0.992157, 1, 0, 1 )
+energy = 11.05
+shadow_enabled = true
+shadow_color = Color( 0.847059, 0.188235, 0.188235, 0 )

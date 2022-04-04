@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/objects/FishStand.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/characters/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/characters/enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GameRoot.gd" type="Script" id=4]
+
+[node name="MapScene" type="Node"]
+script = ExtResource( 4 )
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Enemy" parent="YSort" instance=ExtResource( 3 )]
+position = Vector2( 254, 38 )
+
+[node name="Enemy2" parent="YSort" instance=ExtResource( 3 )]
+position = Vector2( 208, 63 )
+
+[node name="Enemy3" parent="YSort" instance=ExtResource( 3 )]
+position = Vector2( 257, 93 )
+
+[node name="Enemy4" parent="YSort" instance=ExtResource( 3 )]
+position = Vector2( 180, 39 )
+rotation = 0.161739
+
+[node name="FishStand" parent="." instance=ExtResource( 1 )]
+position = Vector2( 193, 138 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 43, 64 )

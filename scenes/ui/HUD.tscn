@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ui/HPbar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/ui/HUD.gd" type="Script" id=2]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="HPbar" parent="." instance=ExtResource( 1 )]
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_left = 43.0
+margin_top = -60.0
+margin_right = 683.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.250776, 0.250776 )
+value = 100.0
+
+[node name="Name" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 43.0
+margin_top = -82.0
+margin_right = 202.0
+margin_bottom = -62.0
+text = "The Golden God"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/afrobeats_again_8.mp3-8202728af5b3ffb014c89384e2eced3f.mp3str"
+
+[deps]
+
+source_file="res://scenes/levels/afrobeats_again_8.mp3"
+dest_files=[ "res://.import/afrobeats_again_8.mp3-8202728af5b3ffb014c89384e2eced3f.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

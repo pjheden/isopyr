@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/sprites/rockpng.png" type="Texture" id=1]
+[ext_resource path="res://scenes/objects/Projectile.gd" type="Script" id=2]
+
+[node name="Rock" type="Sprite"]
+rotation = 0.518364
+scale = Vector2( 0.163317, 0.163317 )
+z_index = 2
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Hitbox" type="Area2D" parent="." groups=["Object_damager", "Player_damager"]]
+scale = Vector2( 1.28, 0.96 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+scale = Vector2( 5.18587, 1.73193 )
+polygon = PoolVector2Array( -1.48971, 11.8717, 1.82812, 12.7956, 3.77487, 4.12284, 1.03268, -15.0706, -3.43064, -9.14638, -3.31783, -0.923927 )
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 7.0
+autostart = true
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="timeout" from="Lifespan" to="." method="_on_Lifespan_timeout"]

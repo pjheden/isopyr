@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/ui/HPbar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/objects/Building.gd" type="Script" id=3]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/inn.png-a3587c57f2f6ea3afc3ded838a5a6e2a.stex"
+
+[node name="LargeHouse" type="StaticBody2D"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( -61, 46, -5, 75, 62, 43, 2, 7 )
+
+[node name="HPbar" parent="." instance=ExtResource( 2 )]
+margin_left = -41.0
+margin_top = -117.0
+margin_right = 599.0
+margin_bottom = -17.0
+rect_scale = Vector2( 0.134554, 0.134554 )
+max_value = 1000.0
+value = 1000.0

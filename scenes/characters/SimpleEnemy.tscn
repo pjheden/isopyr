@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/ui/HPbar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/characters/SimpleEnemy.gd" type="Script" id=2]
+[ext_resource path="res://resources/sprites/simple_enemy_sheet.png" type="Texture" id=3]
+[ext_resource path="res://scenes/characters/Idle.gd" type="Script" id=4]
+[ext_resource path="res://tools/StateMachine.gd" type="Script" id=5]
+[ext_resource path="res://scenes/characters/Move.gd" type="Script" id=6]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Shoot"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 3, 4, 5 ]
+}
+
+[node name="SimpleEnemy" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -2, -9.53674e-07 )
+scale = Vector2( 0.130958, 0.136349 )
+texture = ExtResource( 3 )
+offset = Vector2( 22.908, 14.7814 )
+hframes = 6
+vframes = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, -1 )
+polygon = PoolVector2Array( -4, 16, -0.7911, 16.6418, 2, 15, 4, 13, 1, 11, -4, 13 )
+
+[node name="HPbar" parent="." instance=ExtResource( 1 )]
+margin_left = -12.0
+margin_top = -20.0
+margin_right = 628.0
+margin_bottom = 80.0
+rect_scale = Vector2( 0.0371631, 0.0375352 )
+value = 100.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/Shoot = SubResource( 2 )
+
+[node name="AttackCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="RollCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 5 )
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+
+[node name="IdleCooldown" type="Timer" parent="StateMachine/Idle"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
