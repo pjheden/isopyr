@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Start.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/logo.png" type="Texture" id=2]
+[ext_resource path="res://resources/sprites/warrior-icon.png" type="Texture" id=3]
+[ext_resource path="res://resources/sprites/maximus_sheet.png" type="Texture" id=4]
+[ext_resource path="res://resources/sprites/maxsword_sheet.png" type="Texture" id=5]
 
 [node name="Server_browser" type="Control"]
 anchor_right = 1.0
@@ -103,6 +106,46 @@ visible = false
 anchor_right = 0.273
 anchor_bottom = 1.0
 margin_right = 744.448
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaximusSheet" type="Sprite" parent="Lobby"]
+position = Vector2( 608, 335 )
+scale = Vector2( 0.592857, 0.592857 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 28.9501, 693.555, 149.753, 179.116 )
+
+[node name="Button" type="Button" parent="Lobby/MaximusSheet"]
+margin_left = -268.193
+margin_top = 136.627
+margin_right = -97.1929
+margin_bottom = 301.627
+rect_scale = Vector2( 0.475697, 0.475697 )
+rect_pivot_offset = Vector2( 94.8586, -39.1584 )
+icon = ExtResource( 3 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaxswordSheet" type="Sprite" parent="Lobby"]
+position = Vector2( 496, 335 )
+scale = Vector2( 0.592857, 0.592857 )
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 14.2684, 661.255, 140.944, 229.033 )
+
+[node name="Button" type="Button" parent="Lobby/MaxswordSheet"]
+margin_left = 106.265
+margin_top = 136.627
+margin_right = 277.265
+margin_bottom = 301.627
+rect_scale = Vector2( 0.475697, 0.475697 )
+rect_pivot_offset = Vector2( 94.8586, -39.1584 )
+icon = ExtResource( 3 )
+flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
