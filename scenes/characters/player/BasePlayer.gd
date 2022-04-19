@@ -26,7 +26,7 @@ func _ready():
 	if is_network_master():
 		Global.player_master = self
 		hud = get_parent().get_parent().get_parent().get_node("HUD")
-		hud.set_name(Network.my_info["name"])
+		hud.set_name(Network.players_info[Network.my_id]["name"])
 		
 func _input(event) -> void:
 	if dead:

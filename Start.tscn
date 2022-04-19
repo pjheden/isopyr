@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Start.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/logo.png" type="Texture" id=2]
-[ext_resource path="res://resources/sprites/warrior-icon.png" type="Texture" id=3]
+[ext_resource path="res://resources/ui/warrior-icon.png" type="Texture" id=3]
 [ext_resource path="res://resources/sprites/maximus_sheet.png" type="Texture" id=4]
 [ext_resource path="res://resources/sprites/maxsword_sheet.png" type="Texture" id=5]
+[ext_resource path="res://resources/ui/spear-icon.png" type="Texture" id=6]
 
 [node name="Server_browser" type="Control"]
 anchor_right = 1.0
@@ -117,7 +118,7 @@ texture = ExtResource( 4 )
 region_enabled = true
 region_rect = Rect2( 28.9501, 693.555, 149.753, 179.116 )
 
-[node name="Button" type="Button" parent="Lobby/MaximusSheet"]
+[node name="SwordButton" type="Button" parent="Lobby/MaximusSheet"]
 margin_left = -268.193
 margin_top = 136.627
 margin_right = -97.1929
@@ -137,18 +138,15 @@ texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 14.2684, 661.255, 140.944, 229.033 )
 
-[node name="Button" type="Button" parent="Lobby/MaxswordSheet"]
+[node name="SpearButton" type="Button" parent="Lobby/MaxswordSheet"]
 margin_left = 106.265
 margin_top = 136.627
 margin_right = 277.265
 margin_bottom = 301.627
 rect_scale = Vector2( 0.475697, 0.475697 )
 rect_pivot_offset = Vector2( 94.8586, -39.1584 )
-icon = ExtResource( 3 )
+icon = ExtResource( 6 )
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Start_server" type="Button" parent="Lobby"]
 anchor_left = 0.5
@@ -192,10 +190,9 @@ margin_top = 87.0
 margin_right = 375.0
 margin_bottom = 577.0
 rect_scale = Vector2( 1.00758, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="Background_panel/Create_server" to="." method="_on_Create_server_pressed"]
 [connection signal="pressed" from="Background_panel/Join_server" to="." method="_on_Join_server_pressed"]
+[connection signal="pressed" from="Lobby/MaximusSheet/SwordButton" to="." method="_on_SwordButton_pressed"]
+[connection signal="pressed" from="Lobby/MaxswordSheet/SpearButton" to="." method="_on_SpearButton_pressed"]
 [connection signal="pressed" from="Lobby/Start_server" to="." method="_on_Start_server_pressed"]

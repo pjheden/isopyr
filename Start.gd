@@ -67,11 +67,32 @@ func redraw(my_info, player_info) -> void:
 	for k in player_info:
 		add_player(i, player_info[k])
 		i += 1
-	
+
+## add_player adds a a player (info) to the loby screen
 func add_player(index, info) -> void:
 	var pu = player_ui_scene.instance()
 	pu.update_info(info)
+	# TODO: write this better
+	# load right textures
+	var txt: Texture
+	if info["hero"] == "Spear":
+		txt = load("res://resources/ui/spear-icon.png")
+	else:
+		txt = load("res://resources/ui/warrior-icon.png")
+	pu.set_icon(txt)
 	var height = $Lobby/Players.rect_size.y
 	pu.set_position(Vector2(0,index * (height / 8)))
 	pu.set_global_position(Vector2(0, index * (height / 8)))
+	pu.name = "LobbyPlayer-" + info["name"]
 	$Lobby/Players.add_child(pu)
+
+
+func _on_SwordButton_pressed():
+	#TODO class enum
+	print("sword button pressed")
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), "Sword")
+
+
+func _on_SpearButton_pressed():
+	#TODO class enum
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), "Spear")

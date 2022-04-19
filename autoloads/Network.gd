@@ -4,9 +4,10 @@ extends Node
 export(int) var PORT = 8080
 
 # info on players
-var player_info = {}
+var players_info = {}
 # info on current player
-var my_info = {}
+var my_id
+# var my_info = {}
 # keep track of players who finished loading
 var players_done = []
 
@@ -18,49 +19,53 @@ puppet var puppet_networked_object_name_index = 0 setget puppet_networked_object
 
 func _ready():
 	randomize()
-	#var names = ["Roshack", "Ragnar", "Rez", "Ruba", "Rio"]
-	#my_info["name"] = names[randi() % names.size()]
-	#my_info["name"] = Save.save_data["playerName"]
-	
-	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
-	my_info["color"] = colors[randi() % colors.size()]
 	
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
-	
+
 
 func create_server():
 	var peer = NetworkedMultiplayerENet.new()
 	peer.create_server(PORT)
 	get_tree().network_peer = peer
 	
-	my_info["name"] = Save.save_data["playerName"]
+	#my_info["name"] = Save.save_data["playerName"]
+	my_id = 1
+	
+	players_info[my_id] = {}
+	players_info[my_id]["name"] = Save.save_data["playerName"]
+	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
+	players_info[my_id]["color"] = colors[randi() % colors.size()]
+	players_info[my_id]["hero"] = "Sword"
 	
 	# Add server player lobby UI here
-	lobby.add_player(0, my_info)
+	lobby.add_player(0, players_info[my_id])
 
 func create_client(address):
 	var peer = NetworkedMultiplayerENet.new()
 	peer.create_client(address, PORT)
 	get_tree().network_peer = peer
 	
-	my_info["name"] = Save.save_data["playerName"]
+	my_id = get_tree().get_network_unique_id()
+	
+	players_info[my_id] = {}
+	players_info[my_id]["name"] = Save.save_data["playerName"]
 
 func _player_connected(id):
 	print("player connected: ", id)
 	# send only to server
-	rpc_id(id, "register_player", my_info)
+	rpc_id(id, "register_player", players_info[my_id])
 		
 func _player_disconnected(id):
 	print("player disconnected: ", id)
-	player_info.erase(id)
+	players_info.erase(id)
 	# TODO: de-instance player?
 	
 func _connected_ok():
-	print("_connected: ", player_info)
+	print("_connected: ", players_info)
 	
 func _server_disconnected():
 	pass # Server kicked us; show error and abort.
@@ -68,35 +73,35 @@ func _server_disconnected():
 func _connected_fail():
 	pass # Could not even connect to server; abort.
 
-remote func set_player_info(pi):
+remote func set_players_info(pi):
 	print("setting player_info: ", pi)
-	player_info = pi
-	lobby.redraw(my_info, player_info)
+	players_info = pi
+	lobby.redraw(players_info[my_id], players_info)
 
-func share_player_info(id):
+func share_players_info(id):
 	# Tell the new player who is in the lobby already
-	var pi = player_info.duplicate()
-	pi[get_tree().get_network_unique_id()] = my_info
+	var pi = players_info.duplicate()
+	#pi[get_tree().get_network_unique_id()] = my_info
 	rpc_id(id, "set_player_info", pi)
 
 remote func register_player(info):
 	# Get the id of the RPC sender.
 	var id = get_tree().get_rpc_sender_id()
 	if get_tree().is_network_server():
-		share_player_info(id)
+		share_players_info(id)
 	# Store the info
-	player_info[id] = info
+	players_info[id] = info
 	
 	# Add new player lobby UI here
-	lobby.add_player(player_info.size(), info)
+	lobby.add_player(players_info.size(), info)
 
 remote func pre_configure_game(spawn_points):
 	# Load world
 	var world = Game.load_world()
 	
 	# set players
-	var pi = player_info.duplicate()
-	pi[get_tree().get_network_unique_id()] = my_info 
+	var pi = players_info.duplicate()
+	#pi[get_tree().get_network_unique_id()] = my_info 
 	Game.set_players(pi)
 	
 	# Spawn players
@@ -104,11 +109,11 @@ remote func pre_configure_game(spawn_points):
 
 	# Tell server (remember, server is always ID=1) that this peer is done pre-configuring.
 	# The server can call get_tree().get_rpc_sender_id() to find out who said they were done.
-	print("players registered ", player_info, player_info.size())
+	print("players registered ", players_info, players_info.size())
 	if not get_tree().is_network_server():
 		rpc_id(1, "done_preconfiguring")
 	# special case when only host is playing
-	if player_info.size() == 0:
+	if players_info.size() == 0:
 		get_tree().set_pause(false)
 	
 
@@ -117,13 +122,13 @@ remote func done_preconfiguring():
 	var who = get_tree().get_rpc_sender_id()
 	# Here are some checks you can do, for example
 	assert(get_tree().is_network_server())
-	assert(who in player_info) # Exists
+	assert(who in players_info) # Exists
 	assert(not who in players_done) # Was not added yet
 
 	players_done.append(who)
 	
 	print("players_done: ", players_done)
-	if players_done.size() == player_info.size():
+	if players_done.size() == players_info.size():
 		rpc("post_configure_game")
 		post_configure_game()
 
@@ -142,15 +147,39 @@ func begin_game():
 	var spawn_points = {}
 	spawn_points[1] = 0 # server
 	var spawn_points_index = 1
-	for p in player_info:
+	for p in players_info:
 		spawn_points[p] = spawn_points_index
 		spawn_points_index += 1
 	# Call to pre-start game with the spawn points.
-	for p in player_info:
+	# TODO: try rpc instead to broadcst to everyone at once?
+	for p in players_info:
 		rpc_id(p, "pre_configure_game", spawn_points)
 	
 	players_done = []
 	pre_configure_game(spawn_points)
+
+func broadcast_hero_change(p_id: int, hero: String) -> void:
+	print("broadcasting hero change")
+	rpc("change_hero", get_tree().get_network_unique_id(), hero)
+	
+## change_hero changes the selected hero to {hero} for player {p_id}
+remotesync func change_hero(p_id: int, hero: String) -> void:
+	print(players_info)
+	# TODO: fix bug. This crashes when changing on yourselve
+	# so need special treatment for the player owner himsels
+	players_info[p_id]["hero"] = hero
+	print("changing hero for player ", p_id, " to ", hero)
+	# TODO: find the right LobbyPlayer to update icon
+	var name = "LobbyPlayer-" + players_info[p_id]["name"]
+	print("/root/Server_browser/Lobby/Players/" + name)
+	var pu = get_node("/root/Server_browser/Lobby/Players/" + name)
+	print("got node lp: ", pu)
+	var txt: Texture
+	if players_info[p_id]["hero"] == "Spear":
+		txt = load("res://resources/ui/spear-icon.png")
+	else:
+		txt = load("res://resources/ui/warrior-icon.png")
+	pu.set_icon(txt)
 
 func puppet_networked_object_name_index_set(new_value):
 	networked_object_name_index = new_value
