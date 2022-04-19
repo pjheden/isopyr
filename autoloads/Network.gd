@@ -164,21 +164,10 @@ func broadcast_hero_change(p_id: int, hero: String) -> void:
 	
 ## change_hero changes the selected hero to {hero} for player {p_id}
 remotesync func change_hero(p_id: int, hero: String) -> void:
-	print(players_info)
-	# TODO: fix bug. This crashes when changing on yourselve
-	# so need special treatment for the player owner himsels
 	players_info[p_id]["hero"] = hero
-	print("changing hero for player ", p_id, " to ", hero)
-	# TODO: find the right LobbyPlayer to update icon
 	var name = "LobbyPlayer-" + players_info[p_id]["name"]
-	print("/root/Server_browser/Lobby/Players/" + name)
 	var pu = get_node("/root/Server_browser/Lobby/Players/" + name)
-	print("got node lp: ", pu)
-	var txt: Texture
-	if players_info[p_id]["hero"] == "Spear":
-		txt = load("res://resources/ui/spear-icon.png")
-	else:
-		txt = load("res://resources/ui/warrior-icon.png")
+	var txt = Global.get_hero_icon(players_info[p_id]["hero"])
 	pu.set_icon(txt)
 
 func puppet_networked_object_name_index_set(new_value):

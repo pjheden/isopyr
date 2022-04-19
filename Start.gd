@@ -74,11 +74,7 @@ func add_player(index, info) -> void:
 	pu.update_info(info)
 	# TODO: write this better
 	# load right textures
-	var txt: Texture
-	if info["hero"] == "Spear":
-		txt = load("res://resources/ui/spear-icon.png")
-	else:
-		txt = load("res://resources/ui/warrior-icon.png")
+	var txt = Global.get_hero_icon(info["hero"])
 	pu.set_icon(txt)
 	var height = $Lobby/Players.rect_size.y
 	pu.set_position(Vector2(0,index * (height / 8)))
@@ -89,7 +85,6 @@ func add_player(index, info) -> void:
 
 func _on_SwordButton_pressed():
 	#TODO class enum
-	print("sword button pressed")
 	Network.broadcast_hero_change(get_tree().get_network_unique_id(), "Sword")
 
 
