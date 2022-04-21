@@ -48,3 +48,8 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	state = get_node(target_state_name)
 	state.enter(msg)
 	emit_signal("transitioned", state.name)
+
+func _on_Vision_body_entered(b) -> void:
+	print("body entered ", b)
+	if state.has_method("body_detected"):
+		state.body_detected(b)
