@@ -27,7 +27,7 @@ func update(delta: float) -> void:
 		States.ATTACK:
 			attack_player()
 
-func move_player(delta: float) -> void:
+func move_player(_delta: float) -> void:
 	var dir = target.global_position - owner.global_position
 
 	# add early stop to prevent shaking close to target pos
@@ -35,7 +35,7 @@ func move_player(delta: float) -> void:
 		state = States.ATTACK
 		return
 	var velocity = dir.normalized()
-	var vel = owner.move_and_slide(velocity * owner.speed)
+	var _vel = owner.move_and_slide(velocity * owner.speed)
 
 func attack_player() -> void:
 	var dir = target.global_position - owner.global_position

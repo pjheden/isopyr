@@ -16,7 +16,7 @@ func update(delta: float) -> void:
 	if move_timer.is_stopped():
 		state_machine.transition_to("Idle")
 
-func move_player(delta: float) -> void:
+func move_player(_delta: float) -> void:
 	var dir = target_position - owner.global_position
 
 	# add early stop to prevent shaking close to target pos
@@ -25,7 +25,7 @@ func move_player(delta: float) -> void:
 		return
 	var velocity = dir.normalized()
 
-	var vel = owner.move_and_slide(velocity * owner.speed)
+	var _vel = owner.move_and_slide(velocity * owner.speed)
 
 	# Check how to rotate the player
 	#$Sprite.flip_h = vel.x < 0

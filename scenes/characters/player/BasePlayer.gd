@@ -22,13 +22,14 @@ puppet var puppet_state = state setget puppet_state_set
 onready var tween = $MoveTween
 onready var hit_timer = $HitTimer
 onready var dodge_animation = $Sprite/DodgeAnimation
+onready var finish_timer = $FinishDodge 
 
 func _ready():
 	if is_network_master():
 		Global.player_master = self
 		hud = get_parent().get_parent().get_parent().get_node("HUD")
 		hud.set_name(Network.players_info[Network.my_id]["name"])
-		
+
 func _input(event) -> void:
 	if dead:
 		state = States.DEAD
@@ -86,12 +87,12 @@ func move_state(delta):
 		# if we haven't got a network packet in a while, update player pos
 		# based on last recieved velocity
 		if not tween.is_active():
-			move_and_slide(puppet_velocity * speed)
+			var _vel = move_and_slide(puppet_velocity * speed)
 			
-func roll_state(delta):
+func roll_state(_delta: float) -> void:
 	if is_network_master():
 		velocity = dir.normalized()
-		move_and_slide(velocity * 3 * speed)
+		var _vel = move_and_slide(velocity * 3 * speed)
 	
 	# TODO: this does not work, because the particle2d is folowing the player
 	# instead we need to create these under a different shield. Probably
@@ -99,20 +100,18 @@ func roll_state(delta):
 	# creates these "spirits". Using the same sprite for all
 	if not dodge_animation.emitting:
 		dodge_animation.restart()
-		var finish_timer = $FinishDodge
-		finish_timer.connect("timeout", self, "roll_animation_finished")
 		finish_timer.start()
 		#roll_animation_finished()
 		
 	#play_animation(dir.y > 0, "Roll")
 
-func attack_state(delta):
+func attack_state(_delta: float) -> void:
 	# rotate player towards mouse
 	dir = Mouse.global_position - global_position
 	var x_vector = Vector2(1,0)
 	player_rotation = x_vector.angle_to(dir)
 
-func attack_animation_finished():
+func attack_animation_finished() -> void:
 	print("base class attack animation finished")
 	if is_network_master():
 		#rpc("instance_projectile", get_tree().get_network_unique_id())
@@ -161,7 +160,7 @@ func play_animation(down: bool, type: String = "Move") -> void:
 			else:
 				$AnimationPlayer.play("RollTop")
 		
-func move_player(delta):
+func move_player(_delta: float) -> void:
 	# update player position
 	dir = last_mouse_pos - global_position
 	

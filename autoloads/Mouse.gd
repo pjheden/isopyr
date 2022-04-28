@@ -26,7 +26,7 @@ func reset():
 	$AnimationPlayer.play("Default")
 	target_body = null
 
-func _process(delta):
+func _process(_delta):
 	global_position = get_global_mouse_position()
 	#global_position = get_viewport().get_mouse_position()
 	#global_position = get_global_transform_with_canvas().origin

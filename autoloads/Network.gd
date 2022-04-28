@@ -20,10 +20,15 @@ puppet var puppet_networked_object_name_index = 0 setget puppet_networked_object
 func _ready():
 	randomize()
 	
+# warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_connected", self, "_player_connected")
+# warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+# warning-ignore:return_value_discarded
 	get_tree().connect("connected_to_server", self, "_connected_ok")
+# warning-ignore:return_value_discarded
 	get_tree().connect("connection_failed", self, "_connected_fail")
+# warning-ignore:return_value_discarded
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 
@@ -153,12 +158,14 @@ func begin_game():
 	# Call to pre-start game with the spawn points.
 	# TODO: try rpc instead to broadcst to everyone at once?
 	for p in players_info:
+		if p == my_id:
+			continue
 		rpc_id(p, "pre_configure_game", spawn_points)
 	
 	players_done = []
 	pre_configure_game(spawn_points)
 
-func broadcast_hero_change(p_id: int, hero: String) -> void:
+func broadcast_hero_change(_p_id: int, hero: String) -> void:
 	print("broadcasting hero change")
 	rpc("change_hero", get_tree().get_network_unique_id(), hero)
 	
