@@ -9,3 +9,7 @@ func enter(_msg := {}) -> void:
 func update(delta: float) -> void:
 	if idle_timer.is_stopped():
 		state_machine.transition_to("Move")
+
+func body_detected(b: KinematicBody2D) -> void:
+	if b.is_in_group("Player"):
+		state_machine.transition_to("Attack", {"target": b})

@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/characters/player/SwordPlayer.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/State.gd" type="Script" id=2]
 [ext_resource path="res://resources/sprites/maxsword_sheet.png" type="Texture" id=3]
+[ext_resource path="res://resources/sprites/rockpng.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 6.0
@@ -203,10 +204,24 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="Gradient" id=15]
+offsets = PoolRealArray( 0.0857143, 0.862338 )
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
+
+[sub_resource type="ParticlesMaterial" id=17]
+flag_disable_z = true
+gravity = Vector3( -98, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color_ramp = SubResource( 16 )
+
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 40.8333, 58.75 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
 collision_mask = 15
 script = ExtResource( 1 )
 
@@ -257,6 +272,15 @@ hframes = 6
 vframes = 4
 region_rect = Rect2( 462.09, 290.343, 21.766, 81.6224 )
 
+[node name="DodgeAnimation" type="Particles2D" parent="Sprite"]
+emitting = false
+amount = 2
+lifetime = 5.0
+one_shot = true
+randomness = 0.5
+process_material = SubResource( 17 )
+texture = ExtResource( 4 )
+
 [node name="Area2D" type="Area2D" parent="Sprite"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
@@ -274,6 +298,10 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FinishDodge" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
 
 [connection signal="timeout" from="NetworkTickRate" to="." method="_on_NetworkTickRate_timeout"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

@@ -180,7 +180,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
 collision_mask = 15
 script = ExtResource( 1 )
 
