@@ -33,6 +33,6 @@ func move_player(delta: float) -> void:
 	#var x_vector = Vector2(1,0)
 	#player_rotation = x_vector.angle_to(dir)
 
-func body_detected(b: KinematicBody2D) -> void:
+func body_detected(b: PhysicsBody2D) -> void:
 	if b.is_in_group("Player"):
 		state_machine.transition_to("Attack", {"target": b})

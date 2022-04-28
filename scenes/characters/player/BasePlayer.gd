@@ -21,6 +21,7 @@ puppet var puppet_state = state setget puppet_state_set
 
 onready var tween = $MoveTween
 onready var hit_timer = $HitTimer
+onready var dodge_animation = $Sprite/DodgeAnimation
 
 func _ready():
 	if is_network_master():
@@ -91,8 +92,19 @@ func roll_state(delta):
 	if is_network_master():
 		velocity = dir.normalized()
 		move_and_slide(velocity * 3 * speed)
-
-	play_animation(dir.y > 0, "Roll")
+	
+	# TODO: this does not work, because the particle2d is folowing the player
+	# instead we need to create these under a different shield. Probably
+	# not right ot have a particle emitter, but instead have a class which
+	# creates these "spirits". Using the same sprite for all
+	if not dodge_animation.emitting:
+		dodge_animation.restart()
+		var finish_timer = $FinishDodge
+		finish_timer.connect("timeout", self, "roll_animation_finished")
+		finish_timer.start()
+		#roll_animation_finished()
+		
+	#play_animation(dir.y > 0, "Roll")
 
 func attack_state(delta):
 	# rotate player towards mouse
