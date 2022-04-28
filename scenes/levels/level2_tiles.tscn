@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://resources/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/levels/Camera2D.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/levels/afrobeats_again_8.mp3" type="AudioStream" id=6]
 [ext_resource path="res://scenes/objects/Trap.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/Statue.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/characters/SimpleEnemy.tscn" type="PackedScene" id=9]
 
 [node name="MapScene" type="Node"]
 
@@ -64,6 +65,9 @@ scale = Vector2( 0.485315, 0.492153 )
 [node name="Cauldron" parent="YSort/Walls" instance=ExtResource( 4 )]
 position = Vector2( -137, 274 )
 scale = Vector2( 0.485315, 0.492153 )
+
+[node name="SimpleEnemy" parent="YSort" instance=ExtResource( 9 )]
+position = Vector2( 1215, 440 )
 
 [node name="Players" type="Node" parent="YSort"]
 
