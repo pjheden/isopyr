@@ -23,6 +23,8 @@ onready var tween = $MoveTween
 onready var hit_timer = $HitTimer
 onready var dodge_animation = $Sprite/DodgeAnimation
 onready var finish_timer = $FinishDodge 
+onready var sprite_scale: Vector2 = $Sprite.scale
+var fade_scene = preload("res://scenes/characters/FadingPlayer.tscn")
 
 func _ready():
 	if is_network_master():
@@ -93,17 +95,8 @@ func roll_state(_delta: float) -> void:
 	if is_network_master():
 		velocity = dir.normalized()
 		var _vel = move_and_slide(velocity * 3 * speed)
-	
-	# TODO: this does not work, because the particle2d is folowing the player
-	# instead we need to create these under a different shield. Probably
-	# not right ot have a particle emitter, but instead have a class which
-	# creates these "spirits". Using the same sprite for all
-	if not dodge_animation.emitting:
-		dodge_animation.restart()
-		finish_timer.start()
-		#roll_animation_finished()
-		
-	#play_animation(dir.y > 0, "Roll")
+
+	play_animation(dir.y > 0, "Roll")
 
 func attack_state(_delta: float) -> void:
 	# rotate player towards mouse
@@ -155,11 +148,8 @@ func play_animation(down: bool, type: String = "Move") -> void:
 				$AnimationPlayer.play("MoveTop")
 				$AnimationPlayer.animation_set_next("MoveTop", "IdleTop")
 		"Roll":
-			if down:
-				$AnimationPlayer.play("RollDown")
-			else:
-				$AnimationPlayer.play("RollTop")
-		
+			$AnimationPlayer.play("RollFade")
+
 func move_player(_delta: float) -> void:
 	# update player position
 	dir = last_mouse_pos - global_position
@@ -179,22 +169,6 @@ func move_player(_delta: float) -> void:
 
 	var x_vector = Vector2(1,0)
 	player_rotation = x_vector.angle_to(dir)
-
-#sync func instance_projectile(id):
-#	var projectile_instance = projectile_scene.instance()
-#	projectile_instance.set_network_master(id) # set projectile owner
-#	projectile_instance.player_rotation = player_rotation
-#	if abs(player_rotation) > PI / 2:
-#		projectile_instance.global_position = $ShootPointLeft.global_position
-#	else:
-#		projectile_instance.global_position = $ShootPointRight.global_position
-#	projectile_instance.name = "Projectile_" + str(id) + "_" +str(Network.networked_object_name_index)
-#	Network.networked_object_name_index += 1
-#	get_node("/root/PersistantObjects").add_child(projectile_instance)
-
-#sync func update_position(pos):
-#	global_position = pos
-#	puppet_position = pos 
 
 func set_hp(new_value) -> void:
 	hp = new_value
@@ -244,3 +218,12 @@ func _exit_tree() -> void:
 
 func roll_animation_finished():
 	state = States.IDLE
+
+func spawn_fade() -> void:
+	var f = fade_scene.instance()
+	# set size
+	f.scale = sprite_scale
+	# set position
+	f.global_position = global_position
+	f.rotation = rotation
+	get_node("/root/PersistantObjects").add_child(f)

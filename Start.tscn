@@ -104,9 +104,8 @@ offset = Vector2( -246.387, 79.6241 )
 
 [node name="Lobby" type="Panel" parent="."]
 visible = false
-anchor_right = 0.273
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 744.448
 __meta__ = {
 "_edit_use_anchors_": false
 }

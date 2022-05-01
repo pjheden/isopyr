@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/characters/player/SpearPlayer.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/State.gd" type="Script" id=2]
@@ -150,6 +150,29 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=14]
+resource_name = "RollFade"
+tracks/0/type = "method"
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_fade"
+}, {
+"args": [  ],
+"method": "spawn_fade"
+}, {
+"args": [  ],
+"method": "roll_animation_finished"
+} ]
+}
+
 [sub_resource type="Animation" id=12]
 resource_name = "RollTop"
 length = 0.3
@@ -233,6 +256,7 @@ anims/MoveDown = SubResource( 8 )
 anims/MoveTop = SubResource( 9 )
 anims/RESET = SubResource( 10 )
 anims/RollDown = SubResource( 11 )
+anims/RollFade = SubResource( 14 )
 anims/RollTop = SubResource( 12 )
 
 [node name="Sprite" type="Sprite" parent="."]

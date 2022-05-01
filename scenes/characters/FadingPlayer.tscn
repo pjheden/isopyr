@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/characters/FadingPlayer.gd" type="Script" id=1]
+[ext_resource path="res://resources/sprites/dodge_sprite.png" type="Texture" id=2]
+
+[node name="Fade" type="Sprite"]
+z_index = 2
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+fade_speed = 0.5

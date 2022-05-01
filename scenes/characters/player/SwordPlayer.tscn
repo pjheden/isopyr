@@ -1,9 +1,8 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/characters/player/SwordPlayer.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/State.gd" type="Script" id=2]
 [ext_resource path="res://resources/sprites/maxsword_sheet.png" type="Texture" id=3]
-[ext_resource path="res://resources/sprites/rockpng.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 6.0
@@ -174,6 +173,29 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=18]
+resource_name = "RollFade"
+tracks/0/type = "method"
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_fade"
+}, {
+"args": [  ],
+"method": "spawn_fade"
+}, {
+"args": [  ],
+"method": "roll_animation_finished"
+} ]
+}
+
 [sub_resource type="Animation" id=12]
 resource_name = "RollTop"
 length = 0.3
@@ -203,20 +225,6 @@ tracks/1/keys = {
 "method": "roll_animation_finished"
 } ]
 }
-
-[sub_resource type="Gradient" id=15]
-offsets = PoolRealArray( 0.0857143, 0.862338 )
-colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
-
-[sub_resource type="GradientTexture" id=16]
-gradient = SubResource( 15 )
-
-[sub_resource type="ParticlesMaterial" id=17]
-flag_disable_z = true
-gravity = Vector3( -98, 0, 0 )
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-color_ramp = SubResource( 16 )
 
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 40.8333, 58.75 )
@@ -262,6 +270,7 @@ anims/MoveDown = SubResource( 8 )
 anims/MoveTop = SubResource( 9 )
 anims/RESET = SubResource( 10 )
 anims/RollDown = SubResource( 11 )
+anims/RollFade = SubResource( 18 )
 anims/RollTop = SubResource( 12 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -271,15 +280,6 @@ texture = ExtResource( 3 )
 hframes = 6
 vframes = 4
 region_rect = Rect2( 462.09, 290.343, 21.766, 81.6224 )
-
-[node name="DodgeAnimation" type="Particles2D" parent="Sprite"]
-emitting = false
-amount = 2
-lifetime = 5.0
-one_shot = true
-randomness = 0.5
-process_material = SubResource( 17 )
-texture = ExtResource( 4 )
 
 [node name="Area2D" type="Area2D" parent="Sprite"]
 
