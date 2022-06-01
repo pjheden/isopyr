@@ -168,12 +168,12 @@ func begin_game():
 	players_done = []
 	pre_configure_game(spawn_points)
 
-func broadcast_hero_change(_p_id: int, hero: String) -> void:
+func broadcast_hero_change(p_id: int, hero: int) -> void:
 	print("broadcasting hero change")
 	rpc("change_hero", get_tree().get_network_unique_id(), hero)
 	
 ## change_hero changes the selected hero to {hero} for player {p_id}
-remotesync func change_hero(p_id: int, hero: String) -> void:
+remotesync func change_hero(p_id: int, hero: int) -> void:
 	players_info[p_id]["hero"] = hero
 	var name = "LobbyPlayer-" + players_info[p_id]["name"]
 	var pu = get_node("/root/Server_browser/Lobby/Players/" + name)

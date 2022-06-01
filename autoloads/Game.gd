@@ -2,7 +2,7 @@ extends Node
 
 var player_info = {}
 
-func _process(_delta) -> void:
+func _process(_delta: float) -> void:
 	if len(player_info) == 0:
 		return
 	# Have server check if all players are dead
