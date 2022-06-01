@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export(int) var hitpoints = 100
 
-const projectile_scene = preload("res://scenes/objects/Projectile.tscn")
+# const projectile_scene = preload("res://scenes/objects/Projectile.tscn")
 
 func _process(delta):
 	if not $AnimationPlayer.is_playing():

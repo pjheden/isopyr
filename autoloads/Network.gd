@@ -40,11 +40,7 @@ func create_server():
 	#my_info["name"] = Save.save_data["playerName"]
 	my_id = 1
 	
-	players_info[my_id] = {}
-	players_info[my_id]["name"] = Save.save_data["playerName"]
-	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
-	players_info[my_id]["color"] = colors[randi() % colors.size()]
-	players_info[my_id]["hero"] = "Sword"
+	players_info[my_id] = create_player_info()
 	
 	# Add server player lobby UI here
 	lobby.add_player(0, players_info[my_id])
@@ -56,8 +52,15 @@ func create_client(address):
 	
 	my_id = get_tree().get_network_unique_id()
 	
-	players_info[my_id] = {}
-	players_info[my_id]["name"] = Save.save_data["playerName"]
+	players_info[my_id] = create_player_info()
+
+func create_player_info():
+	var d = {}
+	d["name"] = Save.save_data["playerName"]
+	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
+	d["color"] = colors[randi() % colors.size()]
+	d["hero"] = "Sword"
+	return d
 
 func _player_connected(id):
 	print("player connected: ", id)

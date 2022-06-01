@@ -1,5 +1,5 @@
-extends Line2D
+extends Area2D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	rotation = get_parent().player_rotation
+func _process(_delta: float) -> void:
+	rotation = get_parent().get_rotation()

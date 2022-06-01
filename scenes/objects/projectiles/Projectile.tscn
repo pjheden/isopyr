@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/objects/projectiles/Projectile.gd" type="Script" id=1]
+
+[node name="Projectile" type="Sprite"]
+z_index = 2
+offset = Vector2( 372, 49 )
+script = ExtResource( 1 )
+
+[node name="Hitbox" type="Area2D" parent="." groups=["Object_damager", "Player_damager"]]
+scale = Vector2( 1.28, 0.96 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+scale = Vector2( 5.18587, 1.73193 )
+polygon = PoolVector2Array( -3.31429, 11.4275, 2.86234, 12.029, 3.16364, -9.02173, -3.43064, -9.14638 )
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 7.0
+autostart = true
+
+[node name="DelayedStart" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="Lifespan" to="." method="_on_Lifespan_timeout"]
+[connection signal="timeout" from="DelayedStart" to="." method="_on_DelayedStart_timeout"]

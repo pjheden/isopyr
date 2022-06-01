@@ -3,11 +3,15 @@ extends State
 var target_position = Vector2()
 var pixels_to_move = 100
 onready var move_timer = $MoveTimer
+onready var sprite = get_node("../../Sprite")
 
-func enter(_msg := {}) -> void:
-	var mx = rand_range(-pixels_to_move, pixels_to_move)
-	var my = rand_range(-pixels_to_move, pixels_to_move)
-	target_position = owner.global_position + Vector2(mx, my)
+func enter(msg := {}) -> void:
+	if "target_position" in msg:
+		target_position = msg["target_position"]
+	else:
+		var mx = rand_range(-pixels_to_move, pixels_to_move)
+		var my = rand_range(-pixels_to_move, pixels_to_move)
+		target_position = owner.global_position + Vector2(mx, my)
 	move_timer.start()
 
 func update(delta: float) -> void:
@@ -25,14 +29,16 @@ func move_player(_delta: float) -> void:
 		return
 	var velocity = dir.normalized()
 
-	var _vel = owner.move_and_slide(velocity * owner.speed)
+	var vel = owner.move_and_slide(velocity * owner.speed)
 
 	# Check how to rotate the player
-	#$Sprite.flip_h = vel.x < 0
+	sprite.flip_h = vel.x < 0
 	#play_animation(vel.y > 0)
-	#var x_vector = Vector2(1,0)
-	#player_rotation = x_vector.angle_to(dir)
+	var x_vector = Vector2(1,0)
+	get_parent().get_parent().set_rotation(x_vector.angle_to(dir))
 
 func body_detected(b: CollisionObject2D) -> void:
+	if b == null:
+		return
 	if b.is_in_group("Player"):
 		state_machine.transition_to("Attack", {"target": b})

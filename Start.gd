@@ -6,6 +6,11 @@ const player_ui_scene = preload("res://scenes/ui/LobbyPlayer.tscn")
 func _ready():
 	Network.lobby = self
 	$Background_panel/PlayerName.text = Save.save_data["playerName"]
+
+	#TMP auto start game for smoother tests
+	Network.create_server()
+	yield(get_tree().create_timer(1.0), "timeout")
+	Network.begin_game()
 	
 	var args = OS.get_cmdline_args()
 	if args.size() > 0:

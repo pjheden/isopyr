@@ -12,12 +12,10 @@ func _process(_delta) -> void:
 			rpc("lobby")
 
 func all_dead() -> bool:
-	var ad = true
 	for p in player_info:
 		if player_info[p]["alive"]:
-			ad = false
-			break
-	return ad
+			return false
+	return true
 
 func dead(id: int) -> void:
 	"""
@@ -50,7 +48,7 @@ sync func lobby() -> void:
 
 func load_world() -> Node:
 	# Load world
-	var world = load("res://scenes/levels/level2_tiles.tscn").instance()
+	var world = load("res://scenes/levels/level3.tscn").instance()
 	world.name = "world"
 	get_node("/root").add_child(world)
 	
@@ -63,14 +61,15 @@ func spawn_players(world, spawn_points) -> void:
 		var spawn_pos = spawns_node.get_child(spawn_points[p_id]).global_position
 		var player = character_scene(player_info[p_id]["hero"]).instance()
 		player.set_name(str(p_id))
+		player.id = p_id
 		player.set_network_master(p_id)
 		player.global_position = spawn_pos
 		world.get_node("YSort/Players").add_child(player)
 
-func character_scene(name: String):
-	match name:
-		"Sword":
-			return load("res://scenes/characters/player/SwordPlayer.tscn")
-		"Spear":
-			return load("res://scenes/characters/player/SpearPlayer.tscn")
-	return load("res://scenes/characters/player/SwordPlayer.tscn")
+func character_scene(_name: String):
+	# match name:
+	# 	"Sword":
+	# 		return load("res://scenes/characters/player/SwordPlayer.tscn")
+	# 	"Spear":
+	# 		return load("res://scenes/characters/player/SpearPlayer.tscn")
+	return load("res://scenes/characters/player/Caster.tscn")

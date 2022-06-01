@@ -1,4 +1,4 @@
-extends Node2D
+extends StaticBody2D
 
 export(int) var max_hitpoints = 100
 export(int) var death_projectiles = 4
@@ -19,7 +19,7 @@ sync func destroy() -> void:
 
 sync func instance_projectiles(id):
 	# Create projectiles firing out of each direction of the pillar
-	var angle = global_rotation
+	var angle: float = global_rotation
 	var angle_increment = 2*PI / death_projectiles
 	var persistant_objects = get_node("/root/PersistantObjects")
 	for i in range(death_projectiles):
@@ -51,7 +51,15 @@ func damage(amount):
 func hit_by_damager(damage):
 	damage(damage)
 
+func hit_by_physical_damager(damage):
+	damage(damage)
+
 func _on_Hitbox_area_entered(area):
 	if area.is_in_group("Object_damager"):
 		damage(area.get_parent().damage)
 
+func _on_Hitbox_mouse_entered():
+	Mouse.play_info(self)
+
+func _on_Hitbox_mouse_exited():
+	Mouse.reset()

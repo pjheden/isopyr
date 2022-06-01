@@ -38,6 +38,7 @@ func _physics_process(delta: float) -> void:
 # and calls its enter function.
 # It optionally takes a `msg` dictionary to pass to the next state's enter() function.
 func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
+	print("SM: transition to " + target_state_name)
 	# Safety check, you could use an assert() here to report an error if the state name is incorrect.
 	# We don't use an assert here to help with code reuse. If you reuse a state in different state machines
 	# but you don't want them all, they won't be able to transition to states that aren't in the scene tree.
@@ -49,7 +50,7 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	state.enter(msg)
 	emit_signal("transitioned", state.name)
 
-func _on_Vision_body_entered(b) -> void:
-	print("body entered ", b)
-	if state.has_method("body_detected"):
-		state.body_detected(b)
+func _on_Vision_body_entered(_b) -> void:
+	pass
+	# if state.has_method("body_detected"):
+		# state.body_detected(b)

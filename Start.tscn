@@ -10,6 +10,7 @@
 [node name="Server_browser" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -19,6 +20,7 @@ __meta__ = {
 self_modulate = Color( 0.756863, 0.698039, 1, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -106,6 +108,7 @@ offset = Vector2( -246.387, 79.6241 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }

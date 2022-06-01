@@ -1,0 +1,1 @@
+extends "res://scenes/objects/buildings/Building.gd"

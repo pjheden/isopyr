@@ -17,10 +17,8 @@ puppet func puppet_position_set(new_value) -> void:
 sync func destroy() -> void:
 	queue_free()
 
-
 func _on_Hitbox_body_entered(body):
 	bodies_in_range.append(body)
-
 
 func _on_Hitbox_body_exited(body):
 	var body_exited_name = body.get_name()
@@ -28,7 +26,6 @@ func _on_Hitbox_body_exited(body):
 		if body_exited_name == b.get_name():
 			bodies_in_range.erase(b)
 			return
-
 
 func _on_DamageTimer_timeout():
 	for body in bodies_in_range:

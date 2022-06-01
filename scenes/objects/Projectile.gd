@@ -39,6 +39,7 @@ func _on_Lifespan_timeout():
 		rpc("destroy")
 
 func _on_Hitbox_body_entered(body):
+	print("body entered proj: ", body)
 	if body.is_in_group("uncollideable"):
 		return
 	# rpc destroy caused bugs here, but im not sure what is right

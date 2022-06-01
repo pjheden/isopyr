@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 const speed = Vector2(128, 128)
-var hud = null # reference to hud
+var hud: CanvasLayer = null # reference to hud
 
 var last_mouse_pos = null
 var hp = 100 setget set_hp
@@ -9,6 +9,8 @@ var dead = false
 var velocity = Vector2()
 var dir = Vector2()
 var player_rotation = 0
+var spell_queue: Array = []
+var spell_bindings: Dictionary = {}
 
 # define states
 enum States {DEAD, IDLE, MOVE, ROLL, ATTACK}
@@ -21,10 +23,9 @@ puppet var puppet_state = state setget puppet_state_set
 
 onready var tween = $MoveTween
 onready var hit_timer = $HitTimer
-onready var dodge_animation = $Sprite/DodgeAnimation
 onready var finish_timer = $FinishDodge 
 onready var sprite_scale: Vector2 = $Sprite.scale
-var fade_scene = preload("res://scenes/characters/FadingPlayer.tscn")
+onready var fade_scene = preload("res://scenes/characters/FadingPlayer.tscn")
 
 func _ready():
 	if is_network_master():
@@ -58,6 +59,8 @@ func _input(event) -> void:
 		if $RollCooldown.get_time_left() == 0.0:
 			state = States.ROLL
 			$RollCooldown.start()
+	elif event.is_action_pressed("q"):
+		spell_queue.append("q")
 
 func _process(delta) -> void:
 	match state:
@@ -192,6 +195,10 @@ func _on_Hitbox_area_entered(area):
 			
 			# destroy bullet on server
 			area.get_parent().rpc("destroy")
+
+func hit_by_physical_damager(damage):
+	rpc("hit_by_damager", damage)
+	
 
 sync func hit_by_damager(damage):
 	hp -= damage

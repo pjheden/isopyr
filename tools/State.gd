@@ -13,7 +13,6 @@ var state_machine = null
 func handle_input(_event: InputEvent) -> void:
 	pass
 
-
 # Virtual function. Corresponds to the `_process()` callback.
 func update(_delta: float) -> void:
 	pass

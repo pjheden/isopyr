@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/ui/HPbar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/SimpleEnemy.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://scenes/characters/Move.gd" type="Script" id=6]
 [ext_resource path="res://scenes/characters/Attack.gd" type="Script" id=7]
 [ext_resource path="res://scenes/characters/EnemyState.gd" type="Script" id=8]
+[ext_resource path="res://scenes/characters/Vision.gd" type="Script" id=9]
+[ext_resource path="res://scenes/ui/HPbar.gd" type="Script" id=10]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -39,38 +41,35 @@ tracks/0/keys = {
 "values": [ 0, 3, 4, 5 ]
 }
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 11, 27 )
+
 [node name="SimpleEnemy" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -2, -9.53674e-07 )
-scale = Vector2( 0.130958, 0.136349 )
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 3 )
 offset = Vector2( 22.908, 14.7814 )
 hframes = 6
 vframes = 4
 
-[node name="Vision" type="Area2D" parent="Sprite"]
-
-[node name="VisionCone" type="CollisionPolygon2D" parent="Sprite/Vision"]
-position = Vector2( -7.63603, 7.33413 )
-scale = Vector2( 7.63604, 7.33412 )
-polygon = PoolVector2Array( 5, 15, 38, 115, 145, 31 )
-
-[node name="Line2D" type="Line2D" parent="Sprite"]
-points = PoolVector2Array( 22.9081, 102.678, 290.169, 858.092, 1099.59, 234.692, 15.2721, 110.012 )
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 0, -1 )
-polygon = PoolVector2Array( -4, 16, -0.7911, 16.6418, 2, 15, 4, 13, 1, 11, -4, 13 )
+visible = false
+position = Vector2( 2, 9 )
+scale = Vector2( 2.11273, 1.39835 )
+polygon = PoolVector2Array( -3.78657, 16.448, -1.89329, 17.8782, 1.89329, 15.0177, 3.78657, 12.1572, 1, 11, -4, 13 )
 
 [node name="HPbar" parent="." instance=ExtResource( 1 )]
-margin_left = -12.0
-margin_top = -20.0
-margin_right = 628.0
-margin_bottom = 80.0
+margin_left = -10.0
+margin_top = -33.0
+margin_right = 630.0
+margin_bottom = 67.0
 rect_scale = Vector2( 0.0371631, 0.0375352 )
+mouse_filter = 2
 value = 100.0
+script = ExtResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 1 )
@@ -110,6 +109,35 @@ margin_top = -35.0
 margin_right = 21.0
 margin_bottom = -21.0
 script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[connection signal="body_entered" from="Sprite/Vision" to="StateMachine" method="_on_Vision_body_entered"]
+[node name="Vision" type="Area2D" parent="."]
+rotation = 0.261799
+scale = Vector2( 0.3, 0.3 )
+script = ExtResource( 9 )
+
+[node name="VisionCone" type="CollisionPolygon2D" parent="Vision"]
+position = Vector2( -91.1972, -25.8254 )
+rotation = -1.0472
+scale = Vector2( 7.63604, 7.33412 )
+polygon = PoolVector2Array( 5, 15, 39.4658, 116.656, 107.065, 44.3456 )
+
+[node name="Line2D" type="Line2D" parent="Vision"]
+position = Vector2( -83.0038, -34.0118 )
+rotation = -1.0472
+points = PoolVector2Array( 22.9081, 102.678, 288.532, 852.141, 804.719, 326.525, 15.2721, 110.012 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 2, 7 )
+shape = SubResource( 3 )
+
+[connection signal="damaged" from="." to="HPbar" method="_on_damaged"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
+[connection signal="body_entered" from="Vision" to="StateMachine" method="_on_Vision_body_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="mouse_entered" from="Hitbox" to="." method="_on_Hitbox_mouse_entered"]
+[connection signal="mouse_exited" from="Hitbox" to="." method="_on_Hitbox_mouse_exited"]

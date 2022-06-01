@@ -1,0 +1,103 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://resources/tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/levels/Camera2D.gd" type="Script" id=2]
+[ext_resource path="res://scenes/ui/HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/levels/afrobeats_again_8.mp3" type="AudioStream" id=6]
+[ext_resource path="res://scenes/objects/Trap.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/characters/SimpleEnemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/objects/ArrowTrap.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/objects/buildings/Statue.tscn" type="PackedScene" id=11]
+
+[node name="MapScene" type="Node"]
+
+[node name="HUD" parent="." instance=ExtResource( 5 )]
+
+[node name="Floor" type="TileMap" parent="."]
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 64 )
+cell_tile_origin = 1
+centered_textures = true
+format = 1
+tile_data = PoolIntArray( -196629, 11, 0, -196628, 11, 0, -196627, 11, 0, -196626, 11, 0, -196625, 11, 0, -196624, 11, 0, -196623, 11, 0, -196622, 11, 0, -196621, 11, 0, -196620, 11, 0, -196619, 11, 0, -196618, 11, 0, -196617, 11, 0, -196616, 11, 0, -196615, 11, 0, -196614, 11, 0, -196613, 11, 0, -196612, 11, 0, -196611, 11, 0, -196610, 11, 0, -196609, 11, 0, -262144, 11, 0, -262143, 11, 0, -262142, 11, 0, -262141, 11, 0, -262140, 11, 0, -262139, 11, 0, -262138, 11, 0, -262137, 11, 0, -262136, 11, 0, -262135, 11, 0, -262134, 11, 0, -262133, 11, 0, -262132, 11, 0, -262131, 11, 0, -262130, 11, 0, -262129, 11, 0, -262128, 11, 0, -262127, 11, 0, -131093, 11, 0, -131092, 12, 0, -131091, 10, 0, -131090, 10, 0, -131089, 9, 0, -131088, 12, 0, -131087, 6, 0, -131086, 7, 0, -131085, 9, 0, -131084, 9, 0, -131083, 10, 0, -131082, 10, 0, -131081, 8, 0, -131080, 9, 0, -131079, 12, 0, -131078, 6, 0, -131077, 10, 0, -131076, 5, 0, -131075, 8, 0, -131074, 10, 0, -131073, 5, 0, -196608, 9, 0, -196607, 7, 0, -196606, 6, 0, -196605, 10, 0, -196604, 10, 0, -196603, 6, 0, -196602, 6, 0, -196601, 10, 0, -196600, 10, 0, -196599, 10, 0, -196598, 10, 0, -196597, 10, 0, -196596, 8, 0, -196595, 10, 0, -196594, 12, 0, -196593, 6, 0, -196592, 10, 0, -196591, 11, 0, -65557, 11, 0, -65556, 8, 0, -65555, 9, 0, -65554, 7, 0, -65553, 8, 0, -65552, 10, 0, -65551, 8, 0, -65550, 9, 0, -65549, 8, 0, -65548, 5, 0, -65547, 5, 0, -65546, 10, 0, -65545, 10, 0, -65544, 9, 0, -65543, 10, 0, -65542, 10, 0, -65541, 7, 0, -65540, 10, 0, -65539, 10, 0, -65538, 7, 0, -65537, 12, 0, -131072, 10, 0, -131071, 10, 0, -131070, 7, 0, -131069, 10, 0, -131068, 5, 0, -131067, 10, 0, -131066, 8, 0, -131065, 12, 0, -131064, 10, 0, -131063, 10, 0, -131062, 10, 0, -131061, 10, 0, -131060, 10, 0, -131059, 10, 0, -131058, 10, 0, -131057, 8, 0, -131056, 5, 0, -131055, 11, 0, -21, 11, 0, -20, 9, 0, -19, 5, 0, -18, 10, 0, -17, 10, 0, -16, 10, 0, -15, 10, 0, -14, 10, 0, -13, 10, 0, -12, 10, 0, -11, 10, 0, -10, 10, 0, -9, 10, 0, -8, 8, 0, -7, 6, 0, -6, 10, 0, -5, 10, 0, -4, 6, 0, -3, 10, 0, -2, 10, 0, -1, 10, 0, -65536, 10, 0, -65535, 10, 0, -65534, 10, 0, -65533, 5, 0, -65532, 10, 0, -65531, 10, 0, -65530, 10, 0, -65529, 10, 0, -65528, 8, 0, -65527, 10, 0, -65526, 5, 0, -65525, 7, 0, -65524, 10, 0, -65523, 10, 0, -65522, 10, 0, -65521, 10, 0, -65520, 7, 0, -65519, 11, 0, 65515, 11, 0, 65516, 5, 0, 65517, 7, 0, 65518, 9, 0, 65519, 10, 0, 65520, 10, 0, 65521, 10, 0, 65522, 10, 0, 65523, 8, 0, 65524, 10, 0, 65525, 12, 0, 65526, 8, 0, 65527, 10, 0, 65528, 10, 0, 65529, 10, 0, 65530, 10, 0, 65531, 5, 0, 65532, 6, 0, 65533, 9, 0, 65534, 10, 0, 65535, 10, 0, 0, 10, 0, 1, 10, 0, 2, 10, 0, 3, 7, 0, 4, 10, 0, 5, 10, 0, 6, 10, 0, 7, 10, 0, 8, 9, 0, 9, 5, 0, 10, 10, 0, 11, 9, 0, 12, 10, 0, 13, 10, 0, 14, 10, 0, 15, 10, 0, 16, 10, 0, 17, 11, 0, 131051, 11, 0, 131052, 8, 0, 131053, 8, 0, 131054, 10, 0, 131055, 9, 0, 131056, 10, 0, 131057, 10, 0, 131058, 10, 0, 131059, 10, 0, 131060, 7, 0, 131061, 10, 0, 131062, 8, 0, 131063, 8, 0, 131064, 10, 0, 131065, 10, 0, 131066, 10, 0, 131067, 10, 0, 131068, 10, 0, 131069, 10, 0, 131070, 6, 0, 131071, 10, 0, 65536, 10, 0, 65537, 10, 0, 65538, 10, 0, 65539, 12, 0, 65540, 8, 0, 65541, 8, 0, 65542, 8, 0, 65543, 10, 0, 65544, 10, 0, 65545, 10, 0, 65546, 10, 0, 65547, 9, 0, 65548, 10, 0, 65549, 10, 0, 65550, 10, 0, 65551, 10, 0, 65552, 9, 0, 65553, 11, 0, 196587, 11, 0, 196588, 5, 0, 196589, 8, 0, 196590, 7, 0, 196591, 6, 0, 196592, 12, 0, 196593, 5, 0, 196594, 8, 0, 196595, 12, 0, 196596, 5, 0, 196597, 9, 0, 196598, 9, 0, 196599, 9, 0, 196600, 6, 0, 196601, 6, 0, 196602, 9, 0, 196603, 10, 0, 196604, 10, 0, 196605, 12, 0, 196606, 6, 0, 196607, 10, 0, 131072, 5, 0, 131073, 10, 0, 131074, 10, 0, 131075, 12, 0, 131076, 8, 0, 131077, 10, 0, 131078, 7, 0, 131079, 10, 0, 131080, 8, 0, 131081, 7, 0, 131082, 8, 0, 131083, 12, 0, 131084, 9, 0, 131085, 10, 0, 131086, 8, 0, 131087, 6, 0, 131088, 9, 0, 131089, 11, 0, 262123, 11, 0, 262124, 11, 0, 262125, 11, 0, 262126, 11, 0, 262127, 11, 0, 262128, 11, 0, 262129, 11, 0, 262130, 11, 0, 262131, 11, 0, 262132, 11, 0, 262133, 11, 0, 262134, 11, 0, 262135, 11, 0, 262136, 11, 0, 262137, 11, 0, 262138, 11, 0, 262139, 11, 0, 262140, 11, 0, 262141, 11, 0, 262142, 11, 0, 262143, 11, 0, 196608, 11, 0, 196609, 11, 0, 196610, 11, 0, 196611, 11, 0, 196612, 11, 0, 196613, 11, 0, 196614, 11, 0, 196615, 11, 0, 196616, 11, 0, 196617, 11, 0, 196618, 11, 0, 196619, 11, 0, 196620, 11, 0, 196621, 11, 0, 196622, 11, 0, 196623, 11, 0, 196624, 11, 0, 196625, 11, 0 )
+
+[node name="Traps" type="Node" parent="."]
+
+[node name="Trap" parent="Traps" instance=ExtResource( 7 )]
+position = Vector2( -727.76, -294.921 )
+scale = Vector2( 0.58766, 0.58766 )
+
+[node name="Trap3" parent="Traps" instance=ExtResource( 7 )]
+position = Vector2( -678.76, -502.921 )
+scale = Vector2( 0.58766, 0.58766 )
+
+[node name="Trap2" parent="Traps" instance=ExtResource( 7 )]
+position = Vector2( 212.24, 184.079 )
+scale = Vector2( 0.58766, 0.58766 )
+
+[node name="Trap4" parent="Traps" instance=ExtResource( 7 )]
+position = Vector2( 261.24, -23.9207 )
+scale = Vector2( 0.58766, 0.58766 )
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Walls" type="TileMap" parent="YSort"]
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 64 )
+cell_custom_transform = Transform2D( 128, 0, 0, 64, 0, 0 )
+cell_tile_origin = 1
+cell_y_sort = true
+centered_textures = true
+format = 1
+
+[node name="Statue" parent="YSort/Walls" instance=ExtResource( 11 )]
+position = Vector2( -207, -163 )
+scale = Vector2( 0.364, 0.364 )
+
+[node name="SimpleEnemy" parent="YSort" instance=ExtResource( 9 )]
+position = Vector2( -110, -138 )
+
+[node name="ArrowTrap" parent="YSort" instance=ExtResource( 10 )]
+position = Vector2( 419, -661 )
+
+[node name="Players" type="Node" parent="YSort"]
+
+[node name="Spawns" type="Node" parent="."]
+
+[node name="Position2D" type="Position2D" parent="Spawns"]
+position = Vector2( -1327, -591 )
+
+[node name="Position2D2" type="Position2D" parent="Spawns"]
+position = Vector2( -1232, -638 )
+
+[node name="Position2D3" type="Position2D" parent="Spawns"]
+position = Vector2( -1152, -697 )
+
+[node name="Position2D4" type="Position2D" parent="Spawns"]
+position = Vector2( -1079, -735 )
+
+[node name="Position2D5" type="Position2D" parent="Spawns"]
+position = Vector2( 858, 515 )
+
+[node name="Position2D6" type="Position2D" parent="Spawns"]
+position = Vector2( 847, 424 )
+
+[node name="Position2D7" type="Position2D" parent="Spawns"]
+position = Vector2( 986, 453 )
+
+[node name="Position2D8" type="Position2D" parent="Spawns"]
+position = Vector2( 969, 351 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+script = ExtResource( 2 )
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -35.0
+autoplay = true
+
+[connection signal="mouse_entered" from="YSort/Walls/Statue" to="YSort/Walls/Statue" method="_on_Building_mouse_entered"]

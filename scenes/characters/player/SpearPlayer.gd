@@ -14,7 +14,6 @@ sync func instance_projectile(id):
 	Network.networked_object_name_index += 1
 	get_node("/root/PersistantObjects").add_child(projectile_instance)
 
-
 func attack_animation_finished():
 	if is_network_master():
 		rpc("instance_projectile", get_tree().get_network_unique_id())

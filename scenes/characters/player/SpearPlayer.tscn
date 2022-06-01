@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/characters/player/SpearPlayer.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/State.gd" type="Script" id=2]
-[ext_resource path="res://scenes/characters/Vision.gd" type="Script" id=3]
 [ext_resource path="res://resources/sprites/maximus_sheet.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=5]
@@ -229,9 +228,10 @@ wait_time = 0.1
 one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="."]
+scale = Vector2( 1.98878, 1.42473 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( 0, -1 )
+position = Vector2( -1.00564, 0 )
 shape = SubResource( 5 )
 
 [node name="ShootPointRight" type="Position2D" parent="."]
@@ -239,13 +239,6 @@ position = Vector2( 23, -4 )
 
 [node name="ShootPointLeft" type="Position2D" parent="."]
 position = Vector2( -22, -4 )
-
-[node name="Vision" type="Line2D" parent="."]
-visible = false
-points = PoolVector2Array( 0, 0, 62, 0 )
-width = 3.0
-default_color = Color( 0.94902, 0.439216, 0.592157, 1 )
-script = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite")
@@ -261,7 +254,7 @@ anims/RollTop = SubResource( 12 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1, 0 )
-scale = Vector2( 0.15, 0.15 )
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 4 )
 hframes = 6
 vframes = 4
