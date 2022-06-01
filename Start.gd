@@ -3,7 +3,7 @@ extends Control
 const player_ui_scene = preload("res://scenes/ui/LobbyPlayer.tscn")
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	Network.lobby = self
 	$Background_panel/PlayerName.text = Save.save_data["playerName"]
 
@@ -28,7 +28,7 @@ func _ready():
 			push_warning("Argument %s is not supported" % client_type_arg)
 
 func _on_Create_server_pressed():
-	var player_name = $Background_panel/PlayerName.text
+	var player_name: String = $Background_panel/PlayerName.text
 	if player_name == "":
 		return
 	Save.save_data["playerName"] = player_name
@@ -43,11 +43,10 @@ func hide_server_browser(is_host) -> void:
 	$Lobby/Start_server.disabled = not is_host
 
 func _on_Join_server_pressed():
-	var server_ip = $Background_panel/Server_ip.text
-	if server_ip == "":
-		return
-	var player_name = $Background_panel/PlayerName.text
-	if player_name == "":
+	var server_ip: String = $Background_panel/Server_ip.text
+	var player_name: String = $Background_panel/PlayerName.text
+	# Ensure we have both fields filled
+	if player_name == "" or server_ip == "":
 		return
 
 	Save.save_data["playerName"] = player_name
@@ -68,7 +67,7 @@ func redraw(my_info, player_info) -> void:
 	# Add my info
 	add_player(0, my_info)
 	# add player_info
-	var i = 1
+	var i: int = 1
 	for k in player_info:
 		add_player(i, player_info[k])
 		i += 1
@@ -89,10 +88,8 @@ func add_player(index, info) -> void:
 
 
 func _on_SwordButton_pressed():
-	#TODO class enum
-	Network.broadcast_hero_change(get_tree().get_network_unique_id(), "Sword")
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Hero.SWORD)
 
 
 func _on_SpearButton_pressed():
-	#TODO class enum
-	Network.broadcast_hero_change(get_tree().get_network_unique_id(), "Spear")
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Hero.SPEAR)

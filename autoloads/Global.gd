@@ -3,6 +3,8 @@ extends Node
 var player_master = null
 var projectile_scenes = {}
 
+# Enums
+enum Hero {SWORD, SPEAR}
 
 # Utils methods
 func get_hero_icon(hero: String) -> Texture:
