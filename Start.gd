@@ -73,7 +73,7 @@ func redraw(my_info, player_info) -> void:
 		i += 1
 
 ## add_player adds a a player (info) to the loby screen
-func add_player(index, info) -> void:
+func add_player(index: int, info: Dictionary) -> void:
 	var pu = player_ui_scene.instance()
 	pu.update_info(info)
 	# TODO: write this better
@@ -88,8 +88,10 @@ func add_player(index, info) -> void:
 
 
 func _on_SwordButton_pressed():
-	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Hero.SWORD)
-
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.SWORD)
 
 func _on_SpearButton_pressed():
-	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Hero.SPEAR)
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.SPEAR)
+
+func set_team(team_index: int) -> void:
+	Network.broadcast_team_change(get_tree().get_network_unique_id(), team_index)

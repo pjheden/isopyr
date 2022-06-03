@@ -57,12 +57,16 @@ position = Vector2( -207, -163 )
 scale = Vector2( 0.364, 0.364 )
 
 [node name="SimpleEnemy" parent="YSort" instance=ExtResource( 9 )]
-position = Vector2( -110, -138 )
+position = Vector2( -895, -591 )
 
 [node name="ArrowTrap" parent="YSort" instance=ExtResource( 10 )]
 position = Vector2( 419, -661 )
 
 [node name="Players" type="Node" parent="YSort"]
+
+[node name="SimpleEnemy2" parent="YSort" instance=ExtResource( 9 )]
+position = Vector2( -1034, -468 )
+team = 0
 
 [node name="Spawns" type="Node" parent="."]
 

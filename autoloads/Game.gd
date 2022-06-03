@@ -33,6 +33,7 @@ func set_players(p_i) -> void:
 		player_info[id]["name"] = p_i[id]["name"]
 		player_info[id]["color"] = p_i[id]["color"]
 		player_info[id]["hero"] = p_i[id]["hero"]
+		player_info[id]["team"] = p_i[id]["team"]
 		player_info[id]["alive"] = true
 
 ## lobby cleans up the level, players and such and return the visuals to the lobby
@@ -61,6 +62,7 @@ func spawn_players(world, spawn_points) -> void:
 		var spawn_pos = spawns_node.get_child(spawn_points[p_id]).global_position
 		var player = character_scene(player_info[p_id]["hero"]).instance()
 		player.set_name(str(p_id))
+		player.set_team(player_info[p_id]["team"])
 		player.id = p_id
 		player.set_network_master(p_id)
 		player.global_position = spawn_pos

@@ -48,6 +48,17 @@ margin_left = 158.0
 margin_top = 3.0
 margin_right = 182.0
 margin_bottom = 27.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="ItemList" type="ItemList" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 231.0
+margin_top = -48.0
+margin_right = 297.0
+margin_bottom = -3.0
+rect_min_size = Vector2( 40, 40 )
+rect_pivot_offset = Vector2( 37, 39 )
+items = [ "Broods", null, false, "Fremen", null, false ]
+allow_reselect = true
+
+[connection signal="item_selected" from="ItemList" to="." method="_on_team_selected"]

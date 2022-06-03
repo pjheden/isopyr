@@ -7,6 +7,7 @@ export var attack_distance = 20
 export var attack_damage = 10
 # Player variables 
 var id: int # RPC id
+var team: int
 var player_rotation : float = 0.0
 var velocity: Vector2
 var dir: Vector2
@@ -59,6 +60,13 @@ func get_rotation() -> float:
 
 func flip_sprite(flip: bool) -> void:
 	sprite.flip_h = flip
+
+func set_team(team: int) -> void:
+	self.team = team
+	#add_to_group("team_%s" % team)
+
+func get_team() -> int:
+	return team
 
 func play_animation(down: bool, type: String = "Move") -> void:
 	match type:

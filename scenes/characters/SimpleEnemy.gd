@@ -3,6 +3,7 @@ extends KinematicBody2D
 # constants
 export var speed: Vector2 = Vector2(128, 128)
 export var hp: float = 100.0
+export var team: int = 1
 
 # variables
 var player_rotation : float = 0.0
@@ -25,7 +26,10 @@ func get_rotation() -> float:
 	return player_rotation
 
 func _on_Hitbox_mouse_entered():
-	Mouse.play_danger(self)
+	if team == Global.player_master.get_team():
+		Mouse.play_friendly(self)
+	else:
+		Mouse.play_danger(self)
 
 func _on_Hitbox_mouse_exited():
 	Mouse.reset()

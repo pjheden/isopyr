@@ -60,6 +60,7 @@ func create_player_info():
 	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
 	d["color"] = colors[randi() % colors.size()]
 	d["hero"] = "Sword"
+	d["team"] = 0
 	return d
 
 func _player_connected(id):
@@ -179,6 +180,17 @@ remotesync func change_hero(p_id: int, hero: int) -> void:
 	var pu = get_node("/root/Server_browser/Lobby/Players/" + name)
 	var txt = Global.get_hero_icon(players_info[p_id]["hero"])
 	pu.set_icon(txt)
+
+func broadcast_team_change(p_id: int, team: int) -> void:
+	print("broadcasting team change %s" % team)
+	rpc("change_team", get_tree().get_network_unique_id(), team)
+	
+## change_team changes the selected team to {team} for player {p_id}
+remotesync func change_team(p_id: int, team: int) -> void:
+	players_info[p_id]["team"] = team
+	var name = "LobbyPlayer-" + players_info[p_id]["name"]
+	var pu = get_node("/root/Server_browser/Lobby/Players/" + name)
+	pu.set_team(team)
 
 func puppet_networked_object_name_index_set(new_value):
 	networked_object_name_index = new_value
