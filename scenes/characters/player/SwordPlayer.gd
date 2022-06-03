@@ -33,6 +33,6 @@ func _process(_delta:float) -> void:
 		if not sq in spell_bindings:
 			continue
 		spell_bindings[sq].call_func()
-		hud.casted_spell(0)
+		hud.casted_spell(spell_key)
 		spell_queue.erase(sq)
 	# TODO: spell cast CD etc
