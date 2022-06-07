@@ -5,6 +5,7 @@ var projectile_scenes = {}
 
 # Enums
 enum Hero {SWORD, SPEAR}
+enum Team {NONE, BROODS, FREMEN}
 
 # Utils methods
 func get_hero_icon(hero: String) -> Texture:

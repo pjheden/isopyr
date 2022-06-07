@@ -34,8 +34,14 @@ func _on_Hitbox_mouse_entered():
 func _on_Hitbox_mouse_exited():
 	Mouse.reset()
 
-func _on_Hitbox_area_entered(_area:Area2D):
-	pass # Replace with function body.
+func _on_Hitbox_area_entered(area:Area2D):
+	if area.is_in_group("Player_damager"):
+		var p = area.get_parent()
+		if not p.has_method("get_team"):
+			return
+		if self.team == p.get_team():
+			return
+		hit_by_damager(p.damage)
 
 func hit_by_damager(damage):
 	hp -= damage

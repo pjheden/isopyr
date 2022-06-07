@@ -70,28 +70,32 @@ team = 0
 
 [node name="Spawns" type="Node" parent="."]
 
-[node name="Position2D" type="Position2D" parent="Spawns"]
+[node name="1" type="Node" parent="Spawns"]
+
+[node name="Position2D" type="Position2D" parent="Spawns/1"]
 position = Vector2( -1327, -591 )
 
-[node name="Position2D2" type="Position2D" parent="Spawns"]
+[node name="Position2D2" type="Position2D" parent="Spawns/1"]
 position = Vector2( -1232, -638 )
 
-[node name="Position2D3" type="Position2D" parent="Spawns"]
+[node name="Position2D3" type="Position2D" parent="Spawns/1"]
 position = Vector2( -1152, -697 )
 
-[node name="Position2D4" type="Position2D" parent="Spawns"]
+[node name="Position2D4" type="Position2D" parent="Spawns/1"]
 position = Vector2( -1079, -735 )
 
-[node name="Position2D5" type="Position2D" parent="Spawns"]
+[node name="2" type="Node" parent="Spawns"]
+
+[node name="Position2D5" type="Position2D" parent="Spawns/2"]
 position = Vector2( 858, 515 )
 
-[node name="Position2D6" type="Position2D" parent="Spawns"]
+[node name="Position2D6" type="Position2D" parent="Spawns/2"]
 position = Vector2( 847, 424 )
 
-[node name="Position2D7" type="Position2D" parent="Spawns"]
+[node name="Position2D7" type="Position2D" parent="Spawns/2"]
 position = Vector2( 986, 453 )
 
-[node name="Position2D8" type="Position2D" parent="Spawns"]
+[node name="Position2D8" type="Position2D" parent="Spawns/2"]
 position = Vector2( 969, 351 )
 
 [node name="Camera2D" type="Camera2D" parent="."]

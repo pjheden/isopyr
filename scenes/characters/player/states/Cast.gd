@@ -16,7 +16,7 @@ func update(_delta: float) -> void:
 
 	# consume and cast first spell
 	var spell_key: String = player.spell_queue[0]
-	player.spell_bindings[spell_key].call_func()
+	player.spell_bindings[spell_key].call_func({"team": player.get_team()})
 	player.hud.casted_spell(spell_key)
 	player.spell_queue.erase(spell_key)
 

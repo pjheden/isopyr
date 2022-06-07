@@ -57,9 +57,16 @@ func load_world() -> Node:
 	
 func spawn_players(world, spawn_points) -> void:
 	# Get spawns
-	var spawns_node = world.get_node("Spawns")
+	var brood_spawns_node = world.get_node("Spawns/1")
+	var fremen_spawns_node = world.get_node("Spawns/2")
 	for p_id in spawn_points:
-		var spawn_pos = spawns_node.get_child(spawn_points[p_id]).global_position
+		var spawn_pos
+		if player_info[p_id]["team"] == Global.Team.BROODS:
+			spawn_pos = brood_spawns_node.get_child(spawn_points[p_id]).global_position
+		elif player_info[p_id]["team"] == Global.Team.FREMEN:
+			spawn_pos = fremen_spawns_node.get_child(spawn_points[p_id]).global_position
+		else:
+			push_error("invalid spawn setup, player had team %s" % player_info[p_id]["team"])
 		var player = character_scene(player_info[p_id]["hero"]).instance()
 		player.set_name(str(p_id))
 		player.set_team(player_info[p_id]["team"])

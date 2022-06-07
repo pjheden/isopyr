@@ -12,12 +12,14 @@ func activate() -> void:
 	projectile_instance.set_network_master(player.id) # set projectile owner
 	var angle = player.get_rotation()
 	var direction = Vector2(cos(angle), sin(angle))
-	print("player angle: ", angle)
-	print("player direction: ", direction)
 	projectile_instance.player_rotation = angle
 	projectile_instance.global_position = player.global_position + direction * 30
-	# TODO: change starting position to be a bit outside of the player
 	projectile_instance.name = "Projectile_" + str(player.id) + "_" +str(Network.networked_object_name_index)
+	# set team based on params
+	var team: int = Global.Team.NONE 
+	if "team" in params:
+		team = params["team"]
+	projectile_instance.set_team(team)
 	Network.networked_object_name_index += 1
 	persistant_objects.add_child(projectile_instance)
 

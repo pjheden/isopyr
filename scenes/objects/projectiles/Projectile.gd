@@ -6,6 +6,7 @@ export(int) var damage = 40
 var velocity = Vector2(1, 0)
 var player_rotation
 var should_move: bool = false
+var team: int
 onready var initial_position = global_position
 
 puppet var puppet_position setget puppet_position_set
@@ -45,7 +46,12 @@ func _on_Lifespan_timeout():
 		rpc("destroy")
 
 func _on_Hitbox_body_entered(body):
+	# This is never called?
+
 	print("body entered proj: ", body)
+	var team = "team_%s" % self.team
+	print(body.is_in_group(team))
+	print(body.get_parent().is_in_group(team))
 	if body.is_in_group("uncollideable"):
 		return
 	# rpc destroy caused bugs here, but im not sure what is right
@@ -53,6 +59,12 @@ func _on_Hitbox_body_entered(body):
 	#if get_tree().is_network_server():
 	#	rpc("destroy")
 
-
 func _on_DelayedStart_timeout():
 	should_move = true
+
+func set_team(team: int) -> void:
+	assert(team in Global.Team.values(), "the function argument is expected to be a Team value")
+	self.team = team
+
+func get_team() -> int:
+	return team

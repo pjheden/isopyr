@@ -4,7 +4,7 @@ onready var cooldown_timer = $CooldownTimer
 onready var cast_timer = $CastTimer
 var cooldown: float = 3.0
 
-func activate() -> void:
+func activate(_params := {}) -> void:
 	cooldown_timer.start()
 
 func deactivate() -> void:

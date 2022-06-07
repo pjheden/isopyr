@@ -63,7 +63,7 @@ func flip_sprite(flip: bool) -> void:
 
 func set_team(team: int) -> void:
 	self.team = team
-	#add_to_group("team_%s" % team)
+	add_to_group("team_%s" % team)
 
 func get_team() -> int:
 	return team

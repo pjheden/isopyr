@@ -60,7 +60,7 @@ func create_player_info():
 	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
 	d["color"] = colors[randi() % colors.size()]
 	d["hero"] = "Sword"
-	d["team"] = 0
+	d["team"] = Global.Team.BROODS
 	return d
 
 func _player_connected(id):
@@ -154,11 +154,17 @@ func begin_game():
 	# create dict determining each players spawn point
 	# player_id: spawn point index
 	var spawn_points = {}
-	spawn_points[1] = 0 # server
-	var spawn_points_index = 1
+	var spawn_points_broods_index = 0
+	var spawn_points_fremen_index = 0
 	for p in players_info:
-		spawn_points[p] = spawn_points_index
-		spawn_points_index += 1
+		if players_info[p]["team"] == Global.Team.BROODS:
+			spawn_points[p] = spawn_points_broods_index
+			spawn_points_broods_index += 1
+		elif players_info[p]["team"] == Global.Team.FREMEN:
+			spawn_points[p] = spawn_points_fremen_index
+			spawn_points_fremen_index += 1
+		else:
+			push_error("invalid spawn setup, player had team %s" % players_info[p]["team"])
 	# Call to pre-start game with the spawn points.
 	# TODO: try rpc instead to broadcst to everyone at once?
 	for p in players_info:

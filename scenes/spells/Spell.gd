@@ -4,7 +4,7 @@ onready var alive_timer = $AliveTimer
 onready var collision_shape = $CollisionShape2D
 var cooldown: float = 3.0
 
-func activate() -> void:
+func activate(_params := {}) -> void:
 	alive_timer.start()
 
 func deactivate() -> void:
