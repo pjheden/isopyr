@@ -25,6 +25,7 @@ var defined_animations: Dictionary = {
 
 # Puppet player variables
 puppet var puppet_velocity = Vector2()
+puppet var puppet_position = Vector2() setget puppet_position_set
 
 # References
 var hud: CanvasLayer = null # reference to hud
@@ -32,13 +33,14 @@ onready var animation_player = $AnimationPlayer
 onready var sprite = $Sprite
 onready var roll_cooldown = $RollCooldown
 onready var sprite_scale: Vector2 = $Sprite.scale
+onready var tween = $MoveTween
 
 func _ready() -> void:
-	Global.player_master = self # TMP TEST
-
-	hud = get_parent().get_parent().get_parent().get_node("HUD")
-	# Prepare player spells
-	spells()
+	if is_network_master():
+		Global.player_master = self
+		hud = get_parent().get_parent().get_parent().get_node("HUD")
+		# Prepare player spells
+		spells()
 
 func _input(event) -> void:
 	# Check if any spell button is pressed
@@ -89,3 +91,22 @@ func play_animation(down: bool, type: String = "Move") -> void:
 			animation_player.play(defined_animations["RollFade"])
 		"Attack":
 			animation_player.play(defined_animations["AttackDown"])
+
+
+func _on_NetworkTickRate_timeout():
+	if is_network_master():
+		rset_unreliable("puppet_position", global_position)
+		rset_unreliable("puppet_velocity", velocity)
+		#rset_unreliable("puppet_state", get_sm_state())
+
+puppet func puppet_position_set(new_value) -> void:
+	puppet_position = new_value
+	
+	# Check how to rotate the player
+	# if state == States.MOVE:
+	# 	dir = puppet_position - global_position
+	# 	$Sprite.flip_h = dir.x < 0
+	# 	play_animation(dir.y > 0)
+	
+	tween.interpolate_property(self, "global_position", global_position, puppet_position, 0.1)
+	tween.start()

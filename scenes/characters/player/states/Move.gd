@@ -5,12 +5,11 @@ var target_position: Vector2
 var target_body
 var target_body_type
 
-onready var tween = $MoveTween
 onready var player = get_parent().get_parent()
 
 # TMP OVERRIDE FOR EASY TESTING
-func is_network_master():
-	return true
+#func is_network_master():
+#	return true
 
 func enter(msg := {}) -> void:
 	target_position = msg["targetPosition"]
@@ -52,7 +51,7 @@ func update(delta: float) -> void:
 	else:
 		# if we haven't got a network packet in a while, update player pos
 		# based on last recieved velocity
-		if not tween.is_active():
+		if not player.tween.is_active():
 			var _vel = player.move_and_slide(player.puppet_velocity * player.speed)
 
 func handle_input(event: InputEvent) -> void:
