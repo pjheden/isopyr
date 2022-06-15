@@ -6,7 +6,6 @@
 [node name="Slice" instance=ExtResource( 1 )]
 scale = Vector2( 0.337349, 0.337349 )
 texture = ExtResource( 2 )
-offset = Vector2( 0, 0 )
 speed = 400
 damage = 20
 

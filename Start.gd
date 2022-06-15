@@ -8,9 +8,9 @@ func _ready() -> void:
 	$Background_panel/PlayerName.text = Save.save_data["playerName"]
 
 	#TMP auto start game for smoother tests
-	Network.create_server()
-	yield(get_tree().create_timer(1.0), "timeout")
-	Network.begin_game()
+	# Network.create_server()
+	# yield(get_tree().create_timer(1.0), "timeout")
+	# Network.begin_game()
 	
 	var args = OS.get_cmdline_args()
 	if args.size() > 0:
@@ -87,11 +87,14 @@ func add_player(index: int, info: Dictionary) -> void:
 	$Lobby/Players.add_child(pu)
 
 
-func _on_SwordButton_pressed():
-	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.SWORD)
+func _on_MaximusButton_pressed():
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.MAXIMUS)
 
-func _on_SpearButton_pressed():
-	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.SPEAR)
+func _on_BeduinButton_pressed():
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.BEDUIN)
 
+func _on_GoolockButton_pressed():
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.GOOLOCK)
+	
 func set_team(team_index: int) -> void:
 	Network.broadcast_team_change(get_tree().get_network_unique_id(), team_index)

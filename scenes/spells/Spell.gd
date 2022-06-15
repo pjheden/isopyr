@@ -1,11 +1,19 @@
 extends Area2D
 
 onready var alive_timer = $AliveTimer
+onready var cd_timer = $CooldownTimer
 onready var collision_shape = $CollisionShape2D
-var cooldown: float = 3.0
+var cooldown: float
 
-func activate(_params := {}) -> void:
-	alive_timer.start()
+func _ready() -> void:
+	cooldown = cd_timer.wait_time
+
+func activate(_params := {}) -> bool:
+	if cd_timer.is_stopped():
+		cd_timer.start()
+		alive_timer.start()
+		return true
+	return false
 
 func deactivate() -> void:
 	pass

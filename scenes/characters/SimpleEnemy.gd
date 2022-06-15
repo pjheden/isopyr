@@ -15,6 +15,8 @@ signal damaged(hp)
 # references
 onready var hit_timer = $HitTimer
 
+func _ready():
+	add_to_group("team_%s" % team)
 
 func get_sm_state() -> String:
 	return $StateMachine.state.name

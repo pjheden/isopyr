@@ -2,14 +2,26 @@ extends "res://scenes/characters/player/Player.gd"
 
 var projectile_manager_scene = preload("res://scenes/spells/ProjectileManager.tscn")
 
+
+func _ready() -> void:
+	._ready()
+	defined_animations = {
+		"IdleDown": "IdleDown",
+		"IdleTop": "IdleDown",
+		"MoveDown": "MoveDown",
+		"MoveTop": "MoveDown",
+		"RollFade": "RollFade",
+		"AttackDown": "AttackDown"
+	}
+
 func spells() -> void:
 	var boulder_manager = projectile_manager_scene.instance()
-	boulder_manager.set_projectile(
+	boulder_manager.set_object(
 		"res://scenes/objects/projectiles/Boulder.tscn",
 		"res://resources/sprites/rockpng.png"
 	)
 	var slice_manager = projectile_manager_scene.instance()
-	slice_manager.set_projectile(
+	slice_manager.set_object(
 		"res://scenes/objects/projectiles/Slice.tscn",
 		"res://resources/sprites/slice.png"
 	)

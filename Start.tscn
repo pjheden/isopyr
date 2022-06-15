@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Start.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/logo.png" type="Texture" id=2]
 [ext_resource path="res://resources/ui/warrior-icon.png" type="Texture" id=3]
-[ext_resource path="res://resources/sprites/maximus_sheet.png" type="Texture" id=4]
-[ext_resource path="res://resources/sprites/maxsword_sheet.png" type="Texture" id=5]
-[ext_resource path="res://resources/ui/spear-icon.png" type="Texture" id=6]
+[ext_resource path="res://resources/ui/goolock-icon.png" type="Texture" id=4]
+[ext_resource path="res://resources/ui/beduin-icon.png" type="Texture" id=5]
 
 [node name="Server_browser" type="Control"]
 anchor_right = 1.0
@@ -113,41 +112,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MaximusSheet" type="Sprite" parent="Lobby"]
-position = Vector2( 608, 335 )
-scale = Vector2( 0.592857, 0.592857 )
-texture = ExtResource( 4 )
-region_enabled = true
-region_rect = Rect2( 28.9501, 693.555, 149.753, 179.116 )
-
-[node name="SwordButton" type="Button" parent="Lobby/MaximusSheet"]
-margin_left = -268.193
-margin_top = 136.627
-margin_right = -97.1929
-margin_bottom = 301.627
+[node name="MaximusButton" type="Button" parent="Lobby"]
+margin_left = 470.16
+margin_top = 350.531
+margin_right = 641.16
+margin_bottom = 515.531
+rect_rotation = -0.322145
 rect_scale = Vector2( 0.475697, 0.475697 )
 rect_pivot_offset = Vector2( 94.8586, -39.1584 )
 icon = ExtResource( 3 )
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="MaxswordSheet" type="Sprite" parent="Lobby"]
-position = Vector2( 496, 335 )
-scale = Vector2( 0.592857, 0.592857 )
-texture = ExtResource( 5 )
-region_enabled = true
-region_rect = Rect2( 14.2684, 661.255, 140.944, 229.033 )
-
-[node name="SpearButton" type="Button" parent="Lobby/MaxswordSheet"]
-margin_left = 106.265
-margin_top = 136.627
-margin_right = 277.265
-margin_bottom = 301.627
+[node name="BeduinButton" type="Button" parent="Lobby"]
+margin_left = 661.0
+margin_top = 349.0
+margin_right = 835.0
+margin_bottom = 514.0
 rect_scale = Vector2( 0.475697, 0.475697 )
 rect_pivot_offset = Vector2( 94.8586, -39.1584 )
-icon = ExtResource( 6 )
+icon = ExtResource( 5 )
+flat = true
+
+[node name="GoolockButton" type="Button" parent="Lobby"]
+margin_left = 565.16
+margin_top = 349.531
+margin_right = 736.16
+margin_bottom = 514.531
+rect_scale = Vector2( 0.475697, 0.475697 )
+rect_pivot_offset = Vector2( 94.8586, -39.1584 )
+icon = ExtResource( 4 )
 flat = true
 
 [node name="Start_server" type="Button" parent="Lobby"]
@@ -195,6 +188,7 @@ rect_scale = Vector2( 1.00758, 1 )
 
 [connection signal="pressed" from="Background_panel/Create_server" to="." method="_on_Create_server_pressed"]
 [connection signal="pressed" from="Background_panel/Join_server" to="." method="_on_Join_server_pressed"]
-[connection signal="pressed" from="Lobby/MaximusSheet/SwordButton" to="." method="_on_SwordButton_pressed"]
-[connection signal="pressed" from="Lobby/MaxswordSheet/SpearButton" to="." method="_on_SpearButton_pressed"]
+[connection signal="pressed" from="Lobby/MaximusButton" to="." method="_on_MaximusButton_pressed"]
+[connection signal="pressed" from="Lobby/BeduinButton" to="." method="_on_BeduinButton_pressed"]
+[connection signal="pressed" from="Lobby/GoolockButton" to="." method="_on_GoolockButton_pressed"]
 [connection signal="pressed" from="Lobby/Start_server" to="." method="_on_Start_server_pressed"]

@@ -49,9 +49,9 @@ func _on_Hitbox_body_entered(body):
 	# This is never called?
 
 	print("body entered proj: ", body)
-	var team = "team_%s" % self.team
-	print(body.is_in_group(team))
-	print(body.get_parent().is_in_group(team))
+	var body_team = "team_%s" % team
+	print(body.is_in_group(body_team))
+	print(body.get_parent().is_in_group(body_team))
 	if body.is_in_group("uncollideable"):
 		return
 	# rpc destroy caused bugs here, but im not sure what is right
@@ -62,9 +62,9 @@ func _on_Hitbox_body_entered(body):
 func _on_DelayedStart_timeout():
 	should_move = true
 
-func set_team(team: int) -> void:
-	assert(team in Global.Team.values(), "the function argument is expected to be a Team value")
-	self.team = team
+func set_team(new_team: int) -> void:
+	assert(new_team in Global.Team.values(), "the function argument is expected to be a Team value")
+	team = new_team
 
 func get_team() -> int:
 	return team

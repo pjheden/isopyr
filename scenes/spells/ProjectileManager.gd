@@ -7,14 +7,15 @@ var projectile_icon_path: String
 onready var persistant_objects = get_node("/root/PersistantObjects")
 onready var player = get_parent()
 
-func set_projectile(scene_path: String, icon_path: String) -> void:
+func set_object(scene_path: String, icon_path: String) -> void:
 	projectile_scene = load(scene_path)
 	projectile_icon_path = icon_path
 
-func activate(params := {}) -> void:
-	.activate(params)
+func activate(params := {}) -> bool:
+	if not .activate(params):
+		return false
 	
-	# shoot rock
+	# shoot projectile
 	var projectile_instance = projectile_scene.instance()
 	projectile_instance.set_network_master(player.id) # set projectile owner
 	var angle = player.get_rotation()
@@ -29,6 +30,7 @@ func activate(params := {}) -> void:
 	projectile_instance.set_team(team)
 	Network.networked_object_name_index += 1
 	persistant_objects.add_child(projectile_instance)
+	return true
 
 func deactivate() -> void:
 	pass

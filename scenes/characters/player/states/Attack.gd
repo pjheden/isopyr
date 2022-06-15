@@ -34,7 +34,7 @@ func update(_delta: float) -> void:
 	attack_player()
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
+	if event.is_action_pressed(Global.move_button):
 		state_machine.transition_to(
 			"Move",
 			{

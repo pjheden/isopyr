@@ -59,7 +59,7 @@ func create_player_info():
 	d["name"] = Save.save_data["playerName"]
 	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
 	d["color"] = colors[randi() % colors.size()]
-	d["hero"] = "Sword"
+	d["hero"] = Global.Hero.MAXIMUS
 	d["team"] = Global.Team.BROODS
 	return d
 

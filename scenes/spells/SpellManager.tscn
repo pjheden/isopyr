@@ -11,3 +11,5 @@ one_shot = true
 
 [node name="CastTimer" type="Timer" parent="."]
 one_shot = true
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

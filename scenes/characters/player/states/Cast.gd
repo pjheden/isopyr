@@ -16,12 +16,14 @@ func update(_delta: float) -> void:
 
 	# consume and cast first spell
 	var spell_key: String = player.spell_queue[0]
-	player.spell_bindings[spell_key].call_func({"team": player.get_team()})
-	player.hud.casted_spell(spell_key)
+	var casted: bool = player.spell_bindings[spell_key].call_func({"team": player.get_team()})
+	print("casted: %s" % casted)
+	if casted:
+		player.hud.casted_spell(spell_key)
 	player.spell_queue.erase(spell_key)
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
+	if event.is_action_pressed(Global.move_button):
 		state_machine.transition_to(
 			"Move",
 			{

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/objects/projectiles/Projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/sprites/spear.png" type="Texture" id=2]
+
+[node name="Spear" instance=ExtResource( 1 )]
+scale = Vector2( 0.36, 0.36 )
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" parent="Hitbox" index="0"]
+polygon = PoolVector2Array( -12.5541, 23.3897, -11.2987, 31.7431, 2.09236, 1.67069, 3.76624, 8.35345, 12.1357, -18.3776, 8.7879, -30.0724, 0, -18.3776, 0.836943, -10.0241 )

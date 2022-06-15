@@ -1,10 +1,13 @@
 extends "res://scenes/spells/Spell.gd"
 
 
-func activate(params := {}) -> void:
-	.activate(params) # call parent / super
+func activate(params := {}) -> bool:
+	var ready = .activate(params) # call parent / super
+	if not ready:
+		return false
 	visible = true
 	collision_shape.disabled = false
+	return true
 
 func deactivate() -> void:
 	visible = false

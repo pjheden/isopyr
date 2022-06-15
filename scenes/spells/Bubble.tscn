@@ -12,6 +12,9 @@ script = ExtResource( 2 )
 scale = Vector2( 0.294251, 0.294251 )
 texture = ExtResource( 3 )
 
+[node name="AliveTimer" parent="." index="1"]
+one_shot = true
+
 [node name="CollisionShape2D" parent="." index="2"]
 scale = Vector2( 0.308581, 0.655488 )
 disabled = true

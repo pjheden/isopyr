@@ -75,10 +75,12 @@ func spawn_players(world, spawn_points) -> void:
 		player.global_position = spawn_pos
 		world.get_node("YSort/Players").add_child(player)
 
-func character_scene(_name: String):
-	# match name:
-	# 	"Sword":
-	# 		return load("res://scenes/characters/player/SwordPlayer.tscn")
-	# 	"Spear":
-	# 		return load("res://scenes/characters/player/SpearPlayer.tscn")
-	return load("res://scenes/characters/player/Caster.tscn")
+func character_scene(hero: int):
+	match hero:
+		Global.Hero.MAXIMUS:
+			return load("res://scenes/characters/player/Maximus.tscn")
+		Global.Hero.BEDUIN:
+			return load("res://scenes/characters/player/Beduin.tscn")
+		Global.Hero.GOOLOCK:
+			return load("res://scenes/characters/player/Goolock.tscn")
+	assert(true, "Could not match hero with value %s " % hero)

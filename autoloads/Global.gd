@@ -2,18 +2,22 @@ extends Node
 
 var player_master = null
 var projectile_scenes = {}
+var move_button = "left_click"
 
 # Enums
-enum Hero {SWORD, SPEAR}
+enum Hero {MAXIMUS, BEDUIN, GOOLOCK}
 enum Team {NONE, BROODS, FREMEN}
 
 # Utils methods
-func get_hero_icon(hero: String) -> Texture:
+func get_hero_icon(hero: int) -> Texture:
 	var txt: Texture
-	if hero == "Spear":
-		txt = load("res://resources/ui/spear-icon.png")
-	else:
-		txt = load("res://resources/ui/warrior-icon.png")
+	match hero:
+		Hero.MAXIMUS:
+			txt = load("res://resources/ui/warrior-icon.png");
+		Hero.BEDUIN:
+			txt = load("res://resources/ui/beduin-icon.png");
+		Hero.GOOLOCK:
+			txt = load("res://resources/ui/goolock-icon.png");
 	return txt
 
 sync func instance_projectile(

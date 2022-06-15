@@ -21,6 +21,10 @@ func enter(msg := {}) -> void:
 	print("Move got msg: ", msg)
 
 func update(delta: float) -> void:
+	if len(player.spell_queue) > 0:
+		state_machine.transition_to("Cast")
+		return
+	
 	player.velocity = Vector2()
 	# for none network master players we rely on puppet_position_set to move players
 	if is_network_master():
@@ -52,7 +56,7 @@ func update(delta: float) -> void:
 			var _vel = player.move_and_slide(player.puppet_velocity * player.speed)
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
+	if event.is_action_pressed(Global.move_button):
 		target_position = Mouse.global_position
 		target_body = Mouse.target_body
 		target_body_type = Mouse.target_body_type

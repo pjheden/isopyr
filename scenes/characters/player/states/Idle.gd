@@ -8,9 +8,10 @@ func enter(_msg := {}) -> void:
 func update(_delta: float) -> void:
 	if len(player.spell_queue) > 0:
 		state_machine.transition_to("Cast")
+		return
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
+	if event.is_action_pressed(Global.move_button):
 		state_machine.transition_to(
 			"Move",
 			{
