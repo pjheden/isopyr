@@ -15,6 +15,7 @@ func set_object(scene_path: String, icon_path: String) -> void:
 	projectile_icon_path = icon_path
 
 func activate(params := {}) -> bool:
+	# TODO: check if this calls super twice
 	if not .activate(params):
 		return false
 
@@ -25,12 +26,13 @@ func activate(params := {}) -> bool:
 	if "team" in params:
 		team = params["team"]
 	Global.projectile(
-		1,
+		Network.my_id,
 		projectile_scene,
 		rotation,
 		spawn_position,
 		team
 	)
+	print("created projectile. id: %s, pos: %s" % [Network.my_id, spawn_position])
 	
 	# shoot projectile
 	# var projectile_instance = projectile_scene.instance()

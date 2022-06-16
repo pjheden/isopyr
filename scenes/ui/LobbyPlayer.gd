@@ -1,6 +1,6 @@
 extends Control
 
-onready var team_list = $ItemList
+var owner_id: int
 
 var index_team_map: Dictionary = {
 	0: Global.Team.BROODS,
@@ -12,18 +12,23 @@ var team_index_map: Dictionary = {
 }
 
 func _ready() -> void:
-	team_list.select(0)
+	#$ItemList.select(0)
+	#$Team.text = $ItemList.get_item_text(0)
+	pass
 
-func update_info(info: Dictionary) -> void:
+func update_info(p_id: int, info: Dictionary) -> void:
 	$Name.text = info["name"]
 	$Color.color = info["color"]
+	owner_id = p_id
 
 func set_icon(texture: Texture) -> void:
 	$TextureRect.texture = texture 
 
 func set_team(team_index: int) -> void:
-	team_list.select(team_index_map[team_index]) 
-	
+	$ItemList.select(team_index_map[team_index])
+	$Team.text = $ItemList.get_item_text(team_index_map[team_index])
 
 func _on_team_selected(list_index: int) -> void:
-	get_parent().get_parent().get_parent().set_team(index_team_map[list_index])
+	get_parent().get_parent().get_parent().set_team(owner_id, index_team_map[list_index])
+	if get_tree().get_network_unique_id() == owner_id:
+		$Team.text = $ItemList.get_item_text(list_index)

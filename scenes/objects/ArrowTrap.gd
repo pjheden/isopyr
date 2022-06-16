@@ -12,7 +12,8 @@ func shoot():
 		1,
 		projectile_scene,
 		rotation,
-		global_position
+		global_position,
+		Global.Team.NONE
 	)
 
 func _on_Timer_timeout():

@@ -8,7 +8,7 @@
 script = ExtResource( 3 )
 attack_damage = 10
 
-[node name="Sprite" parent="." index="7"]
+[node name="Sprite" parent="." index="5"]
 position = Vector2( 3.1348, -1.5674 )
 texture = ExtResource( 2 )
 hframes = 1

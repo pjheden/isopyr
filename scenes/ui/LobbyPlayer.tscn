@@ -32,30 +32,50 @@ __meta__ = {
 anchor_left = -0.028
 anchor_right = 0.952
 anchor_bottom = 1.0
-margin_left = 147.812
-margin_top = -79.0
-margin_right = 33.392
-margin_bottom = 39.0
+margin_left = 111.812
+margin_top = -77.0
+margin_right = -2.608
+margin_bottom = 41.0
 rect_scale = Vector2( 0.194172, 0.194172 )
 rect_pivot_offset = Vector2( 61.8009, 97.8514 )
 texture = ExtResource( 2 )
 
 [node name="Color" type="ColorRect" parent="."]
-margin_left = 158.0
-margin_top = 3.0
-margin_right = 182.0
-margin_bottom = 27.0
+margin_left = 122.0
+margin_top = 5.0
+margin_right = 146.0
+margin_bottom = 29.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Team" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.854
+margin_left = 190.0
+margin_top = 2.0
+margin_right = -7.0
+margin_bottom = 1.986
+rect_pivot_offset = Vector2( -231, -264 )
+text = "<team>"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ItemList" type="ItemList" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 231.0
-margin_top = -48.0
-margin_right = 297.0
-margin_bottom = -3.0
+margin_left = 257.0
+margin_top = -43.0
+margin_right = 323.0
+margin_bottom = 2.0
 rect_min_size = Vector2( 40, 40 )
 rect_pivot_offset = Vector2( 37, 39 )
 items = [ "Broods", null, false, "Fremen", null, false ]
 allow_reselect = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="item_selected" from="ItemList" to="." method="_on_team_selected"]

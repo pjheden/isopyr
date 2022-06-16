@@ -1,17 +1,33 @@
 extends "res://scenes/spells/Spell.gd"
 
+func _ready() -> void:
+	name = "bubble_%s" % get_network_master()
 
 func activate(params := {}) -> bool:
+	# TODO: check if this calls super twice
 	var ready = .activate(params) # call parent / super
 	if not ready:
 		return false
-	visible = true
-	collision_shape.disabled = false
+	# visible = true
+	# collision_shape.disabled = false
+
+	rpc("broadcast_bubble", true)
 	return true
 
 func deactivate() -> void:
-	visible = false
-	collision_shape.disabled = true
+	# visible = false
+	# collision_shape.disabled = true
+	rpc("broadcast_bubble", false)
+
+sync func broadcast_bubble(set_active: bool) -> void:
+	print("broadcast bubble! ")
+	if set_active:
+		visible = true
+		collision_shape.disabled = false
+	else:
+		visible = false
+		collision_shape.disabled = true
+
 
 func _on_AliveTimer_timeout() -> void:
 	deactivate()

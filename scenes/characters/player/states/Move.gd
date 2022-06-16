@@ -12,7 +12,8 @@ onready var player = get_parent().get_parent()
 #	return true
 
 func enter(msg := {}) -> void:
-	target_position = msg["targetPosition"]
+	if "targetPosition" in msg:
+		target_position = msg["targetPosition"]
 	if "targetBody" in msg:
 		target_body = msg["targetBody"]
 	if "targetBodyType" in msg:

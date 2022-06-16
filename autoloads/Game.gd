@@ -71,6 +71,7 @@ func spawn_players(world, spawn_points) -> void:
 		player.set_name(str(p_id))
 		player.set_team(player_info[p_id]["team"])
 		player.id = p_id
+		print("setting network master %s" % p_id)
 		player.set_network_master(p_id)
 		player.global_position = spawn_pos
 		world.get_node("YSort/Players").add_child(player)

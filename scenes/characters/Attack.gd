@@ -27,6 +27,7 @@ func update(_delta: float) -> void:
 
 func attack_player() -> void:
 	if attack_timer.is_stopped():
-		if target.has_method("hit_by_damager"):
-			target.hit_by_damager(damage)
+		print("target.has_method('hit_by_physical_damager') %s" % target.has_method("hit_by_physical_damager"))
+		if target.has_method("hit_by_physical_damager"):
+			target.hit_by_physical_damager(damage)
 			attack_timer.start()

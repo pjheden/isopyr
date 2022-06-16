@@ -3,6 +3,7 @@ extends Sprite
 export(int) var damage = 10
 
 var team: int
+var player_rotation
 var bodies_in_range = []
 var should_damage: bool
 

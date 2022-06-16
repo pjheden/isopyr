@@ -271,8 +271,13 @@ autostart = true
 
 [node name="MoveTween" type="Tween" parent="."]
 
+[node name="RollCooldown" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [connection signal="transitioned" from="StateMachine" to="State" method="_on_StateMachine_transitioned"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="mouse_entered" from="Hitbox" to="." method="_on_Hitbox_mouse_entered"]
 [connection signal="mouse_exited" from="Hitbox" to="." method="_on_Hitbox_mouse_exited"]
 [connection signal="timeout" from="NetworkTickRate" to="." method="_on_NetworkTickRate_timeout"]

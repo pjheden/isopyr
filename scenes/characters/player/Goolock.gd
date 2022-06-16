@@ -4,7 +4,7 @@ var projectile_manager_scene = preload("res://scenes/spells/ProjectileManager.ts
 var aoe_manager_scene = preload("res://scenes/spells/AoeManager.tscn")
 
 func _ready() -> void:
-	._ready()
+	#._ready() # calls parent ready per default
 	defined_animations = {
 		"IdleDown": "IdleDown",
 		"IdleTop": "IdleDown",
@@ -14,7 +14,7 @@ func _ready() -> void:
 		"AttackDown": "IdleDown"
 	}
 
-func spells() -> void:
+func spells(is_master: bool) -> void:
 	var aoe_manager = aoe_manager_scene.instance()
 	aoe_manager.set_object(
 		"res://scenes/objects/aoes/Chtul.tscn",
@@ -28,13 +28,15 @@ func spells() -> void:
 	# Add spell managers as childs
 	add_child(aoe_manager)
 	add_child(whip_manager)
-	# Define all spells
-	spell_bindings["q"] = funcref(aoe_manager, "activate")
-	spell_bindings["w"] = funcref(whip_manager, "activate")
 
-	# Update HUD with spells
-	hud.load_spellbar(
-		["q", "w"],
-		[aoe_manager.icon(), whip_manager.icon()],
-		[aoe_manager.cooldown, whip_manager.cooldown]
-	)
+	if is_master:
+	# Define all spells
+		spell_bindings["q"] = funcref(aoe_manager, "activate")
+		spell_bindings["w"] = funcref(whip_manager, "activate")
+
+		# Update HUD with spells
+		hud.load_spellbar(
+			["q", "w"],
+			[aoe_manager.icon(), whip_manager.icon()],
+			[aoe_manager.cooldown, whip_manager.cooldown]
+		)

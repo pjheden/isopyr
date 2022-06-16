@@ -60,6 +60,7 @@ func target_dead() -> bool:
 
 func attack_player() -> void:
 	if attack_timer.is_stopped():
-		if target_body.has_method("hit_by_damager"):
-			target_body.hit_by_damager(player.attack_damage)
+		print("target.has_method('hit_by_physical_damager') %s" % target_body.has_method("hit_by_physical_damager"))
+		if target_body.has_method("hit_by_physical_damager"):
+			target_body.hit_by_physical_damager(player.attack_damage)
 			attack_timer.start()

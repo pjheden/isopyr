@@ -3,7 +3,7 @@ extends KinematicBody2D
 # Player constants
 export var speed = Vector2(128, 128)
 export var move_distance = 16
-export var attack_distance = 20
+export var attack_distance = 30
 export var attack_damage = 10
 # Player variables 
 var id: int # RPC id
@@ -28,7 +28,7 @@ var defined_animations: Dictionary = {
 puppet var puppet_hp = 100 setget puppet_hp_set
 puppet var puppet_velocity = Vector2()
 puppet var puppet_position = Vector2() setget puppet_position_set
-puppet var puppet_state: Node = null setget puppet_state_set
+puppet var puppet_state: String = "" setget puppet_state_set
 
 # References
 var hud: CanvasLayer = null # reference to hud
@@ -41,11 +41,13 @@ onready var state_machine = $StateMachine
 onready var hit_timer = $HitTimer
 
 func _ready() -> void:
+	print("preparing player: %s %s " % [Network.my_id, is_network_master()])
 	if is_network_master():
 		Global.player_master = self
 		hud = get_parent().get_parent().get_parent().get_node("HUD")
-		# Prepare player spells
-		spells()
+		hud.set_name(Game.player_info[int(name)]["name"])
+	# Prepare player spells
+	spells(is_network_master())
 	add_to_group("team_%s" % team)
 
 func _input(event) -> void:
@@ -56,7 +58,7 @@ func _input(event) -> void:
 		if event.is_action_pressed(hotkey):
 			spell_queue.append(hotkey)
 
-func spells() -> void:
+func spells(is_master: bool) -> void:
 	"""
 	Virtual method. setup all the class spells
 	"""
@@ -116,24 +118,33 @@ func _on_Hitbox_mouse_exited():
 	Mouse.reset()
 
 func _on_Hitbox_area_entered(area:Area2D):
+	# server hit detection
+	if not get_tree().is_network_server():
+		return
 	if area.is_in_group("Player_damager"):
 		var p = area.get_parent()
 		if not p.has_method("get_team"):
 			return
 		if self.team == p.get_team():
 			return
-		hit_by_damager(p.damage)
+		#hit_by_damager(p.damage)
+		rpc("hit_by_damager", p.damage)
+		
+
+
+func hit_by_physical_damager(damage):
+	rpc("hit_by_damager", damage)
 
 sync func hit_by_damager(damage):
 	hp -= damage
 	modulate = Color(5, 5, 5, 1)
 	hit_timer.start()
-	emit_signal("damaged", hp) # TODO: add this signal
+	if hud:
+		hud.update_health_bar(hp)
 
 	if hp <= 0:
-		# if get_tree().is_network_server():
-		if true:
-			queue_free()
+		if get_tree().is_network_server():
+			#queue_free()
 			rpc("destroy")
 	
 func _on_HitTimer_timeout():

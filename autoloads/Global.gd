@@ -27,9 +27,9 @@ sync func instance_projectile(
 	spawn_position: Vector2,
 	team: int
 	):
+	print("%s got instance_projectile call" % Network.my_id)
 	if not projectile_scene in projectile_scenes:
-		# TODO: throw error
-		pass
+		assert(false, "projectile scene  %s is not registered in %s" % [projectile_scene, projectile_scenes])
 	var projectile_instance = projectile_scenes[projectile_scene].instance()
 	projectile_instance.set_network_master(id) # set projectile owner
 	projectile_instance.player_rotation = rotation
@@ -37,7 +37,7 @@ sync func instance_projectile(
 	projectile_instance.name = "Projectile_" + str(id) + "_" +str(Network.networked_object_name_index)
 	projectile_instance.set_team(team)
 	Network.networked_object_name_index += 1
-	get_node("/root/PersistantObjects").add_child(projectile_instance)
+	get_node("/root/world/Traps").add_child(projectile_instance)
 
 func projectile(
 	id: int,
@@ -46,8 +46,12 @@ func projectile(
 	spawn_position: Vector2,
 	team: int
 	):
-	if is_network_master():
-		rpc("instance_projectile", id, projectile_scene, rotation, spawn_position, team)
+	#if get_tree().is_network_server():
+	rpc("instance_projectile", id, projectile_scene, rotation, spawn_position, team)
 
 func add_projectile_scene(path: String) -> void:
+	#projectile_scenes[path] = load(path)
+	rpc("share_new_projectile_scene", path)
+
+sync func share_new_projectile_scene(path: String) -> void:
 	projectile_scenes[path] = load(path)

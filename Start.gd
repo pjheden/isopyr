@@ -17,12 +17,14 @@ func _ready() -> void:
 		var client_type_arg = args[0]
 		if client_type_arg == "listen":
 			# run server
-			Network.create_server()
-			yield(get_tree().create_timer(1.0), "timeout")
-			Network.begin_game()
+			# Network.create_server()
+			# yield(get_tree().create_timer(1.0), "timeout")
+			# Network.begin_game()
+			pass
 		elif client_type_arg == "join":
 			# run client
-			Network.create_client("localhost")
+			#Network.create_client("localhost")
+			pass
 		else:
 			# do nothing
 			push_warning("Argument %s is not supported" % client_type_arg)
@@ -59,23 +61,23 @@ func _on_Start_server_pressed():
 	$Lobby.hide()
 	Network.begin_game()
 
-func redraw(my_info, player_info) -> void: 
+func redraw(player_info) -> void: 
 	# Remove existing
 	for n in $Lobby/Players.get_children():
 		$Lobby/Players.remove_child(n)
 		n.queue_free()
 	# Add my info
-	add_player(0, my_info)
+	#add_player(0, my_info)
 	# add player_info
-	var i: int = 1
+	var i: int = 0
 	for k in player_info:
-		add_player(i, player_info[k])
+		add_player(i, k, player_info[k])
 		i += 1
 
 ## add_player adds a a player (info) to the loby screen
-func add_player(index: int, info: Dictionary) -> void:
+func add_player(index: int, p_id: int, info: Dictionary) -> void:
 	var pu = player_ui_scene.instance()
-	pu.update_info(info)
+	pu.update_info(p_id, info)
 	# TODO: write this better
 	# load right textures
 	var txt = Global.get_hero_icon(info["hero"])
@@ -96,5 +98,6 @@ func _on_BeduinButton_pressed():
 func _on_GoolockButton_pressed():
 	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.GOOLOCK)
 	
-func set_team(team_index: int) -> void:
-	Network.broadcast_team_change(get_tree().get_network_unique_id(), team_index)
+func set_team(p_id: int, team_index: int) -> void:
+	if p_id == get_tree().get_network_unique_id():
+		Network.broadcast_team_change(p_id, team_index)

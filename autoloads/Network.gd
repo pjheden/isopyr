@@ -43,7 +43,7 @@ func create_server():
 	players_info[my_id] = create_player_info()
 	
 	# Add server player lobby UI here
-	lobby.add_player(0, players_info[my_id])
+	lobby.add_player(0, my_id, players_info[my_id])
 
 func create_client(address: String):
 	var peer = NetworkedMultiplayerENet.new()
@@ -59,8 +59,13 @@ func create_player_info():
 	d["name"] = Save.save_data["playerName"]
 	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
 	d["color"] = colors[randi() % colors.size()]
-	d["hero"] = Global.Hero.MAXIMUS
+	d["hero"] = Global.Hero.GOOLOCK
 	d["team"] = Global.Team.BROODS
+
+	# TMP for easier debugging
+	if get_tree().get_network_unique_id() != 1:
+		d["hero"] = Global.Hero.BEDUIN
+		d["team"] = Global.Team.FREMEN
 	return d
 
 func _player_connected(id):
@@ -85,7 +90,7 @@ func _connected_fail():
 remote func set_players_info(pi):
 	print("setting player_info: ", pi)
 	players_info = pi
-	lobby.redraw(players_info[my_id], players_info)
+	lobby.redraw(players_info)
 
 func share_players_info(id):
 	# Tell the new player who is in the lobby already
@@ -94,23 +99,26 @@ func share_players_info(id):
 	print("sending following playerinfo to newly joined player with id %s" % id)
 	print(pi)
 	#pi[get_tree().get_network_unique_id()] = my_info
-	rpc_id(id, "set_player_info", pi)
+	rpc_id(id, "set_players_info", pi)
 
 remote func register_player(info):
 	# Get the id of the RPC sender.
 	var id = get_tree().get_rpc_sender_id()
-	if get_tree().is_network_server():
-		share_players_info(id)
 	# Store the info
 	players_info[id] = info
+
+	if get_tree().is_network_server():
+		share_players_info(id)
 	
 	# Add new player lobby UI here
-	lobby.add_player(players_info.size(), info)
+	lobby.add_player(players_info.size(), id, info)
 
 remote func pre_configure_game(spawn_points):
+	# Hide lobby
+	lobby.hide()
+
 	# Load world
 	var world = Game.load_world()
-	
 	# set players
 	var pi = players_info.duplicate()
 	#pi[get_tree().get_network_unique_id()] = my_info 

@@ -7,23 +7,24 @@ var velocity = Vector2(1, 0)
 var player_rotation
 var should_move: bool = false
 var team: int
-onready var initial_position = global_position
 
 puppet var puppet_position setget puppet_position_set
-puppet var puppet_velocity = Vector2()
-puppet var puppet_rotation = 0 # direction of projectile
+puppet var puppet_velocity = Vector2() setget puppet_velocity_set
+puppet var puppet_rotation = 0 setget puppet_rotation_set # direction of projectile
 
 onready var delayed_start: Timer = $DelayedStart
 
 
 func _ready() -> void:
+	print("proj is ready for %s, master %s" % [Network.my_id, is_network_master()])
 	if is_network_master():
+		print("setting values for proj: %s %s" % [velocity, rotation])
 		velocity = velocity.rotated(player_rotation)
 		rotation = player_rotation
 		rset("puppet_position", global_position)
 		rset("puppet_velocity", velocity)
 		rset("puppet_rotation", rotation)
-		delayed_start.start()
+	delayed_start.start()
 		
 func _process(delta) -> void:
 	if not should_move:
@@ -36,7 +37,14 @@ func _process(delta) -> void:
 
 puppet func puppet_position_set(new_value) -> void:
 	puppet_position = new_value
-	global_position = puppet_position
+	if not is_network_master():
+		global_position = puppet_position
+
+puppet func puppet_velocity_set(new_value) -> void:
+	puppet_velocity = new_value
+
+puppet func puppet_rotation_set(new_value) -> void:
+	puppet_rotation = new_value
 
 sync func destroy() -> void:
 	queue_free()
