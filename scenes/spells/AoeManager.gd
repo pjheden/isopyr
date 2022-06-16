@@ -14,6 +14,8 @@ func set_object(scene_path: String, icon_path: String) -> void:
 func activate(params := {}) -> bool:
 	if not .activate(params):
 		return false
+
+	# TODO: add network code
 	
 	# spawn aoe
 	var aoe_instance = aoe_scene.instance()

@@ -46,3 +46,6 @@ func _on_Hitbox_body_entered(body):
 	destroy()
 	#if get_tree().is_network_server():
 	#	rpc("destroy")
+
+func set_team(_a: int) -> void:
+	pass

@@ -24,7 +24,8 @@ sync func instance_projectile(
 	id: int,
 	projectile_scene: String,
 	rotation: float,
-	spawn_position: Vector2
+	spawn_position: Vector2,
+	team: int
 	):
 	if not projectile_scene in projectile_scenes:
 		# TODO: throw error
@@ -34,6 +35,7 @@ sync func instance_projectile(
 	projectile_instance.player_rotation = rotation
 	projectile_instance.global_position = spawn_position
 	projectile_instance.name = "Projectile_" + str(id) + "_" +str(Network.networked_object_name_index)
+	projectile_instance.set_team(team)
 	Network.networked_object_name_index += 1
 	get_node("/root/PersistantObjects").add_child(projectile_instance)
 
@@ -41,10 +43,11 @@ func projectile(
 	id: int,
 	projectile_scene: String,
 	rotation: float,
-	spawn_position: Vector2
+	spawn_position: Vector2,
+	team: int
 	):
 	if is_network_master():
-		rpc("instance_projectile", id, projectile_scene, rotation, spawn_position)
+		rpc("instance_projectile", id, projectile_scene, rotation, spawn_position, team)
 
 func add_projectile_scene(path: String) -> void:
 	projectile_scenes[path] = load(path)
