@@ -45,7 +45,7 @@ func create_server():
 	# Add server player lobby UI here
 	lobby.add_player(0, players_info[my_id])
 
-func create_client(address):
+func create_client(address: String):
 	var peer = NetworkedMultiplayerENet.new()
 	peer.create_client(address, PORT)
 	get_tree().network_peer = peer
@@ -90,6 +90,9 @@ remote func set_players_info(pi):
 func share_players_info(id):
 	# Tell the new player who is in the lobby already
 	var pi = players_info.duplicate()
+	# TODO: test why lobby is not working
+	print("sending following playerinfo to newly joined player with id %s" % id)
+	print(pi)
 	#pi[get_tree().get_network_unique_id()] = my_info
 	rpc_id(id, "set_player_info", pi)
 
@@ -177,7 +180,7 @@ func begin_game():
 
 func broadcast_hero_change(p_id: int, hero: int) -> void:
 	print("broadcasting hero change")
-	rpc("change_hero", get_tree().get_network_unique_id(), hero)
+	rpc("change_hero", p_id, hero)
 	
 ## change_hero changes the selected hero to {hero} for player {p_id}
 remotesync func change_hero(p_id: int, hero: int) -> void:
@@ -189,7 +192,7 @@ remotesync func change_hero(p_id: int, hero: int) -> void:
 
 func broadcast_team_change(p_id: int, team: int) -> void:
 	print("broadcasting team change %s" % team)
-	rpc("change_team", get_tree().get_network_unique_id(), team)
+	rpc("change_team", p_id, team)
 	
 ## change_team changes the selected team to {team} for player {p_id}
 remotesync func change_team(p_id: int, team: int) -> void:
