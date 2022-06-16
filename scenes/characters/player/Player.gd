@@ -7,6 +7,7 @@ export var attack_distance = 20
 export var attack_damage = 10
 # Player variables 
 var id: int # RPC id
+var hp: float = 100.0 setget set_hp
 var team: int
 var player_rotation : float = 0.0
 var velocity: Vector2
@@ -24,8 +25,10 @@ var defined_animations: Dictionary = {
 }
 
 # Puppet player variables
+puppet var puppet_hp = 100 setget puppet_hp_set
 puppet var puppet_velocity = Vector2()
 puppet var puppet_position = Vector2() setget puppet_position_set
+puppet var puppet_state: Node = null setget puppet_state_set
 
 # References
 var hud: CanvasLayer = null # reference to hud
@@ -34,6 +37,8 @@ onready var sprite = $Sprite
 onready var roll_cooldown = $RollCooldown
 onready var sprite_scale: Vector2 = $Sprite.scale
 onready var tween = $MoveTween
+onready var state_machine = $StateMachine
+onready var hit_timer = $HitTimer
 
 func _ready() -> void:
 	if is_network_master():
@@ -41,8 +46,11 @@ func _ready() -> void:
 		hud = get_parent().get_parent().get_parent().get_node("HUD")
 		# Prepare player spells
 		spells()
+	add_to_group("team_%s" % team)
 
 func _input(event) -> void:
+	if not is_network_master():
+		return
 	# Check if any spell button is pressed
 	for hotkey in spell_bindings:
 		if event.is_action_pressed(hotkey):
@@ -55,7 +63,7 @@ func spells() -> void:
 	assert(false, "spells is a virtual method and must be implented")
 
 func get_sm_state() -> String:
-	return $StateMachine.state.name
+	return state_machine.state.name
 
 func set_rotation(r: float) -> void:
 	player_rotation = r
@@ -92,12 +100,61 @@ func play_animation(down: bool, type: String = "Move") -> void:
 		"Attack":
 			animation_player.play(defined_animations["AttackDown"])
 
+func set_hp(new_value) -> void:
+	hp = new_value
+	
+	if is_network_master():
+		rset("puppet_hp", hp)
+
+func _on_Hitbox_mouse_entered():
+	if team == Global.player_master.get_team():
+		Mouse.play_friendly(self)
+	else:
+		Mouse.play_danger(self)
+
+func _on_Hitbox_mouse_exited():
+	Mouse.reset()
+
+func _on_Hitbox_area_entered(area:Area2D):
+	if area.is_in_group("Player_damager"):
+		var p = area.get_parent()
+		if not p.has_method("get_team"):
+			return
+		if self.team == p.get_team():
+			return
+		hit_by_damager(p.damage)
+
+sync func hit_by_damager(damage):
+	hp -= damage
+	modulate = Color(5, 5, 5, 1)
+	hit_timer.start()
+	emit_signal("damaged", hp) # TODO: add this signal
+
+	if hp <= 0:
+		# if get_tree().is_network_server():
+		if true:
+			queue_free()
+			rpc("destroy")
+	
+func _on_HitTimer_timeout():
+	modulate = Color(1, 1, 1, 1)
+
+sync func destroy() -> void:
+	print("destroy is called for player: ", get_tree().get_network_unique_id())
+	visible = false
+	$CollisionPolygon2D.disabled = true
+	$Hitbox/CollisionShape2D.disabled = true
+	#dead = true
+	Game.dead(get_network_master())
+
+	if is_network_master():
+		Global.player_master = null
 
 func _on_NetworkTickRate_timeout():
 	if is_network_master():
 		rset_unreliable("puppet_position", global_position)
 		rset_unreliable("puppet_velocity", velocity)
-		#rset_unreliable("puppet_state", get_sm_state())
+		rset_unreliable("puppet_state", get_sm_state())
 
 puppet func puppet_position_set(new_value) -> void:
 	puppet_position = new_value
@@ -110,3 +167,15 @@ puppet func puppet_position_set(new_value) -> void:
 	
 	tween.interpolate_property(self, "global_position", global_position, puppet_position, 0.1)
 	tween.start()
+
+puppet func puppet_hp_set(new_value) -> void:
+	puppet_hp = new_value
+
+	if not is_network_master():
+		hp = puppet_hp
+
+puppet func puppet_state_set(new_value) -> void:
+	puppet_state = new_value
+
+	if not is_network_master():
+		state_machine.transition_to(puppet_state)

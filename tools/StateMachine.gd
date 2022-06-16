@@ -28,6 +28,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	# only call update for network_master
+	if not is_network_master():
+		return
 	state.update(delta)
 
 
@@ -39,12 +42,17 @@ func _physics_process(delta: float) -> void:
 # and calls its enter function.
 # It optionally takes a `msg` dictionary to pass to the next state's enter() function.
 func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
-	print("SM: transition to " + target_state_name)
 	# Safety check, you could use an assert() here to report an error if the state name is incorrect.
 	# We don't use an assert here to help with code reuse. If you reuse a state in different state machines
 	# but you don't want them all, they won't be able to transition to states that aren't in the scene tree.
 	if not has_node(target_state_name):
 		return
+	
+	# Lets ignore transitions from and to the same state for now
+	if target_state_name == state.name:
+		return
+
+	print("SM: transition to " + target_state_name)
 
 	state.exit()
 	state = get_node(target_state_name)
