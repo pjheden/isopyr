@@ -26,7 +26,10 @@ func _ready() -> void:
 		rset("puppet_rotation", rotation)
 	delayed_start.start()
 		
-func _process(delta) -> void:
+func _process(delta: float) -> void:
+	_on_process(delta)
+
+func _on_process(delta: float) -> void:
 	if not should_move:
 		return
 	if is_network_master():

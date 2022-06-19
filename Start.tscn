@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Start.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/logo.png" type="Texture" id=2]
 [ext_resource path="res://resources/ui/warrior-icon.png" type="Texture" id=3]
 [ext_resource path="res://resources/ui/goolock-icon.png" type="Texture" id=4]
 [ext_resource path="res://resources/ui/beduin-icon.png" type="Texture" id=5]
+[ext_resource path="res://resources/ui/frontpage.png" type="Texture" id=6]
 
 [node name="Server_browser" type="Control"]
 anchor_right = 1.0
@@ -20,9 +21,12 @@ self_modulate = Color( 0.756863, 0.698039, 1, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Logo" type="TextureRect" parent="Background_panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+stretch_mode = 1
 
 [node name="Create_server" type="Button" parent="Background_panel"]
 anchor_left = 0.5
@@ -36,9 +40,6 @@ margin_bottom = 145.0
 rect_scale = Vector2( 1.0065, 1 )
 rect_pivot_offset = Vector2( -424.804, -261 )
 text = "HOST"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Join_server" type="Button" parent="Background_panel"]
 anchor_left = 0.5
@@ -50,9 +51,6 @@ margin_top = 170.0
 margin_right = 116.0
 margin_bottom = 216.0
 text = "JOIN"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PlayerName" type="LineEdit" parent="Background_panel"]
 anchor_left = 0.5
@@ -95,13 +93,6 @@ caret_blink = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Logo" type="Sprite" parent="Background_panel"]
-position = Vector2( 871.793, 156.65 )
-rotation = 0.505858
-scale = Vector2( 1.34211, 1.34211 )
-texture = ExtResource( 2 )
-offset = Vector2( -246.387, 79.6241 )
 
 [node name="Lobby" type="Panel" parent="."]
 visible = false
