@@ -77,7 +77,6 @@ func spawn_players(world, spawn_points) -> void:
 		world.get_node("YSort/Players").add_child(player)
 
 func character_scene(hero: int):
-	return load ("res://scenes/characters/player/PlagueDoctor.tscn")
 	match hero:
 		Global.Hero.MAXIMUS:
 			return load("res://scenes/characters/player/Maximus.tscn")
@@ -85,4 +84,6 @@ func character_scene(hero: int):
 			return load("res://scenes/characters/player/Beduin.tscn")
 		Global.Hero.GOOLOCK:
 			return load("res://scenes/characters/player/Goolock.tscn")
+		Global.Hero.PLAGUEDOCTOR:
+			return load("res://scenes/characters/player/PlagueDoctor.tscn")
 	assert(true, "Could not match hero with value %s " % hero)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Start.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/logo.png" type="Texture" id=2]
@@ -6,15 +6,13 @@
 [ext_resource path="res://resources/ui/goolock-icon.png" type="Texture" id=4]
 [ext_resource path="res://resources/ui/beduin-icon.png" type="Texture" id=5]
 [ext_resource path="res://resources/ui/frontpage.png" type="Texture" id=6]
+[ext_resource path="res://resources/ui/plaguedoctor-icon.png" type="Texture" id=7]
 
 [node name="Server_browser" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Background_panel" type="Panel" parent="."]
 self_modulate = Color( 0.756863, 0.698039, 1, 1 )
@@ -134,6 +132,16 @@ rect_pivot_offset = Vector2( 94.8586, -39.1584 )
 icon = ExtResource( 4 )
 flat = true
 
+[node name="PlagueButton" type="Button" parent="Lobby"]
+margin_left = 752.0
+margin_top = 349.531
+margin_right = 923.0
+margin_bottom = 514.531
+rect_scale = Vector2( 0.475697, 0.475697 )
+rect_pivot_offset = Vector2( 94.8586, -39.1584 )
+icon = ExtResource( 7 )
+flat = true
+
 [node name="Start_server" type="Button" parent="Lobby"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -182,4 +190,5 @@ rect_scale = Vector2( 1.00758, 1 )
 [connection signal="pressed" from="Lobby/MaximusButton" to="." method="_on_MaximusButton_pressed"]
 [connection signal="pressed" from="Lobby/BeduinButton" to="." method="_on_BeduinButton_pressed"]
 [connection signal="pressed" from="Lobby/GoolockButton" to="." method="_on_GoolockButton_pressed"]
+[connection signal="pressed" from="Lobby/PlagueButton" to="." method="_on_PlagueButton_pressed"]
 [connection signal="pressed" from="Lobby/Start_server" to="." method="_on_Start_server_pressed"]

@@ -6,11 +6,10 @@
 [node name="Chtul" instance=ExtResource( 1 )]
 texture = ExtResource( 2 )
 
-[node name="Hitbox" parent="." index="0"]
-visible = false
-
 [node name="CollisionPolygon2D" parent="Hitbox" index="0"]
-polygon = PoolVector2Array( -63, 17, -15, 36, 36, 32, 67, 12, 71, -16, 53, -35, 33, -43, -10, -49, -51, -35, -71, -11 )
+position = Vector2( -2, 13 )
+scale = Vector2( 1.63732, 2.18382 )
+polygon = PoolVector2Array( -56.1893, 20.1481, -15, 36, 23.8194, 36.1751, 59.243, 19.2323, 72.0688, -6.41077, 62.2968, -28.3906, 34.8129, -44.8754, -4.88602, -51.7441, -51, -35, -71.4581, -10.532 )
 
 [node name="DelayedStart" parent="." index="2"]
 wait_time = 1.0

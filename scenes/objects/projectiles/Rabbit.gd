@@ -6,11 +6,11 @@ var target_body: PhysicsBody2D = null
 enum states {WAITING, MOVE, ATTACK}
 var state: int = states.WAITING
 
-var gas_scene = preload("res://scenes/objects/Gas.tscn")
+var gas_scene = preload("res://scenes/objects/aoes/Gas.tscn")
 
 
 func _ready():
-	pass
+	$AnimationPlayer.play("Idle")
 
 func closest_body(bodies: Array) -> Dictionary:
 	var closest_b = bodies[0]
