@@ -4,6 +4,7 @@
 [ext_resource path="res://scenes/characters/player/Beduin.gd" type="Script" id=2]
 [ext_resource path="res://resources/sprites/beduin_spritesheet.png" type="Texture" id=3]
 
+
 [node name="Beduin" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 attack_damage = 10

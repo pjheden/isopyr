@@ -58,7 +58,7 @@ func _input(event) -> void:
 		if event.is_action_pressed(hotkey):
 			spell_queue.append(hotkey)
 
-func spells(is_master: bool) -> void:
+func spells(_is_master: bool) -> void:
 	"""
 	Virtual method. setup all the class spells
 	"""

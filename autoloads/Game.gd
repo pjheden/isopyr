@@ -77,6 +77,7 @@ func spawn_players(world, spawn_points) -> void:
 		world.get_node("YSort/Players").add_child(player)
 
 func character_scene(hero: int):
+	return load ("res://scenes/characters/player/PlagueDoctor.tscn")
 	match hero:
 		Global.Hero.MAXIMUS:
 			return load("res://scenes/characters/player/Maximus.tscn")

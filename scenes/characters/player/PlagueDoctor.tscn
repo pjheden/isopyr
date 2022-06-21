@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/sprites/plague_doctor_sheet.png" type="Texture" id=2]
+[ext_resource path="res://scenes/characters/player/PlagueDoctor.gd" type="Script" id=3]
+
+[node name="PlagueDoctor"]
+script = ExtResource( 3 )
+attack_damage = 10
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+position = Vector2( 0.783699, -2.3511 )
+polygon = PoolVector2Array( -2.42522, 14.5309, 1.45513, 14.5309, 4.36539, 13.5288, 3.88035, 11.5245, 0.485043, 11.0235, -2.91026, 12.5267 )
+
+[node name="Sprite" parent="." index="5"]
+position = Vector2( 23.614, -3.54129 )
+scale = Vector2( -0.464932, 0.464932 )
+texture = ExtResource( 2 )
+offset = Vector2( 39.5179, 4.96136 )
+hframes = 2
+vframes = 1
