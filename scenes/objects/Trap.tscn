@@ -4,7 +4,7 @@
 [ext_resource path="res://resources/sprites/oil.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 61.4392
+radius = 63.5685
 
 [node name="Trap" type="Sprite"]
 texture = ExtResource( 2 )

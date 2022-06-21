@@ -2,6 +2,8 @@ extends Sprite
 
 export(int) var damage = 10
 
+var team: int
+
 puppet var puppet_position setget puppet_position_set
 
 var bodies_in_range = []
@@ -29,5 +31,14 @@ func _on_Hitbox_body_exited(body):
 
 func _on_DamageTimer_timeout():
 	for body in bodies_in_range:
-		if body.has_method("hit_by_damager"):
-			body.hit_by_damager(damage)
+		if not body.has_method("hit_by_damager"):
+			continue
+		if body.has_method("get_team") and team == body.team:
+			continue
+		body.hit_by_damager(damage)
+
+func set_team(new_team: int) -> void:
+	team = new_team
+
+func get_team() -> int:
+	return team
