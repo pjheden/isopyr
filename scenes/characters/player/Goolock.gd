@@ -22,8 +22,7 @@ func spells(is_master: bool) -> void:
 	)
 	var whip_manager = projectile_manager_scene.instance()
 	whip_manager.set_object(
-		# "res://scenes/objects/projectiles/Whip.tscn",
-		"res://scenes/objects/projectiles/Rabbit.tscn",
+		"res://scenes/objects/projectiles/Whip.tscn",
 		"res://resources/sprites/whip.png"
 	)
 	# Add spell managers as childs

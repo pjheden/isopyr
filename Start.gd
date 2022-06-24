@@ -97,7 +97,12 @@ func _on_BeduinButton_pressed():
 
 func _on_GoolockButton_pressed():
 	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.GOOLOCK)
-	
+
+func _on_PlagueButton_pressed():
+	Network.broadcast_hero_change(get_tree().get_network_unique_id(), Global.Hero.PLAGUEDOCTOR)
+
 func set_team(p_id: int, team_index: int) -> void:
 	if p_id == get_tree().get_network_unique_id():
 		Network.broadcast_team_change(p_id, team_index)
+
+

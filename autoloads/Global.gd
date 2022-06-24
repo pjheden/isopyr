@@ -5,7 +5,7 @@ var projectile_scenes = {}
 var move_button = "left_click"
 
 # Enums
-enum Hero {MAXIMUS, BEDUIN, GOOLOCK}
+enum Hero {MAXIMUS, BEDUIN, GOOLOCK, PLAGUEDOCTOR}
 enum Team {NONE, BROODS, FREMEN}
 
 # Utils methods
@@ -18,6 +18,8 @@ func get_hero_icon(hero: int) -> Texture:
 			txt = load("res://resources/ui/beduin-icon.png");
 		Hero.GOOLOCK:
 			txt = load("res://resources/ui/goolock-icon.png");
+		Hero.PLAGUEDOCTOR:
+			txt = load("res://resources/ui/plaguedoctor-icon.png");
 	return txt
 
 sync func instance_projectile(
@@ -57,7 +59,8 @@ sync func share_new_projectile_scene(path: String) -> void:
 	projectile_scenes[path] = load(path)
 
 func get_players(skip_team: int) -> Array:
-	var players = get_node("/root/world/YSort/Players").get_children()
+	#var players = get_node("/root/world/YSort/Players").get_children()
+	var players = get_node("/root/world/YSort/Walls").get_children()
 	var players_on_other_team = []
 	for player in players:
 		if not "team" in player:
