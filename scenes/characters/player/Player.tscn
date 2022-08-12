@@ -219,6 +219,9 @@ one_shot = true
 [node name="Cast" type="Node" parent="StateMachine"]
 script = ExtResource( 1 )
 
+[node name="CastTime" type="Timer" parent="StateMachine/Cast"]
+one_shot = true
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -2, 4 )
 scale = Vector2( 1.61573, 1.56406 )
@@ -276,6 +279,7 @@ wait_time = 4.0
 one_shot = true
 
 [connection signal="transitioned" from="StateMachine" to="State" method="_on_StateMachine_transitioned"]
+[connection signal="timeout" from="StateMachine/Cast/CastTime" to="StateMachine/Cast" method="_on_CastTime_timeout"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="mouse_entered" from="Hitbox" to="." method="_on_Hitbox_mouse_entered"]

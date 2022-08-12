@@ -3,10 +3,12 @@ extends Node
 onready var cooldown_timer = $CooldownTimer
 onready var cast_timer = $CastTimer
 var cooldown: float
+var cast_time: float
 var ready: bool
 
 func _ready() -> void:
 	cooldown = cooldown_timer.wait_time
+	cast_time = cast_timer.wait_time
 	ready = true
 
 func activate(_params := {}) -> bool:
@@ -28,6 +30,9 @@ func icon() -> String:
 	"""
 	assert(false)
 	return ""
+
+func is_ready() -> bool:
+	return ready
 
 
 
