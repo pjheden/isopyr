@@ -7,10 +7,10 @@ func _ready() -> void:
 	defined_animations = {
 		"IdleDown": "IdleDown",
 		"IdleTop": "IdleDown",
-		"MoveDown": "IdleDown",
-		"MoveTop": "IdleDown",
+		"MoveDown": "MoveDown",
+		"MoveTop": "MoveDown",
 		"RollFade": "RollFade",
-		"AttackDown": "IdleDown"
+		"AttackDown": "AttackDown"
 	}
 
 func spells(is_master: bool) -> void:

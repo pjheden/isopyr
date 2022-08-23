@@ -1,8 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/characters/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/sprites/plague_doctor_sheet.png" type="Texture" id=2]
 [ext_resource path="res://scenes/characters/player/PlagueDoctor.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=5]
+resource_name = "MoveTop"
+length = 0.7
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 4, 5, 6, 7, 2 ]
+}
 
 [node name="PlagueDoctor" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -12,10 +29,12 @@ attack_damage = 10
 position = Vector2( 0.783699, -2.3511 )
 polygon = PoolVector2Array( -2.42522, 14.5309, 1.45513, 14.5309, 4.36539, 13.5288, 3.88035, 11.5245, 0.485043, 11.0235, -2.91026, 12.5267 )
 
+[node name="AnimationPlayer" parent="." index="4"]
+anims/MoveTop = SubResource( 5 )
+
 [node name="Sprite" parent="." index="5"]
 position = Vector2( 23.614, -3.54129 )
 scale = Vector2( -0.464932, 0.464932 )
 texture = ExtResource( 2 )
 offset = Vector2( 39.5179, 4.96136 )
-hframes = 2
-vframes = 1
+vframes = 3
