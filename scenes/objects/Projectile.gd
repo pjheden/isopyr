@@ -3,7 +3,7 @@ extends Sprite
 export(int) var speed = 750
 export(int) var damage = 40
 
-var velocity = Vector2(1, 0)
+var velocity = Vector2(0.5, 0)
 var player_rotation
 
 puppet var puppet_position setget puppet_position_set
