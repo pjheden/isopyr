@@ -19,13 +19,15 @@ func spells(is_master: bool) -> void:
 	boulder_manager.set_object(
 		"res://scenes/objects/projectiles/Boulder.tscn",
 		"res://resources/sprites/boulder_icon.png",
-		1.6
+		1.6,
+		"modulate"
 	)
 	var slice_manager = projectile_manager_scene.instance()
 	slice_manager.set_object(
 		"res://scenes/objects/projectiles/Slice.tscn",
 		"res://resources/sprites/slice.png",
-		0.3
+		0.3,
+		"modulate"
 	)
 	# Add spell managers as childs
 	add_child(boulder_manager)

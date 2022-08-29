@@ -18,13 +18,15 @@ func spells(is_master: bool) -> void:
 	bubble_manager.set_object(
 		"res://scenes/objects/projectiles/Blob.tscn",
 		"res://resources/sprites/plague_blob.png",
-		2.0
+		2.0,
+		"modulate"
 	)
 	var rabbit = projectile_manager_scene.instance()
 	rabbit.set_object(
 		"res://scenes/objects/projectiles/Rabbit.tscn",
 		"res://resources/sprites/rabbit.png",
-		0.0
+		0.0,
+		"modulate"
 	)
 	# Add spell managers as childs
 	add_child(bubble_manager)

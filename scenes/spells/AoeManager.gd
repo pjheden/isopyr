@@ -3,16 +3,18 @@ extends "res://scenes/spells/SpellManager.gd"
 #var aoe_scene: Resource
 var aoe_scene: String
 var aoe_icon_path: String
+var animation_name: String
 
 # onready var parent_object = get_node("/root/PersistantObjects")
 #onready var parent_object = get_node("/root/world/Traps/")
 onready var player = get_parent()
 
-func set_object(scene_path: String, icon_path: String, new_cast_time: float) -> void:
+func set_object(scene_path: String, icon_path: String, new_cast_time: float, anim_name: String) -> void:
 	#aoe_scene = load(scene_path)
 	Global.add_projectile_scene(scene_path)
 	aoe_scene = scene_path
 	aoe_icon_path = icon_path
+	animation_name = anim_name
 	cast_time = new_cast_time
 
 func activate(params := {}) -> bool:

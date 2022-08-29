@@ -13,7 +13,8 @@ func spells(is_master: bool) -> void:
 	spear_manager.set_object(
 		"res://scenes/objects/projectiles/Spear.tscn",
 		"res://resources/sprites/spear.png",
-		1.5
+		1.5,
+		"modulate"
 	)
 	
 	# Add spell managers as childs

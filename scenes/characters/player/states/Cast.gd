@@ -7,13 +7,11 @@ var casting: bool
 var casting_key: String
 
 func enter(_msg := {}) -> void:
-	#player.play_animation(player.get_rotation() > 0, "Idle")
 	pass
 
 func update(_delta: float) -> void:
 	if casting:
 		player.hud.update_cast_bar(cast_timer.wait_time, cast_timer.time_left)
-		player.modulate = Color(1, cast_timer.time_left / cast_timer.wait_time,1,1)
 
 	if len(player.spell_queue) == 0:
 		# TODO: ought to transition to Attack if that was the previous state
@@ -24,6 +22,7 @@ func update(_delta: float) -> void:
 	casting_key = player.spell_queue[0]
 	var spell_manager = player.spell_bindings[casting_key]
 	if spell_manager.is_ready():
+		play_cast_animation(spell_manager.animation_name)
 		var casting_time: float = spell_manager.cast_time
 		casting = true
 		if casting_time == 0.0:
@@ -31,6 +30,13 @@ func update(_delta: float) -> void:
 		else:
 			cast_timer.start(casting_time)
 	player.spell_queue.erase(casting_key)
+
+func play_cast_animation(animation_name: String) -> void:
+	if "modulate" in animation_name:
+		player.modulate = Color(1, cast_timer.time_left / cast_timer.wait_time,1,1)
+	else:
+		player.play_animation(true, animation_name)
+
 
 func exit() -> void:
 	player.modulate = Color(1,1,1,1)

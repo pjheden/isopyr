@@ -3,15 +3,17 @@ extends "res://scenes/spells/SpellManager.gd"
 #var projectile_scene: Resource
 var projectile_scene: String
 var projectile_icon_path: String
+var animation_name: String
 
 #var rock_scene = preload("res://scenes/objects/projectiles/Boulder.tscn")
 onready var persistant_objects = get_node("/root/PersistantObjects")
 onready var player = get_parent()
 
-func set_object(scene_path: String, icon_path: String, new_cast_time: float) -> void:
+func set_object(scene_path: String, icon_path: String, new_cast_time: float, anim_name: String) -> void:
 	Global.add_projectile_scene(scene_path)
 	projectile_scene = scene_path
 	projectile_icon_path = icon_path
+	animation_name = anim_name
 	cast_time = new_cast_time
 
 func activate(params := {}) -> bool:

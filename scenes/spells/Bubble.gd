@@ -1,6 +1,7 @@
 extends "res://scenes/spells/Spell.gd"
 
 var ready: bool
+var animation_name: String = "modulate"
 var cast_time: float = 0.0
 
 

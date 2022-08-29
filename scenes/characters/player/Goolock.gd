@@ -11,7 +11,9 @@ func _ready() -> void:
 		"MoveDown": "MoveDown",
 		"MoveTop": "MoveDown",
 		"RollFade": "RollFade",
-		"AttackDown": "IdleDown"
+		"AttackDown": "IdleDown",
+		"SpellQ": "SpellQ",
+		"SpellW": "SpellW"
 	}
 
 func spells(is_master: bool) -> void:
@@ -19,13 +21,15 @@ func spells(is_master: bool) -> void:
 	aoe_manager.set_object(
 		"res://scenes/objects/aoes/Chtul.tscn",
 		"res://resources/sprites/aoe.png",
-		2.0
+		2.0,
+		"SpellQ"
 	)
 	var whip_manager = projectile_manager_scene.instance()
 	whip_manager.set_object(
 		"res://scenes/objects/projectiles/Whip.tscn",
 		"res://resources/sprites/whip.png",
-		0.75
+		0.75,
+		"SpellW"
 	)
 	# Add spell managers as childs
 	add_child(aoe_manager)

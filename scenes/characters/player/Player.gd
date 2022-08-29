@@ -101,6 +101,10 @@ func play_animation(down: bool, type: String = "Move") -> void:
 			animation_player.play(defined_animations["RollFade"])
 		"Attack":
 			animation_player.play(defined_animations["AttackDown"])
+		"SpellQ":
+			animation_player.play(defined_animations["SpellQ"])
+		"SpellW":
+			animation_player.play(defined_animations["SpellW"])
 
 func set_hp(new_value) -> void:
 	hp = new_value
