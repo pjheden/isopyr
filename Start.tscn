@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/ui/warrior-icon.png" type="Texture" id=3]
 [ext_resource path="res://resources/ui/goolock-icon.png" type="Texture" id=4]
 [ext_resource path="res://resources/ui/beduin-icon.png" type="Texture" id=5]
-[ext_resource path="res://resources/ui/frontpage.png" type="Texture" id=6]
+[ext_resource path="res://resources/sprites/menu_image.png" type="Texture" id=6]
 [ext_resource path="res://resources/ui/plaguedoctor-icon.png" type="Texture" id=7]
 
 [node name="Server_browser" type="Control"]
@@ -13,6 +13,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Background_panel" type="Panel" parent="."]
 self_modulate = Color( 0.756863, 0.698039, 1, 1 )
@@ -23,8 +26,14 @@ mouse_filter = 2
 [node name="Logo" type="TextureRect" parent="Background_panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -6.0
+margin_right = -6.0
+margin_bottom = 424.0
 texture = ExtResource( 6 )
 stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Create_server" type="Button" parent="Background_panel"]
 anchor_left = 0.5
