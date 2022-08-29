@@ -146,6 +146,7 @@ script = ExtResource( 2 )
 position = Vector2( 23.5838, 23.3841 )
 texture = ExtResource( 3 )
 hframes = 8
+region_rect = Rect2( 0, 0, 301, 46 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Danger = SubResource( 1 )
