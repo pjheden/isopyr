@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Start.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/logo.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://resources/ui/beduin-icon.png" type="Texture" id=5]
 [ext_resource path="res://resources/sprites/menu_image.png" type="Texture" id=6]
 [ext_resource path="res://resources/ui/plaguedoctor-icon.png" type="Texture" id=7]
+[ext_resource path="res://resources/sprites/menu_image2.png" type="Texture" id=8]
 
 [node name="Server_browser" type="Control"]
 anchor_right = 1.0
@@ -27,11 +28,19 @@ mouse_filter = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = 424.0
+rect_pivot_offset = Vector2( -1888, -378 )
 texture = ExtResource( 6 )
 stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Logo2" type="Sprite" parent="Background_panel"]
+position = Vector2( 635, 179 )
+rotation = 0.505858
+scale = Vector2( 1.34211, 1.34211 )
+texture = ExtResource( 2 )
+offset = Vector2( -246.387, 79.6241 )
 
 [node name="Create_server" type="Button" parent="Background_panel"]
 anchor_left = 0.5
@@ -108,6 +117,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Logo3" type="TextureRect" parent="Lobby"]
+modulate = Color( 1, 1, 1, 0.254902 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = -237.0
+margin_right = 4.0
+margin_bottom = 187.0
+rect_scale = Vector2( 1.01886, 0.621152 )
+rect_pivot_offset = Vector2( 553.981, 566.643 )
+texture = ExtResource( 8 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="MaximusButton" type="Button" parent="Lobby"]
 margin_left = 470.16
 margin_top = 350.531
@@ -177,13 +202,6 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Logo" type="Sprite" parent="Lobby"]
-position = Vector2( 1032, 193 )
-rotation = 0.505858
-scale = Vector2( 1.34211, 1.34211 )
-texture = ExtResource( 2 )
-offset = Vector2( -246.387, 79.6241 )
 
 [node name="Players" type="Control" parent="Lobby"]
 margin_left = 25.0
