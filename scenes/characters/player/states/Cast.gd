@@ -11,6 +11,9 @@ func enter(_msg := {}) -> void:
 	pass
 
 func update(_delta: float) -> void:
+	player.hud.update_cast_bar(cast_timer.wait_time, cast_timer.time_left)
+	player.modulate = Color(1, cast_timer.time_left / cast_timer.wait_time,1,1)
+
 	if len(player.spell_queue) == 0:
 		# TODO: ought to transition to Attack if that was the previous state
 		if not casting:
@@ -22,10 +25,14 @@ func update(_delta: float) -> void:
 	if spell_manager.is_ready():
 		var casting_time: float = spell_manager.cast_time
 		casting = true
-		cast_timer.start(casting_time)
+		if casting_time == 0.0:
+			_on_CastTime_timeout()
+		else:
+			cast_timer.start(casting_time)
 	player.spell_queue.erase(casting_key)
 
 func exit() -> void:
+	player.modulate = Color(1,1,1,1)
 	# Reset cast timer
 	cast_timer.stop()
 
@@ -46,8 +53,6 @@ func handle_input(event: InputEvent) -> void:
 
 func _on_CastTime_timeout():
 	# consume and cast first spell
-	# var casted: bool = player.spell_bindings[casting_key].call_func({"team": player.get_team()})
-	# TODO: change initialization of spells for all heroes
 	var casted: bool = player.spell_bindings[casting_key].activate({"team": player.get_team()})
 	print("casted: %s" % casted)
 	if casted:

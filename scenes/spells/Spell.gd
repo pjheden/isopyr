@@ -21,7 +21,7 @@ func deactivate() -> void:
 func _on_AliveTimer_timeout() -> void:
 	deactivate()
 
-func _on_Spell_area_entered(area:Area2D) -> void:
+func _on_Spell_area_entered(_area:Area2D) -> void:
 	pass
 
 func icon() -> String:

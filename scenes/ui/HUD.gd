@@ -30,5 +30,8 @@ func casted_spell(shortkey: String) -> void:
 func update_health_bar(hp: float) -> void:
 	$HPbar.value = hp
 
+func update_cast_bar(wt: float, pr: float) -> void:
+	$Castbar.value = 100 - (pr / wt) * 100
+
 func set_name(name: String) -> void:
 	$Name.text = name

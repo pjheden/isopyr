@@ -237,8 +237,11 @@ margin_right = 320.0
 rect_scale = Vector2( 0.425979, 0.425979 )
 rect_pivot_offset = Vector2( 122.419, 51.6615 )
 hint_tooltip = "Castbar"
-value = 1.0
+value = 50.0
 texture_under = ExtResource( 6 )
 texture_progress = ExtResource( 7 )
 tint_under = Color( 0, 0, 0, 0.290196 )
-tint_progress = Color( 0.113725, 0.32549, 0.772549, 1 )
+tint_progress = Color( 0.576471, 0.607843, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

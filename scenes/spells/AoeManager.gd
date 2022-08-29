@@ -8,11 +8,12 @@ var aoe_icon_path: String
 #onready var parent_object = get_node("/root/world/Traps/")
 onready var player = get_parent()
 
-func set_object(scene_path: String, icon_path: String) -> void:
+func set_object(scene_path: String, icon_path: String, new_cast_time: float) -> void:
 	#aoe_scene = load(scene_path)
-	aoe_icon_path = icon_path
 	Global.add_projectile_scene(scene_path)
 	aoe_scene = scene_path
+	aoe_icon_path = icon_path
+	cast_time = new_cast_time
 
 func activate(params := {}) -> bool:
 	# TODO: check if this calls super twice

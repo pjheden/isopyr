@@ -1,12 +1,17 @@
 extends "res://scenes/spells/Spell.gd"
 
+var ready: bool
+var cast_time: float = 0.0
+
+
 func _ready() -> void:
 	name = "bubble_%s" % get_network_master()
+	ready = true
 
 func activate(params := {}) -> bool:
 	# TODO: check if this calls super twice
-	var ready = .activate(params) # call parent / super
-	if not ready:
+	var is_ready = .activate(params) # call parent / super
+	if not is_ready:
 		return false
 	# visible = true
 	# collision_shape.disabled = false
@@ -40,3 +45,6 @@ func _on_Spell_area_entered(area:Area2D) -> void:
 
 func icon() -> String:
 	return "res://resources/sprites/shield.png"
+
+func is_ready() -> bool:
+	return ready

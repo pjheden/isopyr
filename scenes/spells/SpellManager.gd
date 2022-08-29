@@ -8,7 +8,6 @@ var ready: bool
 
 func _ready() -> void:
 	cooldown = cooldown_timer.wait_time
-	cast_time = cast_timer.wait_time
 	ready = true
 
 func activate(_params := {}) -> bool:

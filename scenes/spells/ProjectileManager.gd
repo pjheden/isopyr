@@ -8,11 +8,11 @@ var projectile_icon_path: String
 onready var persistant_objects = get_node("/root/PersistantObjects")
 onready var player = get_parent()
 
-func set_object(scene_path: String, icon_path: String) -> void:
-	#projectile_scene = load(scene_path)
+func set_object(scene_path: String, icon_path: String, new_cast_time: float) -> void:
 	Global.add_projectile_scene(scene_path)
 	projectile_scene = scene_path
 	projectile_icon_path = icon_path
+	cast_time = new_cast_time
 
 func activate(params := {}) -> bool:
 	# TODO: check if this calls super twice

@@ -12,7 +12,8 @@ func spells(is_master: bool) -> void:
 	var spear_manager = projectile_manager_scene.instance()
 	spear_manager.set_object(
 		"res://scenes/objects/projectiles/Spear.tscn",
-		"res://resources/sprites/spear.png"
+		"res://resources/sprites/spear.png",
+		1.5
 	)
 	
 	# Add spell managers as childs
@@ -21,8 +22,8 @@ func spells(is_master: bool) -> void:
 
 	if is_master:
 		# Define all spells
-		spell_bindings["q"] = funcref(bubble, "activate")
-		spell_bindings["w"] = funcref(spear_manager, "activate")
+		spell_bindings["q"] = bubble
+		spell_bindings["w"] = spear_manager
 
 		# Update HUD with spells
 		hud.load_spellbar(["q", "w"], [bubble.icon(), spear_manager.icon()], [bubble.cooldown, spear_manager.cooldown])
