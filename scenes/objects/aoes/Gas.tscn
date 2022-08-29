@@ -4,6 +4,7 @@
 [ext_resource path="res://resources/sprites/red_smoke.png" type="Texture" id=2]
 
 [node name="Gas" instance=ExtResource( 1 )]
+z_index = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" parent="Hitbox" index="0"]
