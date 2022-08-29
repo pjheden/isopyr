@@ -18,7 +18,7 @@ func spells(is_master: bool) -> void:
 	var boulder_manager = projectile_manager_scene.instance()
 	boulder_manager.set_object(
 		"res://scenes/objects/projectiles/Boulder.tscn",
-		"res://resources/sprites/rockpng.png",
+		"res://resources/sprites/boulder_icon.png",
 		1.6
 	)
 	var slice_manager = projectile_manager_scene.instance()
