@@ -11,8 +11,9 @@ func enter(_msg := {}) -> void:
 	pass
 
 func update(_delta: float) -> void:
-	player.hud.update_cast_bar(cast_timer.wait_time, cast_timer.time_left)
-	player.modulate = Color(1, cast_timer.time_left / cast_timer.wait_time,1,1)
+	if casting:
+		player.hud.update_cast_bar(cast_timer.wait_time, cast_timer.time_left)
+		player.modulate = Color(1, cast_timer.time_left / cast_timer.wait_time,1,1)
 
 	if len(player.spell_queue) == 0:
 		# TODO: ought to transition to Attack if that was the previous state
