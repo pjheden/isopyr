@@ -17,13 +17,13 @@ func _ready() -> void:
 		var client_type_arg = args[0]
 		if client_type_arg == "listen":
 			# run server
-			# Network.create_server()
-			# yield(get_tree().create_timer(1.0), "timeout")
-			# Network.begin_game()
+			Network.create_server()
+			yield(get_tree().create_timer(1.0), "timeout")
+			Network.begin_game()
 			pass
 		elif client_type_arg == "join":
 			# run client
-			#Network.create_client("localhost")
+			Network.create_client("localhost")
 			pass
 		else:
 			# do nothing
