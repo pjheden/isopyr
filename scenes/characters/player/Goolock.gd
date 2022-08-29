@@ -8,8 +8,8 @@ func _ready() -> void:
 	defined_animations = {
 		"IdleDown": "IdleDown",
 		"IdleTop": "IdleDown",
-		"MoveDown": "IdleDown",
-		"MoveTop": "IdleDown",
+		"MoveDown": "MoveDown",
+		"MoveTop": "MoveDown",
 		"RollFade": "RollFade",
 		"AttackDown": "IdleDown"
 	}

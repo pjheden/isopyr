@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/characters/player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://resources/sprites/ech_pi_el.png" type="Texture" id=2]
+[ext_resource path="res://resources/sprites/ech_pi_el_sheet.png" type="Texture" id=2]
 [ext_resource path="res://scenes/characters/player/Goolock.gd" type="Script" id=3]
 
 [node name="Goolock" instance=ExtResource( 1 )]
@@ -9,7 +9,7 @@ script = ExtResource( 3 )
 attack_damage = 10
 
 [node name="Sprite" parent="." index="5"]
-position = Vector2( 3.1348, -1.5674 )
+position = Vector2( 3.91849, -2.3511 )
 texture = ExtResource( 2 )
-hframes = 1
+hframes = 5
 vframes = 1
