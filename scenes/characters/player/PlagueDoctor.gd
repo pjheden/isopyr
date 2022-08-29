@@ -7,10 +7,10 @@ func _ready() -> void:
 	defined_animations = {
 		"IdleDown": "IdleDown",
 		"IdleTop": "IdleDown",
-		"MoveDown": "IdleDown",
-		"MoveTop": "IdleDown",
+		"MoveDown": "MoveDown",
+		"MoveTop": "MoveDown",
 		"RollFade": "RollFade",
-		"AttackDown": "IdleDown"
+		"AttackDown": "AttackDown"
 	}
 
 func spells(is_master: bool) -> void:
@@ -29,10 +29,13 @@ func spells(is_master: bool) -> void:
 	add_child(rabbit)
 
 	if is_master:
-	# Define all spells
-		spell_bindings["q"] = funcref(bubble_manager, "activate")
-		spell_bindings["w"] = funcref(rabbit, "activate")
-
+		# # Define all spells
+		# spell_bindings["q"] = funcref(bubble_manager, "activate")
+		# spell_bindings["w"] = funcref(rabbit, "activate")
+		# Define all spells
+		spell_bindings["q"] = bubble_manager
+		spell_bindings["w"] = rabbit
+		
 		# Update HUD with spells
 		hud.load_spellbar(
 			["q", "w"],
