@@ -12,4 +12,4 @@ attack_damage = 10
 position = Vector2( 3.91849, -2.3511 )
 texture = ExtResource( 2 )
 hframes = 5
-vframes = 1
+vframes = 3
