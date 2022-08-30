@@ -39,6 +39,7 @@ onready var sprite_scale: Vector2 = $Sprite.scale
 onready var tween = $MoveTween
 onready var state_machine = $StateMachine
 onready var hit_timer = $HitTimer
+onready var fct_manager = $FCTManager
 
 func _ready() -> void:
 	print("preparing player: %s %s " % [Network.my_id, is_network_master()])
@@ -140,6 +141,7 @@ func hit_by_physical_damager(damage):
 	rpc("hit_by_damager", damage)
 
 sync func hit_by_damager(damage):
+	fct_manager.show_value(damage)
 	hp -= damage
 	modulate = Color(5, 5, 5, 1)
 	hit_timer.start()
