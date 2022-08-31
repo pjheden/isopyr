@@ -10,7 +10,9 @@ func _ready() -> void:
 		"MoveDown": "MoveDown",
 		"MoveTop": "MoveDown",
 		"RollFade": "RollFade",
-		"AttackDown": "AttackDown"
+		"AttackDown": "AttackDown",
+		"SpellQ": "SpellQ",
+		"SpellW": "SpellW"
 	}
 
 func spells(is_master: bool) -> void:
@@ -19,14 +21,14 @@ func spells(is_master: bool) -> void:
 		"res://scenes/objects/projectiles/Blob.tscn",
 		"res://resources/sprites/plague_blob.png",
 		2.0,
-		"modulate"
+		"SpellQ"
 	)
 	var rabbit = projectile_manager_scene.instance()
 	rabbit.set_object(
 		"res://scenes/objects/projectiles/Rabbit.tscn",
 		"res://resources/sprites/rabbit.png",
-		0.0,
-		"modulate"
+		0.5,
+		"SpellW"
 	)
 	# Add spell managers as childs
 	add_child(bubble_manager)

@@ -23,6 +23,7 @@ tracks/0/keys = {
 
 [node name="PlagueDoctor" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+attack_distance = 80
 attack_damage = 10
 
 [node name="CollisionPolygon2D" parent="." index="1"]
@@ -33,7 +34,7 @@ polygon = PoolVector2Array( -2.42522, 14.5309, 1.45513, 14.5309, 4.36539, 13.528
 anims/MoveTop = SubResource( 5 )
 
 [node name="Sprite" parent="." index="5"]
-position = Vector2( 23.614, -3.54129 )
+position = Vector2( 23.511, -3.91849 )
 scale = Vector2( -0.464932, 0.464932 )
 texture = ExtResource( 2 )
 offset = Vector2( 39.5179, 4.96136 )

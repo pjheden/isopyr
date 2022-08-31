@@ -11,7 +11,7 @@ func _ready() -> void:
 		"MoveDown": "MoveDown",
 		"MoveTop": "MoveDown",
 		"RollFade": "RollFade",
-		"AttackDown": "IdleDown",
+		"AttackDown": "AttackDown",
 		"SpellQ": "SpellQ",
 		"SpellW": "SpellW"
 	}

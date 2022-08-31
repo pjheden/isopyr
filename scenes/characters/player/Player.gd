@@ -84,7 +84,27 @@ func set_team(new_team: int) -> void:
 func get_team() -> int:
 	return team
 
-func play_animation(down: bool, type: String = "Move") -> void:
+func calculate_animation_custom_speed(type: String, target_time: float) -> float:
+	if target_time == 0.0:
+		return 1.0
+
+	match type:
+		"Attack":
+			var animation_time: float = animation_player.get_animation(defined_animations["AttackDown"]).length
+			return animation_time / target_time
+		"SpellQ":
+			var animation_time: float = animation_player.get_animation(defined_animations["SpellQ"]).length
+
+			return animation_time / target_time
+		"SpellW":
+			var animation_time: float = animation_player.get_animation(defined_animations["SpellW"]).length
+			return animation_time / target_time
+	
+	return 1.0
+
+func play_animation(down: bool, type: String = "Move", target_time: float = 0.0) -> void:
+	var custom_speed: float = calculate_animation_custom_speed(type, target_time)
+
 	match type:
 		"Idle":
 			if down:
@@ -101,11 +121,11 @@ func play_animation(down: bool, type: String = "Move") -> void:
 		"Roll":
 			animation_player.play(defined_animations["RollFade"])
 		"Attack":
-			animation_player.play(defined_animations["AttackDown"])
+			animation_player.play(defined_animations["AttackDown"], -1, custom_speed)
 		"SpellQ":
-			animation_player.play(defined_animations["SpellQ"])
+			animation_player.play(defined_animations["SpellQ"], -1, custom_speed)
 		"SpellW":
-			animation_player.play(defined_animations["SpellW"])
+			animation_player.play(defined_animations["SpellW"], -1, custom_speed)
 
 func set_hp(new_value) -> void:
 	hp = new_value

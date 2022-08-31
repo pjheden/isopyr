@@ -28,6 +28,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 9, 10, 11, 21 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("../StateMachine/Attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack_player"
+} ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "IdleDown"
@@ -65,7 +79,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 resource_name = "MoveTop"
-length = 0.4
+length = 0.6
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -74,10 +88,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 2, 3, 4, 5 ]
+"values": [ 2, 3, 4, 5, 6, 7 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -196,7 +210,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=11]
 resource_name = "SpellQ"
-length = 0.6
+length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -204,15 +218,15 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 5, 6, 7, 8, 9 ]
+"values": [ 8, 9, 10, 11 ]
 }
 
 [sub_resource type="Animation" id=12]
 resource_name = "SpellW"
-length = 0.6
+length = 0.9
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -220,10 +234,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 10, 11, 12, 13, 14 ]
+"values": [ 12, 13, 14 ]
 }
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
@@ -246,9 +260,6 @@ script = ExtResource( 3 )
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
-
-[node name="AttackCooldown" type="Timer" parent="StateMachine/Attack"]
-one_shot = true
 
 [node name="Cast" type="Node" parent="StateMachine"]
 script = ExtResource( 1 )
@@ -294,6 +305,7 @@ vframes = 4
 region_rect = Rect2( 462.09, 290.343, 21.766, 81.6224 )
 
 [node name="State" type="Label" parent="."]
+visible = false
 margin_left = -18.0
 margin_top = -57.0
 margin_right = 22.0

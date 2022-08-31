@@ -6,6 +6,7 @@
 
 [node name="Goolock" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+attack_distance = 80
 attack_damage = 10
 
 [node name="Sprite" parent="." index="5"]

@@ -4,7 +4,6 @@ var target_body
 var target_body_type
 
 onready var player = get_parent().get_parent()
-onready var attack_timer = $AttackCooldown
 
 func enter(msg := {}) -> void:
 	player.play_animation(true, "Attack")
@@ -31,7 +30,7 @@ func update(_delta: float) -> void:
 			}
 		)
 	
-	attack_player()
+	# attack_player() # called at the end of animation instead
 
 func handle_input(event: InputEvent) -> void:
 	if event.is_action_pressed(Global.move_button):
@@ -59,8 +58,5 @@ func target_dead() -> bool:
 	return false
 
 func attack_player() -> void:
-	if attack_timer.is_stopped():
-		print("target.has_method('hit_by_physical_damager') %s" % target_body.has_method("hit_by_physical_damager"))
-		if target_body.has_method("hit_by_physical_damager"):
-			target_body.hit_by_physical_damager(player.attack_damage)
-			attack_timer.start()
+	if target_body.has_method("hit_by_physical_damager"):
+		target_body.hit_by_physical_damager(player.attack_damage)

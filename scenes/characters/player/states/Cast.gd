@@ -22,8 +22,8 @@ func update(_delta: float) -> void:
 	casting_key = player.spell_queue[0]
 	var spell_manager = player.spell_bindings[casting_key]
 	if spell_manager.is_ready():
-		play_cast_animation(spell_manager.animation_name)
 		var casting_time: float = spell_manager.cast_time
+		play_cast_animation(spell_manager.animation_name, casting_time)
 		casting = true
 		if casting_time == 0.0:
 			_on_CastTime_timeout()
@@ -31,11 +31,11 @@ func update(_delta: float) -> void:
 			cast_timer.start(casting_time)
 	player.spell_queue.erase(casting_key)
 
-func play_cast_animation(animation_name: String) -> void:
+func play_cast_animation(animation_name: String, casting_time: float) -> void:
 	if "modulate" in animation_name:
 		player.modulate = Color(1, cast_timer.time_left / cast_timer.wait_time,1,1)
 	else:
-		player.play_animation(true, animation_name)
+		player.play_animation(true, animation_name, casting_time)
 
 
 func exit() -> void:
