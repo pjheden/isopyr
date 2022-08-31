@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Start.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/logo.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://resources/sprites/menu_image.png" type="Texture" id=6]
 [ext_resource path="res://resources/ui/plaguedoctor-icon.png" type="Texture" id=7]
 [ext_resource path="res://resources/sprites/menu_image2.png" type="Texture" id=8]
+[ext_resource path="res://scenes/ui/MapContainer.tscn" type="PackedScene" id=9]
 
 [node name="Server_browser" type="Control"]
 anchor_right = 1.0
@@ -210,6 +211,12 @@ margin_right = 375.0
 margin_bottom = 577.0
 rect_scale = Vector2( 1.00758, 1 )
 
+[node name="MapContainer" parent="Lobby" instance=ExtResource( 9 )]
+margin_left = 528.0
+margin_top = 46.0
+margin_right = 568.0
+margin_bottom = 86.0
+
 [connection signal="pressed" from="Background_panel/Create_server" to="." method="_on_Create_server_pressed"]
 [connection signal="pressed" from="Background_panel/Join_server" to="." method="_on_Join_server_pressed"]
 [connection signal="pressed" from="Lobby/MaximusButton" to="." method="_on_MaximusButton_pressed"]
@@ -217,3 +224,4 @@ rect_scale = Vector2( 1.00758, 1 )
 [connection signal="pressed" from="Lobby/GoolockButton" to="." method="_on_GoolockButton_pressed"]
 [connection signal="pressed" from="Lobby/PlagueButton" to="." method="_on_PlagueButton_pressed"]
 [connection signal="pressed" from="Lobby/Start_server" to="." method="_on_Start_server_pressed"]
+[connection signal="map_selected" from="Lobby/MapContainer" to="." method="_on_new_map_selected"]

@@ -105,4 +105,5 @@ func set_team(p_id: int, team_index: int) -> void:
 	if p_id == get_tree().get_network_unique_id():
 		Network.broadcast_team_change(p_id, team_index)
 
-
+func _on_new_map_selected(map_name: String):
+	Network.set_map(map_name)

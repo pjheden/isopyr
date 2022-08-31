@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/objects/buildings/Building.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/buildings/Ragdoll.gd" type="Script" id=2]
+[ext_resource path="res://resources/sprites/dodge_sprite.png" type="Texture" id=3]
+
+[node name="Ragdoll" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+max_hitpoints = 99999999
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( -9, -49 )
+texture = ExtResource( 3 )
+
+[node name="HPbar" parent="." index="2"]
+margin_top = -349.0
+margin_bottom = -249.0
+mouse_filter = 2
+
+[node name="FCTManager" parent="." index="3"]
+position = Vector2( -3, -360 )
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( 1, -72 )

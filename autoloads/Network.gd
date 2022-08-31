@@ -10,7 +10,8 @@ var my_id
 # var my_info = {}
 # keep track of players who finished loading
 var players_done = []
-
+# What map to start
+var current_map: String
 # Reference to lobby UI
 var lobby
 
@@ -217,3 +218,10 @@ func networked_object_name_index_set(new_value):
 	
 	if get_tree().is_network_server():
 		rset("puppet_networked_object_name_index", networked_object_name_index)
+
+func set_map(map_name: String):
+	current_map = "res://scenes/levels/%s.tscn" % map_name
+	
+func get_map() -> String:
+	return current_map 
+	

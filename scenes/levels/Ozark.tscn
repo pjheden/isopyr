@@ -1,15 +1,15 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://resources/tileset.tres" type="TileSet" id=1]
-[ext_resource path="res://scenes/levels/Camera2D.gd" type="Script" id=2]
-[ext_resource path="res://resources/shaders/water.tres" type="Shader" id=3]
-[ext_resource path="res://scenes/ui/HUD.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/levels/afrobeats_again_8.mp3" type="AudioStream" id=6]
-[ext_resource path="res://scenes/objects/Trap.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/objects/buildings/Statue.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/levels/afrobeats_again_8.mp3" type="AudioStream" id=1]
+[ext_resource path="res://resources/tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://scenes/objects/Trap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ui/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/buildings/Statue.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/levels/Camera2D.gd" type="Script" id=6]
+[ext_resource path="res://resources/shaders/water.tres" type="Shader" id=7]
 
 [sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 3 )
+shader = ExtResource( 7 )
 shader_param/OCTAVE = 38
 shader_param/mulscale = 25.0
 shader_param/height = 0.6
@@ -26,7 +26,7 @@ size = Vector3( 2000, 2000, 2 )
 
 [node name="MapScene" type="Node"]
 
-[node name="HUD" parent="." instance=ExtResource( 5 )]
+[node name="HUD" parent="." instance=ExtResource( 4 )]
 
 [node name="Water" type="Node" parent="."]
 
@@ -38,7 +38,7 @@ mesh = SubResource( 2 )
 
 [node name="Floor" type="TileMap" parent="."]
 mode = 1
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 114, 56 )
 cell_tile_origin = 1
 show_collision = true
@@ -48,27 +48,27 @@ tile_data = PoolIntArray( -393223, 8, 0, -393222, 8, 0, -393221, 8, 0, -393220, 
 
 [node name="Traps" type="Node" parent="."]
 
-[node name="Trap" parent="Traps" instance=ExtResource( 7 )]
-position = Vector2( -727.76, -294.921 )
-scale = Vector2( 0.58766, 0.58766 )
+[node name="Trap" parent="Traps" instance=ExtResource( 3 )]
+position = Vector2( -761, -339 )
+scale = Vector2( 0.956078, 0.956078 )
 
-[node name="Trap3" parent="Traps" instance=ExtResource( 7 )]
-position = Vector2( -678.76, -502.921 )
-scale = Vector2( 0.58766, 0.58766 )
+[node name="Trap3" parent="Traps" instance=ExtResource( 3 )]
+position = Vector2( -766, -563 )
+scale = Vector2( 0.933522, 0.933522 )
 
-[node name="Trap2" parent="Traps" instance=ExtResource( 7 )]
-position = Vector2( 212.24, 184.079 )
-scale = Vector2( 0.58766, 0.58766 )
+[node name="Trap2" parent="Traps" instance=ExtResource( 3 )]
+position = Vector2( 526.23, 272.54 )
+scale = Vector2( 1.01563, 1.01563 )
 
-[node name="Trap4" parent="Traps" instance=ExtResource( 7 )]
-position = Vector2( 261.24, -23.9207 )
-scale = Vector2( 0.58766, 0.58766 )
+[node name="Trap4" parent="Traps" instance=ExtResource( 3 )]
+position = Vector2( 366, 5 )
+scale = Vector2( 0.926005, 0.926005 )
 
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Walls" type="TileMap" parent="YSort"]
 mode = 1
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 128, 64 )
 cell_custom_transform = Transform2D( 128, 0, 0, 64, 0, 0 )
 cell_tile_origin = 1
@@ -76,7 +76,7 @@ cell_y_sort = true
 centered_textures = true
 format = 1
 
-[node name="Statue" parent="YSort/Walls" instance=ExtResource( 11 )]
+[node name="Statue" parent="YSort/Walls" instance=ExtResource( 5 )]
 position = Vector2( -207, -163 )
 scale = Vector2( 0.364, 0.364 )
 
@@ -115,10 +115,10 @@ position = Vector2( 969, 351 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
-script = ExtResource( 2 )
+script = ExtResource( 6 )
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 1 )
 volume_db = -35.0
 autoplay = true
 

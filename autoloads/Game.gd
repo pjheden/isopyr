@@ -49,7 +49,7 @@ sync func lobby() -> void:
 
 func load_world() -> Node:
 	# Load world
-	var world = load("res://scenes/levels/level3.tscn").instance()
+	var world = load(Network.get_map()).instance()
 	world.name = "world"
 	get_node("/root").add_child(world)
 	
