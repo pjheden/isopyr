@@ -12,3 +12,6 @@ texture = ExtResource( 2 )
 
 [node name="HPbar" parent="." index="2"]
 mouse_filter = 2
+
+[node name="FCTManager" parent="." index="3"]
+position = Vector2( -1, -399 )

@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/objects/buildings/Building.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ui/HPbar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/ui/FCTManager.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 61.5, 64.5 )
+extents = Vector2( 55.75, 110 )
 
 [node name="Building" type="StaticBody2D"]
 position = Vector2( 2, 0 )
@@ -26,6 +27,9 @@ rect_scale = Vector2( 0.362703, 0.245242 )
 rect_pivot_offset = Vector2( -107.407, 27.5074 )
 max_value = 1000.0
 value = 1000.0
+
+[node name="FCTManager" parent="." instance=ExtResource( 3 )]
+position = Vector2( -3, -216 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 

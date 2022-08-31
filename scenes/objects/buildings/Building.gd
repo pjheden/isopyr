@@ -2,12 +2,17 @@ extends StaticBody2D
 
 export(int) var max_hitpoints = 100
 export(int) var death_projectiles = 4
-var hitpoints = max_hitpoints
+export(Global.Team) var team = Global.Team.NONE
+
+var hitpoints: int
 const projectile_scene = preload("res://scenes/objects/Rock.tscn")
+
+onready var fct_manager = $FCTManager
 
 func _ready():
 	$HPbar.visible = false
 	$HPbar.max_value = max_hitpoints
+	hitpoints = max_hitpoints
 
 sync func destroy() -> void:
 	$HPbar.value = 0
@@ -34,6 +39,7 @@ sync func instance_projectiles(id):
 		angle  += angle_increment
 
 func damage(amount):
+	fct_manager.show_value(amount)
 	hitpoints -= amount
 	if hitpoints <= 0:
 		if get_tree().is_network_server():
@@ -56,10 +62,19 @@ func hit_by_physical_damager(damage):
 
 func _on_Hitbox_area_entered(area):
 	if area.is_in_group("Object_damager"):
+		var p = area.get_parent()
+		if self.team != Global.Team.NONE and self.team == p.get_team():
+			return
 		damage(area.get_parent().damage)
 
 func _on_Hitbox_mouse_entered():
-	Mouse.play_info(self)
+	if team == Global.Team.NONE:
+		Mouse.play_info(self)
+	elif team == Global.player_master.get_team():
+		Mouse.play_friendly(self)
+	else:
+		Mouse.play_danger(self)
+	
 
 func _on_Hitbox_mouse_exited():
 	Mouse.reset()
