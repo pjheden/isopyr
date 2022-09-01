@@ -106,7 +106,7 @@ func set_team(p_id: int, team_index: int) -> void:
 		Network.broadcast_team_change(p_id, team_index)
 
 func _on_new_map_selected(map_name: String):
-	Network.set_map(map_name)
+	Network.broadcast_map_change(map_name)
 
 func set_map_selection(map_name: String):
 	$Lobby/MapContainer.select_item(map_name)
