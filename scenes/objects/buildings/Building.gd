@@ -5,7 +5,7 @@ export(int) var death_projectiles = 4
 export(Global.Team) var team = Global.Team.NONE
 
 var hitpoints: int
-const projectile_scene = preload("res://scenes/objects/Rock.tscn")
+const projectile_scene = preload("res://scenes/objects/projectiles/Boulder.tscn")
 
 onready var fct_manager = $FCTManager
 
