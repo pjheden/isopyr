@@ -61,12 +61,12 @@ func create_player_info():
 	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
 	d["color"] = colors[randi() % colors.size()]
 	d["hero"] = Global.Hero.PLAGUEDOCTOR
-	d["team"] = Global.Team.BROODS
+	d["team"] = Global.Team.TEAM1
 
 	# TMP for easier debugging
 	if get_tree().get_network_unique_id() != 1:
 		d["hero"] = Global.Hero.BEDUIN
-		d["team"] = Global.Team.FREMEN
+		d["team"] = Global.Team.TEAM2
 	return d
 
 func _player_connected(id):
@@ -166,21 +166,17 @@ func begin_game():
 	# create dict determining each players spawn point
 	# player_id: spawn point index
 	var spawn_points = {}
-	var spawn_points_broods_index = 0
-	var spawn_points_fremen_index = 0
-	var spawn_points_none_index = 0
+	
+	# Create list of indexes for each team
+#	var spawn_points_indexes = []
+#	for team in Global.Team:
+#		spawn_points_indexes.append(0)
+		
 	for p in players_info:
-		if players_info[p]["team"] == Global.Team.BROODS:
-			spawn_points[p] = spawn_points_broods_index
-			spawn_points_broods_index += 1
-		elif players_info[p]["team"] == Global.Team.FREMEN:
-			spawn_points[p] = spawn_points_fremen_index
-			spawn_points_fremen_index += 1
-		elif players_info[p]["team"] == Global.Team.NONE:
-			spawn_points[p] = spawn_points_none_index
-			spawn_points_none_index += 1
-		else:
-			push_error("invalid spawn setup, player had team %s" % players_info[p]["team"])
+		var player_team_index = players_info[p]["team"]
+		spawn_points[p] = player_team_index
+		#spawn_points_indexes[player_team_index] += 1
+	
 	# Call to pre-start game with the spawn points.
 	# TODO: try rpc instead to broadcst to everyone at once?
 	for p in players_info:
@@ -210,9 +206,6 @@ func broadcast_team_change(p_id: int, team: int) -> void:
 ## change_team changes the selected team to {team} for player {p_id}
 remotesync func change_team(p_id: int, team: int) -> void:
 	players_info[p_id]["team"] = team
-	var name = "LobbyPlayer-" + players_info[p_id]["name"]
-	var pu = get_node("/root/Server_browser/Lobby/Players/" + name)
-	pu.set_team(team)
 
 func broadcast_map_change(map_name: String) -> void:
 	print("broadcasting map change %s" % map_name)

@@ -63,7 +63,7 @@ func hit_by_physical_damager(damage):
 func _on_Hitbox_area_entered(area):
 	if area.is_in_group("Object_damager"):
 		var p = area.get_parent()
-		if self.team != Global.Team.NONE and self.team == p.get_team():
+		if self.team == p.get_team():
 			return
 		damage(area.get_parent().damage)
 

@@ -8,7 +8,6 @@ anchor_left = 0.00488281
 anchor_top = 0.163
 anchor_right = 0.277
 anchor_bottom = 0.232
-margin_left = 2.38419e-06
 margin_top = 0.199997
 margin_right = 0.35199
 margin_bottom = -0.199997
@@ -59,23 +58,15 @@ margin_bottom = 1.986
 rect_pivot_offset = Vector2( -231, -264 )
 text = "<team>"
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ItemList" type="ItemList" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 261.0
-margin_top = -53.0
-margin_right = 327.0
-margin_bottom = 7.0
-rect_min_size = Vector2( 40, 60 )
-rect_pivot_offset = Vector2( 37, 39 )
-items = [ "None", null, false, "Broods", null, false, "Fremen", null, false ]
-allow_reselect = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="OptionButton" type="OptionButton" parent="."]
+margin_left = 258.0
+margin_top = 8.0
+margin_right = 295.0
+margin_bottom = 28.0
+disabled = true
+text = "1"
+items = [ "1", null, false, 1, null, "2", null, false, 2, null, "3", null, false, 3, null, "4", null, false, 4, null, "5", null, false, 5, null, "6", null, false, 6, null, "7", null, false, 7, null, "8", null, false, 8, null, "9", null, false, 9, null ]
+selected = 0
 
-[connection signal="item_selected" from="ItemList" to="." method="_on_team_selected"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_team_selected"]

@@ -140,7 +140,7 @@ func set_hp(new_value) -> void:
 		rset("puppet_hp", hp)
 
 func _on_Hitbox_mouse_entered():
-	if is_network_master() or (team != Global.Team.NONE and team == Global.player_master.get_team()):
+	if team == Global.player_master.get_team():
 		Mouse.play_friendly(self)
 	else:
 		Mouse.play_danger(self)
@@ -156,11 +156,11 @@ func _on_Hitbox_area_entered(area:Area2D):
 		var p = area.get_parent()
 		if not p.has_method("get_team"):
 			return
-		if self.team != Global.Team.NONE and self.team == p.get_team():
+		if self.team == p.get_team():
 			return
 		# If the player and area are have same network master we ignore (no self-harm)
-		if get_network_master() == area.get_network_master():
-			return
+#		if get_network_master() == area.get_network_master():
+#			return
 		#hit_by_damager(p.damage)
 		rpc("hit_by_damager", p.damage)
 		
