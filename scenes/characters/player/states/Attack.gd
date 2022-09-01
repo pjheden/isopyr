@@ -58,5 +58,5 @@ func target_dead() -> bool:
 	return false
 
 func attack_player() -> void:
-	if target_body.has_method("hit_by_physical_damager"):
+	if target_body and target_body.has_method("hit_by_physical_damager"):
 		target_body.hit_by_physical_damager(player.attack_damage)
