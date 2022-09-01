@@ -66,13 +66,13 @@ __meta__ = {
 [node name="ItemList" type="ItemList" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 257.0
-margin_top = -43.0
-margin_right = 323.0
-margin_bottom = 2.0
-rect_min_size = Vector2( 40, 40 )
+margin_left = 261.0
+margin_top = -53.0
+margin_right = 327.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 40, 60 )
 rect_pivot_offset = Vector2( 37, 39 )
-items = [ "Broods", null, false, "Fremen", null, false ]
+items = [ "None", null, false, "Broods", null, false, "Fremen", null, false ]
 allow_reselect = true
 __meta__ = {
 "_edit_use_anchors_": false

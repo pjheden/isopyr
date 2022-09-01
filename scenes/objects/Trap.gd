@@ -2,7 +2,7 @@ extends Sprite
 
 export(int) var damage = 10
 
-var team: int
+var team: int = -1
 
 puppet var puppet_position setget puppet_position_set
 

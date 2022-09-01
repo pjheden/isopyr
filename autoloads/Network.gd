@@ -168,6 +168,7 @@ func begin_game():
 	var spawn_points = {}
 	var spawn_points_broods_index = 0
 	var spawn_points_fremen_index = 0
+	var spawn_points_none_index = 0
 	for p in players_info:
 		if players_info[p]["team"] == Global.Team.BROODS:
 			spawn_points[p] = spawn_points_broods_index
@@ -175,6 +176,9 @@ func begin_game():
 		elif players_info[p]["team"] == Global.Team.FREMEN:
 			spawn_points[p] = spawn_points_fremen_index
 			spawn_points_fremen_index += 1
+		elif players_info[p]["team"] == Global.Team.NONE:
+			spawn_points[p] = spawn_points_none_index
+			spawn_points_none_index += 1
 		else:
 			push_error("invalid spawn setup, player had team %s" % players_info[p]["team"])
 	# Call to pre-start game with the spawn points.

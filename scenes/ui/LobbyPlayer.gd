@@ -3,12 +3,14 @@ extends Control
 var owner_id: int
 
 var index_team_map: Dictionary = {
-	0: Global.Team.BROODS,
-	1: Global.Team.FREMEN
+	0: Global.Team.NONE,
+	1: Global.Team.BROODS,
+	2: Global.Team.FREMEN
 }
 var team_index_map: Dictionary = {
-	Global.Team.BROODS: 0,
-	Global.Team.FREMEN: 1
+	Global.Team.NONE: 0,
+	Global.Team.BROODS: 1,
+	Global.Team.FREMEN: 2
 }
 
 func _ready() -> void:

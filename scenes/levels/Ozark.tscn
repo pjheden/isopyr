@@ -84,6 +84,20 @@ scale = Vector2( 0.364, 0.364 )
 
 [node name="Spawns" type="Node" parent="."]
 
+[node name="0" type="Node" parent="Spawns"]
+
+[node name="Position2D" type="Position2D" parent="Spawns/0"]
+position = Vector2( -561, -169 )
+
+[node name="Position2D2" type="Position2D" parent="Spawns/0"]
+position = Vector2( -228, -340 )
+
+[node name="Position2D3" type="Position2D" parent="Spawns/0"]
+position = Vector2( 139, -170 )
+
+[node name="Position2D4" type="Position2D" parent="Spawns/0"]
+position = Vector2( -167, 18 )
+
 [node name="1" type="Node" parent="Spawns"]
 
 [node name="Position2D" type="Position2D" parent="Spawns/1"]

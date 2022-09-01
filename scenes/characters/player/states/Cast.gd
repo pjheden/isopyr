@@ -33,7 +33,7 @@ func update(_delta: float) -> void:
 
 func play_cast_animation(animation_name: String, casting_time: float) -> void:
 	if "modulate" in animation_name:
-		player.modulate = Color(1, cast_timer.time_left / cast_timer.wait_time,1,1)
+		player.modulate = Color(1,1,cast_timer.time_left / cast_timer.wait_time,1)
 	else:
 		player.play_animation(true, animation_name, casting_time)
 

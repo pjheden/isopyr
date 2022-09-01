@@ -109,6 +109,20 @@ team = 2
 
 [node name="Spawns" type="Node" parent="."]
 
+[node name="0" type="Node" parent="Spawns"]
+
+[node name="Position2D" type="Position2D" parent="Spawns/0"]
+position = Vector2( -1389, -625 )
+
+[node name="Position2D2" type="Position2D" parent="Spawns/0"]
+position = Vector2( -1294, -672 )
+
+[node name="Position2D3" type="Position2D" parent="Spawns/0"]
+position = Vector2( -1214, -731 )
+
+[node name="Position2D4" type="Position2D" parent="Spawns/0"]
+position = Vector2( -1141, -769 )
+
 [node name="1" type="Node" parent="Spawns"]
 
 [node name="Position2D" type="Position2D" parent="Spawns/1"]
