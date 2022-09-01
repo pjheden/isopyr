@@ -58,7 +58,7 @@ func _on_Join_server_pressed():
 	Network.create_client(server_ip)
 
 func _on_Start_server_pressed():
-	$Lobby.hide()
+	#$Lobby.hide() # Already done in begin_game()
 	Network.begin_game()
 
 func redraw(player_info) -> void: 

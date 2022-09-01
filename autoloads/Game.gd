@@ -43,16 +43,19 @@ sync func lobby() -> void:
 	if world:
 		world.get_parent().remove_child(world)
 	# reset player info
-	player_info = {}
+	#player_info = {}
 	# show lobby
+	Network.lobby.show()
 	Network.lobby.hide_server_browser(get_tree().get_network_unique_id() == 1)
 
 func load_world() -> Node:
 	# Load world
 	var world = load(Network.get_map()).instance()
 	world.name = "world"
-	get_node("/root").add_child(world)
-	
+	var root = get_node("/root")
+	root.add_child(world)
+	root.move_child(world, 0)	
+
 	return world
 	
 func spawn_players(world, spawn_points) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/ui/HPbar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/ui/HUD.gd" type="Script" id=2]
@@ -8,6 +8,15 @@
 [ext_resource path="res://resources/ui/under.png" type="Texture" id=6]
 [ext_resource path="res://resources/ui/filler.png" type="Texture" id=7]
 [ext_resource path="res://resources/ui/hud_bg.png" type="Texture" id=8]
+[ext_resource path="res://resources/ui/button_pressed.png" type="Texture" id=9]
+[ext_resource path="res://resources/ui/button_hover.png" type="Texture" id=10]
+[ext_resource path="res://resources/ui/button_default.png" type="Texture" id=11]
+[ext_resource path="res://resources/fonts/new_dynamicfont.tres" type="DynamicFont" id=12]
+[ext_resource path="res://resources/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 13 )
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -282,3 +291,102 @@ tint_progress = Color( 0.576471, 0.607843, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="GameMenu" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -150.0
+margin_right = 125.0
+margin_bottom = 150.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="GameMenu"]
+modulate = Color( 1, 0.902588, 0.671875, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 30.0
+custom_constants/separation = 23
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GameMenu/VBoxContainer"]
+margin_right = 250.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 1 )
+text = "Game Menu"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="GameMenu/VBoxContainer"]
+margin_top = 62.0
+margin_right = 250.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 0, 35 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame" type="TextureButton" parent="GameMenu/VBoxContainer"]
+margin_left = 15.0
+margin_top = 120.0
+margin_right = 235.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 220, 50 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 10 )
+expand = true
+
+[node name="Label" type="Label" parent="GameMenu/VBoxContainer/NewGame"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 12 )
+text = "New Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="TextureButton" parent="GameMenu/VBoxContainer"]
+margin_left = 15.0
+margin_top = 193.0
+margin_right = 235.0
+margin_bottom = 243.0
+rect_min_size = Vector2( 220, 50 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 10 )
+expand = true
+
+[node name="Label" type="Label" parent="GameMenu/VBoxContainer/Exit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 12 )
+text = "Exit"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="GameMenu/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="GameMenu/VBoxContainer/Exit" to="." method="_on_Exit_pressed"]

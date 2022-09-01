@@ -10,6 +10,10 @@ func _ready() -> void:
 	# 	shortcut.connect("pressed", self, "select_shortcut", [shortcut.get_parent().get_name()])
 	pass
 
+func _input(event):
+	if event.is_action_pressed("GameMenu"):
+		$GameMenu.show()
+
 func select_shortcut() -> void:
 	pass
 
@@ -35,3 +39,16 @@ func update_cast_bar(wt: float, pr: float) -> void:
 
 func set_name(name: String) -> void:
 	$Name.text = name
+
+
+func _on_Exit_pressed():
+	$GameMenu.hide()
+
+
+func _on_NewGame_pressed():
+	if get_tree().is_network_server():
+		rpc("call_game_lobby")
+		call_game_lobby()
+
+remote func call_game_lobby():
+		Game.lobby()
