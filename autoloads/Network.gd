@@ -214,6 +214,19 @@ remotesync func change_team(p_id: int, team: int) -> void:
 	var pu = get_node("/root/Server_browser/Lobby/Players/" + name)
 	pu.set_team(team)
 
+func broadcast_map_change(map_name: String) -> void:
+	print("broadcasting map change %s" % map_name)
+	rpc("set_map", map_name)
+
+remotesync func set_map(map_name: String):
+	current_map = "res://scenes/levels/%s.tscn" % map_name
+	# update ui also
+	if lobby:
+		lobby.set_map_selection(map_name)
+	
+func get_map() -> String:
+	return current_map 
+
 func puppet_networked_object_name_index_set(new_value):
 	networked_object_name_index = new_value
 
@@ -223,9 +236,3 @@ func networked_object_name_index_set(new_value):
 	if get_tree().is_network_server():
 		rset("puppet_networked_object_name_index", networked_object_name_index)
 
-func set_map(map_name: String):
-	current_map = "res://scenes/levels/%s.tscn" % map_name
-	
-func get_map() -> String:
-	return current_map 
-	
