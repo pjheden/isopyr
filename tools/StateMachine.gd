@@ -18,13 +18,19 @@ func _ready() -> void:
 	# The state machine assigns itself to the State objects' state_machine property.
 	for child in get_children():
 		child.state_machine = self
+	# only call enter for network_master
+	if not is_network_master():
+		return
+	emit_signal("transitioned", state.name)
 	state.enter()
 
 
 # The state machine subscribes to node callbacks and delegates them to the state objects.
 func _unhandled_input(event: InputEvent) -> void:
-	if is_network_master():
-		state.handle_input(event)
+	# only call input for network_master
+	if not is_network_master():
+		return
+	state.handle_input(event)
 
 
 func _process(delta: float) -> void:

@@ -305,7 +305,6 @@ vframes = 4
 region_rect = Rect2( 462.09, 290.343, 21.766, 81.6224 )
 
 [node name="State" type="Label" parent="."]
-visible = false
 margin_left = -18.0
 margin_top = -57.0
 margin_right = 22.0
@@ -329,6 +328,7 @@ one_shot = true
 [node name="FCTManager" parent="." instance=ExtResource( 9 )]
 position = Vector2( 0, -36.8339 )
 
+[connection signal="transitioned" from="StateMachine" to="." method="_on_StateMachine_transitioned"]
 [connection signal="transitioned" from="StateMachine" to="State" method="_on_StateMachine_transitioned"]
 [connection signal="timeout" from="StateMachine/Cast/CastTime" to="StateMachine/Cast" method="_on_CastTime_timeout"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

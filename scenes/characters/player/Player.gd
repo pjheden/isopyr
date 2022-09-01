@@ -28,7 +28,9 @@ var defined_animations: Dictionary = {
 puppet var puppet_hp = 100 setget puppet_hp_set
 puppet var puppet_velocity = Vector2()
 puppet var puppet_position = Vector2() setget puppet_position_set
+puppet var puppet_flip: bool = false setget puppet_flip_set
 puppet var puppet_state: String = "" setget puppet_state_set
+puppet var puppet_animation: Dictionary = {} setget puppet_animation_set
 
 # References
 var hud: CanvasLayer = null # reference to hud
@@ -65,9 +67,6 @@ func spells(_is_master: bool) -> void:
 	"""
 	assert(false, "spells is a virtual method and must be implented")
 
-func get_sm_state() -> String:
-	return state_machine.state.name
-
 func set_rotation(r: float) -> void:
 	player_rotation = r
 
@@ -75,7 +74,10 @@ func get_rotation() -> float:
 	return player_rotation
 
 func flip_sprite(flip: bool) -> void:
+	if is_network_master():
+		rset("puppet_flip", flip)
 	sprite.flip_h = flip
+
 
 func set_team(new_team: int) -> void:
 	team = new_team
@@ -103,6 +105,10 @@ func calculate_animation_custom_speed(type: String, target_time: float) -> float
 	return 1.0
 
 func play_animation(down: bool, type: String = "Move", target_time: float = 0.0) -> void:
+	if is_network_master():
+		# Announce animation to puppets
+		rset("puppet_animation", {"down": down, "type": type, "target_time": target_time})
+
 	var custom_speed: float = calculate_animation_custom_speed(type, target_time)
 
 	match type:
@@ -191,7 +197,6 @@ func _on_NetworkTickRate_timeout():
 	if is_network_master():
 		rset_unreliable("puppet_position", global_position)
 		rset_unreliable("puppet_velocity", velocity)
-		rset_unreliable("puppet_state", get_sm_state())
 
 puppet func puppet_position_set(new_value) -> void:
 	puppet_position = new_value
@@ -216,3 +221,19 @@ puppet func puppet_state_set(new_value) -> void:
 
 	if not is_network_master():
 		state_machine.transition_to(puppet_state)
+
+puppet func puppet_animation_set(new_value: Dictionary) -> void:
+	puppet_animation = new_value
+
+	if not is_network_master():
+		play_animation(puppet_animation.down, puppet_animation.type, puppet_animation.target_time)
+
+puppet func puppet_flip_set(new_value: bool) -> void:
+	puppet_flip = new_value
+
+	if not is_network_master():
+		flip_sprite(puppet_flip)
+
+func _on_StateMachine_transitioned(state_name:String):
+	if is_network_master():
+		rset("puppet_state", state_name)
