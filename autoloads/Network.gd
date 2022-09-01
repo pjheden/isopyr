@@ -216,6 +216,10 @@ remotesync func change_team(p_id: int, team: int) -> void:
 
 func broadcast_map_change(map_name: String) -> void:
 	print("broadcasting map change %s" % map_name)
+	# Since the server is not yet created when openening the game. RPC wont work and we will not have an initial map
+	# This is a stupid way around that
+	if current_map == "":
+		current_map = "res://scenes/levels/%s.tscn" % map_name
 	rpc("set_map", map_name)
 
 remotesync func set_map(map_name: String):

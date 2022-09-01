@@ -28,7 +28,7 @@ func get_rotation() -> float:
 	return player_rotation
 
 func _on_Hitbox_mouse_entered():
-	if team == Global.player_master.get_team():
+	if team != Global.Team.NONE and team == Global.player_master.get_team():
 		Mouse.play_friendly(self)
 	else:
 		Mouse.play_danger(self)
