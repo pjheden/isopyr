@@ -59,12 +59,30 @@ sync func share_new_projectile_scene(path: String) -> void:
 	projectile_scenes[path] = load(path)
 
 func get_players(skip_team: int) -> Array:
-	#var players = get_node("/root/world/YSort/Players").get_children()
-	var players = get_node("/root/world/YSort/Walls").get_children()
+	var players = get_node("/root/world/YSort/Players").get_children()
 	var players_on_other_team = []
-	for player in players:
-		if not "team" in player:
+
+	if skip_team == Global.Team.NONE:
+		# Get all players except ourself
+		for player in players:
+			if player.is_network_master():
+				continue
 			players_on_other_team.push_back(player)
-		elif player.team != skip_team:
-			players_on_other_team.push_back(player)
+
+	else:
+		for player in players:
+			if not "team" in player:
+				players_on_other_team.push_back(player)
+			elif player.team != skip_team:
+				players_on_other_team.push_back(player)
+
+	# if there are no players, get closest wall / statue
+	if players_on_other_team.empty():
+		players = get_node("/root/world/YSort/Walls").get_children()
+		for player in players:
+			if not "team" in player:
+				players_on_other_team.push_back(player)
+			elif player.team != skip_team:
+				players_on_other_team.push_back(player)
+
 	return players_on_other_team
