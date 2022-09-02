@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/objects/projectiles/Projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/sprites/sword.png" type="Texture" id=2]
+[ext_resource path="res://scenes/objects/projectiles/Sword.gd" type="Script" id=3]
+
+[node name="Sword" instance=ExtResource( 1 )]
+scale = Vector2( 0.447907, 0.447907 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+speed = 400
+damage = 55
+rotation_speed = 5.0
+
+[node name="CollisionPolygon2D" parent="Hitbox" index="0"]
+polygon = PoolVector2Array( -2.86234, 34.2826, -1.5065, 34.884, 3.61559, -33.6811, 2.25975, -35.4855 )
+
+[node name="Lifespan" parent="." index="1"]
+wait_time = 5.0
+
+[node name="DelayedStart" parent="." index="2"]
+wait_time = 0.05

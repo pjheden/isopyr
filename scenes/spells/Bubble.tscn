@@ -6,6 +6,7 @@
 
 [node name="Bubble" instance=ExtResource( 1 )]
 visible = false
+scale = Vector2( 1.29907, 1.29907 )
 script = ExtResource( 2 )
 
 [node name="Sprite" parent="." index="0"]
