@@ -194,7 +194,7 @@ func broadcast_hero_change(p_id: int, hero: int) -> void:
 ## change_hero changes the selected hero to {hero} for player {p_id}
 remotesync func change_hero(p_id: int, hero: int) -> void:
 	players_info[p_id]["hero"] = hero
-	var name = "LobbyPlayer-" + players_info[p_id]["name"]
+	var name = "LobbyPlayer-" + str(p_id)
 	var pu = get_node("/root/Server_browser/Lobby/Players/" + name)
 	var txt = Global.get_hero_icon(players_info[p_id]["hero"])
 	pu.set_icon(txt)
@@ -206,6 +206,9 @@ func broadcast_team_change(p_id: int, team: int) -> void:
 ## change_team changes the selected team to {team} for player {p_id}
 remotesync func change_team(p_id: int, team: int) -> void:
 	players_info[p_id]["team"] = team
+	var name = "LobbyPlayer-" + str(p_id)
+	var pu = get_node("/root/Server_browser/Lobby/Players/" + name)
+	pu.set_team(team)
 
 func broadcast_map_change(map_name: String) -> void:
 	print("broadcasting map change %s" % map_name)

@@ -77,7 +77,7 @@ func redraw(player_info) -> void:
 ## add_player adds a a player (info) to the loby screen
 func add_player(index: int, p_id: int, info: Dictionary) -> void:
 	var pu = player_ui_scene.instance()
-	pu.update_info(p_id, info)
+	pu.update_info(get_tree().get_network_unique_id(), p_id, info)
 	# TODO: write this better
 	# load right textures
 	var txt = Global.get_hero_icon(info["hero"])
@@ -85,7 +85,7 @@ func add_player(index: int, p_id: int, info: Dictionary) -> void:
 	var height = $Lobby/Players.rect_size.y
 	pu.set_position(Vector2(0,index * (height / 8)))
 	pu.set_global_position(Vector2(0, index * (height / 8)))
-	pu.name = "LobbyPlayer-" + info["name"]
+	pu.name = "LobbyPlayer-" + str(p_id)
 	$Lobby/Players.add_child(pu)
 
 
