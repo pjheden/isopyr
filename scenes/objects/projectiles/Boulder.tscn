@@ -8,3 +8,6 @@ texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" parent="Hitbox" index="0"]
 polygon = PoolVector2Array( -2.7117, 7.81883, 1.95845, 13.8333, 3.91689, 4.81159, 0.903898, -14.4348, -3.61559, -4.81159 )
+
+[node name="DelayedStart" parent="." index="2"]
+wait_time = 0.05

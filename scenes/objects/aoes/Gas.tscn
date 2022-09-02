@@ -6,11 +6,15 @@
 [node name="Gas" instance=ExtResource( 1 )]
 z_index = 2
 texture = ExtResource( 2 )
+damage = 5
 
 [node name="CollisionPolygon2D" parent="Hitbox" index="0"]
 position = Vector2( -38.0625, -4.1875 )
 scale = Vector2( 11.875, 9.375 )
 polygon = PoolVector2Array( -7.06842, 3.96667, -3.11053, 10.0467, 8.67895, 9.62, 13.3947, 3.11333, 10.9526, -7.34, -0.0789473, -7.44667, -6.22632, -4.24667 )
+
+[node name="DamageTick" parent="." index="1"]
+wait_time = 0.3
 
 [node name="DelayedStart" parent="." index="2"]
 wait_time = 0.05

@@ -13,7 +13,7 @@ damage = 20
 polygon = PoolVector2Array( -4.67014, 39.0942, -1.05455, 50.5217, 5.42339, 18.6449, 4.51949, -21.6521, -3.16364, -49.3188, -4.97144, -40.8985, 0.602599, -16.2391, 1.65715, 7.81883 )
 
 [node name="Lifespan" parent="." index="1"]
-wait_time = 0.2
+wait_time = 0.6
 
 [node name="DelayedStart" parent="." index="2"]
-wait_time = 0.1
+wait_time = 0.05

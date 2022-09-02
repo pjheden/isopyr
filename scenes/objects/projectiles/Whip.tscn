@@ -11,3 +11,6 @@ damage = 70
 
 [node name="CollisionPolygon2D" parent="Hitbox" index="0"]
 polygon = PoolVector2Array( -8.94064, 14.2777, 6.25845, 7.13885, 8.94064, 0, 8.04657, -5.35414, 1.78813, -14.2777 )
+
+[node name="DelayedStart" parent="." index="2"]
+wait_time = 0.05

@@ -236,7 +236,7 @@ load_path = "res://.import/plague_doctor_sheet.png-2d3e3d6c6a851509147faf1e21cd4
 
 [node name="PlagueDoctor" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-attack_distance = 80
+attack_distance = 150
 attack_damage = 10
 
 [node name="CollisionPolygon2D" parent="." index="1"]

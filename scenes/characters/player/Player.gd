@@ -14,7 +14,6 @@ var velocity: Vector2
 var dir: Vector2
 var spell_queue: Array = []
 var spell_bindings: Dictionary = {}
-#var defined_animations: Array = ["IdleDown", "IdleTop", "MoveDown", "MoveTop", "RollFade", "AttackDown"]
 var defined_animations: Dictionary = {
 	"IdleDown": "IdleDown",
 	"IdleTop": "IdleTop",

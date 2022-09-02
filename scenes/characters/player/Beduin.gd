@@ -11,7 +11,9 @@ func _ready() -> void:
 		"MoveDown": "MoveDown",
 		"MoveTop": "MoveDown",
 		"RollFade": "RollFade",
-		"AttackDown": "AttackDown"
+		"AttackDown": "AttackDown",
+		"SpellQ": "SpellQ",
+		"SpellW": "SpellW"
 	}
 
 func spells(is_master: bool) -> void:
@@ -20,14 +22,14 @@ func spells(is_master: bool) -> void:
 		"res://scenes/objects/projectiles/Boulder.tscn",
 		"res://resources/sprites/boulder_icon.png",
 		1.6,
-		"modulate"
+		"SpellQ"
 	)
 	var slice_manager = projectile_manager_scene.instance()
 	slice_manager.set_object(
 		"res://scenes/objects/projectiles/Slice.tscn",
 		"res://resources/sprites/slice.png",
 		0.3,
-		"modulate"
+		"SpellW"
 	)
 	# Add spell managers as childs
 	add_child(boulder_manager)

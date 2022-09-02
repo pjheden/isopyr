@@ -5,14 +5,19 @@
 
 [node name="Chtul" instance=ExtResource( 1 )]
 texture = ExtResource( 2 )
+damage = 1
 
 [node name="CollisionPolygon2D" parent="Hitbox" index="0"]
 position = Vector2( -2, 13 )
 scale = Vector2( 1.63732, 2.18382 )
 polygon = PoolVector2Array( -56.1893, 20.1481, -15, 36, 23.8194, 36.1751, 59.243, 19.2323, 72.0688, -6.41077, 62.2968, -28.3906, 34.8129, -44.8754, -4.88602, -51.7441, -51, -35, -71.4581, -10.532 )
 
+[node name="DamageTick" parent="." index="1"]
+wait_time = 0.1
+
 [node name="DelayedStart" parent="." index="2"]
-wait_time = 1.0
+wait_time = 0.2
 
 [node name="LifeSpan" parent="." index="3"]
+wait_time = 3.0
 autostart = false

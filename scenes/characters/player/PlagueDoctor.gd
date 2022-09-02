@@ -20,7 +20,7 @@ func spells(is_master: bool) -> void:
 	bubble_manager.set_object(
 		"res://scenes/objects/projectiles/Blob.tscn",
 		"res://resources/sprites/plague_blob.png",
-		2.0,
+		1.4,
 		"SpellQ"
 	)
 	var rabbit = projectile_manager_scene.instance()
