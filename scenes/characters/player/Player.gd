@@ -191,6 +191,7 @@ sync func destroy() -> void:
 	$Hitbox/CollisionShape2D.disabled = true
 	#dead = true
 	Game.dead(get_network_master())
+	state_machine.transition_to("Dead")
 
 	if is_network_master():
 		Global.player_master = null

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/characters/player/states/Cast.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/Player.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/characters/player/states/Roll.gd" type="Script" id=7]
 [ext_resource path="res://scenes/characters/player/states/Attack.gd" type="Script" id=8]
 [ext_resource path="res://scenes/ui/FCTManager.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/characters/player/states/Dead.gd" type="Script" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 40.0
@@ -250,6 +251,9 @@ initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
 
 [node name="Roll" type="Node" parent="StateMachine"]
 script = ExtResource( 7 )
