@@ -1,9 +1,12 @@
 extends Node
 
-var player_info = {}
+var game_info = {
+	"current_map": ""
+}
+var players_info = {}
 
 func _process(_delta: float) -> void:
-	if len(player_info) == 0:
+	if len(players_info) == 0:
 		return
 	# Have server check if all players are dead
 	if get_tree().is_network_server():
@@ -12,8 +15,8 @@ func _process(_delta: float) -> void:
 			rpc("lobby")
 
 func all_dead() -> bool:
-	for p in player_info:
-		if player_info[p]["alive"]:
+	for p in players_info:
+		if players_info[p]["alive"]:
 			return false
 	return true
 
@@ -22,19 +25,19 @@ func dead(id: int) -> void:
 	dead registers if a player is dead
 	"""
 	print("setting game dead for id ", id)
-	player_info[id]["alive"] = false
+	players_info[id]["alive"] = false
 	
-func set_players(p_i) -> void:
-	"""
-	set_players keeps info on all players related to gameplay
-	"""
-	for id in p_i:
-		player_info[id] = {}
-		player_info[id]["name"] = p_i[id]["name"]
-		player_info[id]["color"] = p_i[id]["color"]
-		player_info[id]["hero"] = p_i[id]["hero"]
-		player_info[id]["team"] = p_i[id]["team"]
-		player_info[id]["alive"] = true
+# func set_players(p_i) -> void:
+# 	"""
+# 	set_players keeps info on all players related to gameplay
+# 	"""
+# 	for id in p_i:
+# 		players_info[id] = {}
+# 		players_info[id]["name"] = p_i[id]["name"]
+# 		players_info[id]["color"] = p_i[id]["color"]
+# 		players_info[id]["hero"] = p_i[id]["hero"]
+# 		players_info[id]["team"] = p_i[id]["team"]
+# 		players_info[id]["alive"] = true
 
 ## lobby cleans up the level, players and such and return the visuals to the lobby
 sync func lobby() -> void:
@@ -43,28 +46,28 @@ sync func lobby() -> void:
 	if world:
 		world.get_parent().remove_child(world)
 	# reset player info
-	# player_info = {}
+	# players_info = {}
 	# show lobby
 	Network.lobby.show()
 	Network.lobby.hide_server_browser(get_tree().get_network_unique_id() == 1)
 
 func load_world() -> Node:
 	# Load world
-	var world = load(Network.get_map()).instance()
+	var world = load(game_info.current_map).instance()
 	world.name = "world"
 	get_node("/root").add_child(world)
 
 	return world
 	
-func spawn_players(world, spawn_points) -> void:
+func spawn_players(world: Node, spawn_points: Dictionary) -> void:
 	# Get spawns
 	var spawns_node = world.get_node("Spawns")
 	
 	for p_id in spawn_points:
 		var spawn_pos = spawns_node.get_child(spawn_points[p_id]).global_position
-		var player = character_scene(player_info[p_id]["hero"]).instance()
+		var player = character_scene(players_info[p_id]["hero"]).instance()
 		player.set_name(str(p_id))
-		player.set_team(player_info[p_id]["team"])
+		player.set_team(players_info[p_id]["team"])
 		player.id = p_id
 		print("setting network master %s" % p_id)
 		player.set_network_master(p_id)
@@ -82,3 +85,18 @@ func character_scene(hero: int):
 		Global.Hero.PLAGUEDOCTOR:
 			return load("res://scenes/characters/player/PlagueDoctor.tscn")
 	assert(true, "Could not match hero with value %s " % hero)
+
+func create_player_info():
+	var d = {}
+	d["name"] = Save.save_data["playerName"]
+	var colors = [Color8(0,0,0), Color8(255,255,255), Color8(255,0,0), Color8(0,255,0), Color8(0,0,255)]
+	d["color"] = colors[randi() % colors.size()]
+	d["hero"] = Global.Hero.PLAGUEDOCTOR
+	d["team"] = Global.Team.TEAM1
+	d["alive"] = true
+
+	# TMP for easier debugging
+	if get_tree().get_network_unique_id() != 1:
+		d["hero"] = Global.Hero.BEDUIN
+		d["team"] = Global.Team.TEAM2
+	return d

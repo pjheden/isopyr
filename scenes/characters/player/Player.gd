@@ -47,7 +47,7 @@ func _ready() -> void:
 	if is_network_master():
 		Global.player_master = self
 		hud = get_parent().get_parent().get_parent().get_node("HUD")
-		hud.set_name(Game.player_info[int(name)]["name"])
+		hud.set_name(Game.players_info[int(name)]["name"])
 	# Prepare player spells
 	spells(is_network_master())
 	add_to_group("team_%s" % team)
