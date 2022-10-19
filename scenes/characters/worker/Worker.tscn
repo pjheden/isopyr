@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/characters/worker/states/Gather.gd" type="Script" id=1]
+[ext_resource path="res://tools/StateMachine.gd" type="Script" id=2]
+[ext_resource path="res://scenes/characters/worker/states/Idle.gd" type="Script" id=3]
+[ext_resource path="res://scenes/characters/worker/Worker.gd" type="Script" id=4]
+[ext_resource path="res://scenes/characters/worker/states/Dead.gd" type="Script" id=5]
+[ext_resource path="res://scenes/characters/worker/states/Move.gd" type="Script" id=6]
+[ext_resource path="res://scenes/characters/State.gd" type="Script" id=7]
+[ext_resource path="res://resources/sprites/simple_guy_sheetpng.png" type="Texture" id=8]
+[ext_resource path="res://scenes/ui/FCTManager.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/characters/worker/states/Dropoff.gd" type="Script" id=10]
+
+[sub_resource type="CapsuleShape2D" id=1]
+height = 34.0
+
+[node name="Worker" type="KinematicBody2D"]
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 3, 4 )
+scale = Vector2( 0.20339, 0.20339 )
+texture = ExtResource( 8 )
+hframes = 6
+vframes = 2
+region_rect = Rect2( 462.09, 290.343, 21.766, 81.6224 )
+
+[node name="FCTManager" parent="." instance=ExtResource( 9 )]
+position = Vector2( 0, -36.8339 )
+
+[node name="State" type="Label" parent="."]
+margin_left = -18.0
+margin_top = -57.0
+margin_right = 22.0
+margin_bottom = -43.0
+text = "State"
+script = ExtResource( 7 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 2 )
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 3 )
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+
+[node name="Gather" type="Node" parent="StateMachine"]
+script = ExtResource( 1 )
+
+[node name="Dropoff" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+position = Vector2( -1, 4 )
+scale = Vector2( 1.61573, 1.56406 )
+polygon = PoolVector2Array( -4, 17, 1, 17, 7, 14, 5, 10, 0, 9, -4, 12 )
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2( 2, -1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -1, 6 )
+shape = SubResource( 1 )
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="transitioned" from="StateMachine" to="State" method="_on_StateMachine_transitioned"]
