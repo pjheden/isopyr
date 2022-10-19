@@ -48,6 +48,7 @@ func _ready() -> void:
 		Global.player_master = self
 		hud = get_parent().get_parent().get_parent().get_node("HUD")
 		hud.set_name(Game.players_info[int(name)]["name"])
+		hud.update_health_bar(hp)
 	# Prepare player spells
 	spells(is_network_master())
 	add_to_group("team_%s" % team)
@@ -79,6 +80,7 @@ func flip_sprite(flip: bool) -> void:
 
 
 func set_team(new_team: int) -> void:
+	remove_from_group("team_%s" % team)
 	team = new_team
 	add_to_group("team_%s" % new_team)
 
@@ -195,6 +197,8 @@ sync func destroy() -> void:
 
 	if is_network_master():
 		Global.player_master = null
+
+	queue_free()
 
 func _on_NetworkTickRate_timeout():
 	if is_network_master():

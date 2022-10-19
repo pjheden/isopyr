@@ -49,10 +49,13 @@ func create_client(address: String):
 	get_tree().network_peer = peer
 	my_id = get_tree().get_network_unique_id()
 
+# called on the server when a player connects
 func _player_connected(id):
-	print("player connected: ", id)
+	print("player connected: ", id, " ", my_id)
 	# send only to server
-	rpc_id(id, "register_player", players_info[my_id])
+	# TODO: rethink this part. Since this activates on the server we don't have information about the player. But it gives us a chance to send game information to the newly connected player
+	#rpc_id(id, "register_player", Game.players_info[1])
+	rpc_id(1, "register_player", id, Game.players_info[id] )
 		
 func _player_disconnected(id):
 	print("player disconnected: ", id)

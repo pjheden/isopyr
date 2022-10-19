@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/objects/buildings/Building.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/sprites/selection_ringpng.png" type="Texture" id=2]
+[ext_resource path="res://scenes/objects/buildings/Base.gd" type="Script" id=3]
+
+[sub_resource type="CubeMesh" id=1]
+
+[node name="Base" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( -2, 3 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." index="5"]
+position = Vector2( 2.5, -9 )
+scale = Vector2( 51.5, 113 )
+mesh = SubResource( 1 )
+
+[node name="Spawns" type="Node2D" parent="." index="6"]
+
+[node name="Sprite2" type="Sprite" parent="Spawns" index="0"]
+position = Vector2( -165, 0 )
+texture = ExtResource( 2 )
+
+[node name="Sprite3" type="Sprite" parent="Spawns" index="1"]
+position = Vector2( -126, -100 )
+texture = ExtResource( 2 )
+
+[node name="Sprite4" type="Sprite" parent="Spawns" index="2"]
+position = Vector2( -4, -166 )
+texture = ExtResource( 2 )
+
+[node name="Sprite5" type="Sprite" parent="Spawns" index="3"]
+position = Vector2( 133, -93 )
+texture = ExtResource( 2 )
+
+[node name="Sprite6" type="Sprite" parent="Spawns" index="4"]
+position = Vector2( 158, 4 )
+texture = ExtResource( 2 )

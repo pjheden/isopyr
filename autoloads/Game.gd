@@ -1,7 +1,20 @@
 extends Node
 
+signal dead_player(id)
+
 var game_info = {
-	"current_map": ""
+	"current_map": "",
+	"game_mode": Global.GameMode.SIEGE,
+	"bases": [
+		{
+			"team": Global.Team.TEAM1,
+			"alive": true
+		},
+		{
+			"team": Global.Team.TEAM2,
+			"alive": true
+		}
+	]
 }
 var players_info = {}
 
@@ -10,9 +23,19 @@ func _process(_delta: float) -> void:
 		return
 	# Have server check if all players are dead
 	if get_tree().is_network_server():
-		var all_dead = all_dead()
-		if all_dead:
+		if game_over():
 			rpc("lobby")
+
+func game_over() -> bool:
+	if game_info["game_mode"] == Global.GameMode.SIEGE:
+		return one_base_left()
+	elif game_info["game_mode"] == Global.GameMode.TDM:
+		return all_dead()
+	elif game_info["game_mode"] == Global.GameMode.FFA:
+		return all_dead()
+	else:
+		push_warning("invalid gamemode: %s" % game_info["game_mode"])
+	return false
 
 func all_dead() -> bool:
 	for p in players_info:
@@ -20,12 +43,20 @@ func all_dead() -> bool:
 			return false
 	return true
 
+func one_base_left() -> bool:
+	var bases_alive: int = 0
+	for base in game_info["bases"]:
+		if base.alive == true:
+			bases_alive += 1
+	return bases_alive < 2
+
 func dead(id: int) -> void:
 	"""
 	dead registers if a player is dead
 	"""
 	print("setting game dead for id ", id)
 	players_info[id]["alive"] = false
+	emit_signal("dead_player", id)
 	
 # func set_players(p_i) -> void:
 # 	"""
@@ -64,15 +95,18 @@ func spawn_players(world: Node, spawn_points: Dictionary) -> void:
 	var spawns_node = world.get_node("Spawns")
 	
 	for p_id in spawn_points:
-		var spawn_pos = spawns_node.get_child(spawn_points[p_id]).global_position
-		var player = character_scene(players_info[p_id]["hero"]).instance()
-		player.set_name(str(p_id))
-		player.set_team(players_info[p_id]["team"])
-		player.id = p_id
-		print("setting network master %s" % p_id)
-		player.set_network_master(p_id)
-		player.global_position = spawn_pos
-		world.get_node("YSort/Players").add_child(player)
+		var spawn_pos: Vector2 = spawns_node.get_child(spawn_points[p_id]).global_position
+		spawn_player(world, p_id, spawn_pos)
+
+func spawn_player(world: Node, p_id: int, spawn_pos: Vector2) -> void:
+	var player = character_scene(players_info[p_id]["hero"]).instance()
+	player.set_name(str(p_id))
+	player.set_team(players_info[p_id]["team"])
+	player.id = p_id
+	print("setting network master %s" % p_id)
+	player.set_network_master(p_id)
+	player.global_position = spawn_pos
+	world.get_node("YSort/Players").add_child(player)
 
 func character_scene(hero: int):
 	match hero:

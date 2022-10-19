@@ -47,7 +47,7 @@ func update(delta: float) -> void:
 					"targetBodyType": target_body_type,
 				}
 			)
-		if done_moving:
+		elif done_moving:
 			state_machine.transition_to("Idle")
 	else:
 		# if we haven't got a network packet in a while, update player pos

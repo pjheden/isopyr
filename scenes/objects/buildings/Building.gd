@@ -70,7 +70,7 @@ func _on_Hitbox_area_entered(area):
 func _on_Hitbox_mouse_entered():
 	if team == Global.Team.NONE:
 		Mouse.play_info(self)
-	elif team == Global.player_master.get_team():
+	elif Global.player_master and team == Global.player_master.get_team():
 		Mouse.play_friendly(self)
 	else:
 		Mouse.play_danger(self)
