@@ -11,21 +11,23 @@ func update(_delta: float) -> void:
 
 func handle_order(order) -> void:
 	if order == player.Order.FORESTRY:
-		forestry()
+		if player.has_resources():
+			move_to_nearest("/root/world/Resources/Bases")
+		else:
+			move_to_nearest("/root/world/Resources/Forests")
 	else:
 		push_error("Invalid order %s" % order)
 
-func forestry() -> void:
-	# find the most suited foresst
-	var forests = get_node("/root/world/Resources/Forest").get_children()
-	if forests.size() == 0:
+func move_to_nearest(node_path: String) -> void:
+	var found_nodes = get_node(node_path).get_children()
+	if found_nodes.size() == 0:
 		return
 
-	var closest_dist = player.global_position.distance_to(forests[0].global_position)
+	var closest_dist = player.global_position.distance_to(found_nodes[0].global_position)
 	var closest_idx = 0
 	var i = 0
-	for forest in forests:
-		var current_dist = player.global_position.distance_to(forest.global_position)
+	for found_node in found_nodes:
+		var current_dist = player.global_position.distance_to(found_node.global_position)
 		if current_dist < closest_dist:
 			closest_idx = i
 		i += 1
@@ -34,6 +36,6 @@ func forestry() -> void:
 	player.state_machine.transition_to(
 		"Move",
 		{
-			"targetPosition": forests[closest_idx].global_position,
+			"targetPosition": found_nodes[closest_idx].global_position,
 		}
 	)

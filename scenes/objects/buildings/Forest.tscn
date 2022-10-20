@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/objects/buildings/Forest.gd" type="Script" id=1]
+[ext_resource path="res://scenes/objects/buildings/Building.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+void fragment() {
+	COLOR = vec4(0.0,1.0,0,1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+
+[sub_resource type="CylinderMesh" id=10]
+
+[node name="Forest" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+wood = 4000
+slots = 3
+
+[node name="HPbar" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( -0.543462, 1.37963 )
+scale = Vector2( 2.83252, 1.4931 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." index="5"]
+material = SubResource( 9 )
+scale = Vector2( -136.222, -154.457 )
+mesh = SubResource( 10 )
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

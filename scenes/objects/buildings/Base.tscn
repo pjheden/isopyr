@@ -8,9 +8,17 @@
 
 [node name="Base" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+respawn_time = 10.0
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( -2, 3 )
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PoolVector2Array( -7, 16, 8, 16, 8, -6, -10, -9 )
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( -2, -4 )
+scale = Vector2( 0.960596, 1.05311 )
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." index="5"]
 position = Vector2( 2.5, -9 )
@@ -38,3 +46,5 @@ texture = ExtResource( 2 )
 [node name="Sprite6" type="Sprite" parent="Spawns" index="4"]
 position = Vector2( 158, 4 )
 texture = ExtResource( 2 )
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

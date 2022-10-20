@@ -22,6 +22,8 @@ var defined_animations: Dictionary = {
 enum Order {NONE, FORESTRY}
 var active_order # type: Order
 var resources = []
+var gather_time = 5.0
+var gather_amount = 50.0
 
 # References
 onready var animation_player = $AnimationPlayer 
@@ -35,9 +37,25 @@ onready var navigation_agent = $NavigationAgent2D
 func _ready() -> void:
 	# Prepare player spells
 	add_to_group("team_%s" % team)
+	add_to_group("worker")
 	set_network_master(get_tree().get_network_unique_id())
 	state_machine.transition_to("Idle")
+
+func load(data: Dictionary) -> void:
+	team = data["team"]	
+	resources = data["resources"]
+	hp = data["hp"]
+	active_order = data["active_order"]
+	global_position = data["global_position"]
 	
+func data() -> Dictionary:
+	return {
+		"team": team,
+		"resources": resources,
+		"hp": hp,
+		"active_order": active_order,
+		"global_position": global_position,
+	}
 
 func add_order(order) -> void:
 	active_order = order

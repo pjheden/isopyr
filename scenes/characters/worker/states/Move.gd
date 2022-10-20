@@ -19,13 +19,7 @@ func update(delta: float) -> void:
 
 	var done_moving: bool = move_player(delta)
 	if done_moving:
-		if player.active_order:
-			if player.has_resources():
-				state_machine.transition_to("Dropoff")
-			else:
-				state_machine.transition_to("Gather")
-		else:
-			state_machine.transition_to("Idle")
+		state_machine.transition_to("Idle")
 
 func move_player(_delta: float) -> bool:
 	# update player position
