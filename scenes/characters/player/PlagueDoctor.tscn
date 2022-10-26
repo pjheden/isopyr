@@ -1,6 +1,7 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/characters/player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/sprites/plague_doctor_sheet.png" type="Texture" id=2]
 [ext_resource path="res://scenes/characters/player/PlagueDoctor.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=7]
@@ -68,7 +69,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=10]
 resource_name = "MoveTop"
-length = 0.6
+length = 0.4
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -77,10 +78,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 2, 3, 4, 5, 6, 7 ]
+"values": [ 2, 3, 4, 5 ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -230,10 +231,6 @@ tracks/0/keys = {
 "values": [ 12, 13, 14 ]
 }
 
-[sub_resource type="StreamTexture" id=6]
-flags = 4
-load_path = "res://.import/plague_doctor_sheet.png-2d3e3d6c6a851509147faf1e21cd477f.stex"
-
 [node name="PlagueDoctor" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 attack_distance = 150
@@ -257,8 +254,8 @@ anims/SpellQ = SubResource( 16 )
 anims/SpellW = SubResource( 17 )
 
 [node name="Sprite" parent="." index="5"]
-position = Vector2( 23.511, -3.91849 )
-scale = Vector2( -0.464932, 0.464932 )
-texture = SubResource( 6 )
+position = Vector2( 7.83699, -4.70219 )
+scale = Vector2( -0.083, 0.083 )
+texture = ExtResource( 2 )
 offset = Vector2( 39.5179, 4.96136 )
 vframes = 3

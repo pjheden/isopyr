@@ -52,6 +52,7 @@ func _ready() -> void:
 	# Prepare player spells
 	spells(is_network_master())
 	add_to_group("team_%s" % team)
+	add_to_group("player")
 
 func _input(event) -> void:
 	if not is_network_master():
@@ -80,7 +81,8 @@ func flip_sprite(flip: bool) -> void:
 
 
 func set_team(new_team: int) -> void:
-	remove_from_group("team_%s" % team)
+	if is_in_group("team_%s" % team):
+		remove_from_group("team_%s" % team)
 	team = new_team
 	add_to_group("team_%s" % new_team)
 
@@ -165,8 +167,6 @@ func _on_Hitbox_area_entered(area:Area2D):
 		#hit_by_damager(p.damage)
 		rpc("hit_by_damager", p.damage)
 		
-
-
 func hit_by_physical_damager(damage):
 	rpc("hit_by_damager", damage)
 
