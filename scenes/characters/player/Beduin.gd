@@ -37,12 +37,12 @@ func spells(is_master: bool) -> void:
 
 	if is_master:
 		# Define all spells
-		spell_bindings["q"] = slice_manager
-		spell_bindings["w"] = boulder_manager
+		spell_bindings[Global.spell1_button] = slice_manager
+		spell_bindings[Global.spell2_button] = boulder_manager
 
 		# Update HUD with spells
 		hud.load_spellbar(
-			["q", "w"],
+			[Global.spell1_button, Global.spell2_button],
 			[slice_manager.icon(), boulder_manager.icon()],
 			[slice_manager.cooldown, boulder_manager.cooldown]
 		)

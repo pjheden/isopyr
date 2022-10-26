@@ -14,7 +14,6 @@ func update(_delta: float) -> void:
 		player.hud.update_cast_bar(cast_timer.wait_time, cast_timer.time_left)
 
 	if len(player.spell_queue) == 0:
-		# TODO: ought to transition to Attack if that was the previous state
 		if not casting:
 			state_machine.transition_to("Idle")
 		return
@@ -44,16 +43,7 @@ func exit() -> void:
 	cast_timer.stop()
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed(Global.move_button):
-		state_machine.transition_to(
-			"Move",
-			{
-				"targetPosition": Mouse.global_position,
-				"targetBody": Mouse.target_body,
-				"targetBodyType": Mouse.target_body_type,
-			}
-		)
-	elif event.is_action_pressed("shift"):
+	if event.is_action_pressed("shift"):
 		if player.roll_cooldown.get_time_left() == 0.0:
 			state_machine.transition_to("Roll")
 

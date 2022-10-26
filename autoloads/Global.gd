@@ -2,7 +2,8 @@ extends Node
 
 var player_master = null
 var projectile_scenes = {}
-var move_button = "left_click"
+var spell1_button = "Spell1"
+var spell2_button = "Spell2"
 
 # Enums
 enum Hero {MAXIMUS, BEDUIN, GOOLOCK, PLAGUEDOCTOR}

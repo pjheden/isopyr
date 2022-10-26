@@ -36,12 +36,12 @@ func spells(is_master: bool) -> void:
 
 	if is_master:
 		# Define all spells
-		spell_bindings["q"] = bubble_manager
-		spell_bindings["w"] = rabbit
+		spell_bindings[Global.spell1_button] = bubble_manager
+		spell_bindings[Global.spell2_button] = rabbit
 		
 		# Update HUD with spells
 		hud.load_spellbar(
-			["q", "w"],
+			[Global.spell1_button, Global.spell2_button],
 			[bubble_manager.icon(), rabbit.icon()],
 			[bubble_manager.cooldown, rabbit.cooldown]
 		)

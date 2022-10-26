@@ -37,12 +37,12 @@ func spells(is_master: bool) -> void:
 
 	if is_master:
 		# Define all spells
-		spell_bindings["q"] = aoe_manager
-		spell_bindings["w"] = whip_manager
+		spell_bindings[Global.spell1_button] = aoe_manager
+		spell_bindings[Global.spell2_button] = whip_manager
 
 		# Update HUD with spells
 		hud.load_spellbar(
-			["q", "w"],
+			[Global.spell1_button, Global.spell2_button],
 			[aoe_manager.icon(), whip_manager.icon()],
 			[aoe_manager.cooldown, whip_manager.cooldown]
 		)
