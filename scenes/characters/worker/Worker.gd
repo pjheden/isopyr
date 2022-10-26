@@ -12,6 +12,7 @@ var team: int
 var player_rotation : float = 0.0
 var velocity: Vector2
 var dir: Vector2
+var base_index: int # 0-2, its their unique id in base
 
 var defined_animations: Dictionary = {
 	"IdleDown": "IdleDown",
@@ -19,8 +20,8 @@ var defined_animations: Dictionary = {
 	"MoveDown": "MoveDown",
 	"MoveTop": "MoveTop"
 }
-enum Order {NONE, FORESTRY}
 var active_order # type: Order
+var last_entered_building: Node
 var resources = []
 var gather_time = 5.0
 var gather_amount = 50.0
@@ -41,26 +42,48 @@ func _ready() -> void:
 	set_network_master(get_tree().get_network_unique_id())
 	state_machine.transition_to("Idle")
 
-func load(data: Dictionary) -> void:
-	team = data["team"]	
-	resources = data["resources"]
-	hp = data["hp"]
-	active_order = data["active_order"]
-	global_position = data["global_position"]
+func respawn() -> void:
+	state_machine.transition_to("Idle")
+
+# func load(data: Dictionary) -> void:
+# 	team = data["team"]	
+# 	resources = data["resources"]
+# 	hp = data["hp"]
+# 	active_order = data["active_order"]
+# 	global_position = data["global_position"]
+# 	base_index = data["base_index"]
 	
-func data() -> Dictionary:
-	return {
-		"team": team,
-		"resources": resources,
-		"hp": hp,
-		"active_order": active_order,
-		"global_position": global_position,
-	}
+# func data() -> Dictionary:
+# 	return {
+# 		"team": team,
+# 		"resources": resources,
+# 		"hp": hp,
+# 		"active_order": active_order,
+# 		"global_position": global_position,
+# 		"base_index": base_index,
+# 	}
 
-func add_order(order) -> void:
-	active_order = order
+func change_order(new_order: int) -> void:
+	if not active_order == Global.WorkOrder.NONE:
+		last_entered_building = null
+	active_order = new_order
+	if state_machine:
+		state_machine.transition_to("Idle")
 
-func add_resource(amount: float, type: String) -> void:
+func enter_building(building: Node) -> void:
+	if active_order == Global.WorkOrder.HOME:
+		active_order = Global.WorkOrder.NONE
+	last_entered_building = building
+	get_parent().remove_child(self)
+
+func wants_to_enter(building: Node) -> bool:
+	var wants = false
+	wants = building != last_entered_building # check that its not the building we just left
+	if building.has_method("relevant_orders"):
+		wants = wants and active_order in building.relevant_orders()
+	return wants
+
+func add_resource(amount: float, type: int) -> void:
 	resources.append({"amount": amount, "type": type})
 
 func has_resources() -> bool:
@@ -102,7 +125,7 @@ func calculate_animation_custom_speed(type: String, target_time: float) -> float
 	return 1.0
 
 func play_animation(down: bool, type: String = "Move", target_time: float = 0.0) -> void:
-	return
+	return #TODO: temp
 	var custom_speed: float = calculate_animation_custom_speed(type, target_time)
 
 	match type:
@@ -150,6 +173,10 @@ func _on_Hitbox_area_entered(area:Area2D):
 		if self.team == p.get_team():
 			return
 
+func hit_by_physical_damager(damage):
+	#rpc("hit_by_damager", damage)
+	hit_by_damager(damage)
+
 func hit_by_damager(damage):
 	fct_manager.show_value(damage)
 	hp -= damage
@@ -158,6 +185,7 @@ func hit_by_damager(damage):
 
 	if hp <= 0:
 		queue_free()
+		# TODO: need to signal the base that the worker is dead
 	
 func _on_HitTimer_timeout():
 	modulate = Color(1, 1, 1, 1)

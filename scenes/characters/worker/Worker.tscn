@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
+[ext_resource path="res://resources/fonts/new_dynamicfont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://tools/StateMachine.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/worker/states/Idle.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/worker/Worker.gd" type="Script" id=4]
@@ -27,10 +28,11 @@ region_rect = Rect2( 462.09, 290.343, 21.766, 81.6224 )
 position = Vector2( 0, -36.8339 )
 
 [node name="State" type="Label" parent="."]
-margin_left = -18.0
+margin_left = -29.0
 margin_top = -57.0
-margin_right = 22.0
-margin_bottom = -43.0
+margin_right = 29.0
+margin_bottom = -32.0
+custom_fonts/font = ExtResource( 1 )
 text = "State"
 script = ExtResource( 7 )
 
@@ -68,3 +70,7 @@ shape = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [connection signal="transitioned" from="StateMachine" to="State" method="_on_StateMachine_transitioned"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="mouse_entered" from="Hitbox" to="." method="_on_Hitbox_mouse_entered"]
+[connection signal="mouse_exited" from="Hitbox" to="." method="_on_Hitbox_mouse_exited"]

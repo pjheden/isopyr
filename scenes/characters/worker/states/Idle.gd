@@ -10,13 +10,18 @@ func update(_delta: float) -> void:
 		handle_order(player.active_order)
 
 func handle_order(order) -> void:
-	if order == player.Order.FORESTRY:
-		if player.has_resources():
+	match (order):
+		Global.WorkOrder.HOME:
 			move_to_nearest("/root/world/Resources/Bases")
-		else:
-			move_to_nearest("/root/world/Resources/Forests")
-	else:
-		push_error("Invalid order %s" % order)
+		Global.WorkOrder.FORESTRY:
+			if player.has_resources():
+				move_to_nearest("/root/world/Resources/Bases")
+			else:
+				move_to_nearest("/root/world/Resources/Forests")
+		Global.WorkOrder.NONE:
+			return
+		_:
+			push_error("Invalid order %s" % order)
 
 func move_to_nearest(node_path: String) -> void:
 	var found_nodes = get_node(node_path).get_children()
