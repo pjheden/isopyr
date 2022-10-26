@@ -1,50 +1,170 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/objects/buildings/Building.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/sprites/selection_ringpng.png" type="Texture" id=2]
 [ext_resource path="res://scenes/objects/buildings/Base.gd" type="Script" id=3]
+[ext_resource path="res://resources/camp.png" type="Texture" id=4]
+[ext_resource path="res://resources/ui/tree.png" type="Texture" id=5]
+[ext_resource path="res://resources/ui/base_menu.png" type="Texture" id=6]
+[ext_resource path="res://resources/fonts/new_dynamicfont.tres" type="DynamicFont" id=8]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="RectangleShape2D" id=1]
 
 [node name="Base" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 respawn_time = 10.0
 
-[node name="Sprite" parent="." index="0"]
-position = Vector2( -2, 3 )
+[node name="Spawns" type="Node2D" parent="." index="0"]
+visible = false
+position = Vector2( 27.0411, 45 )
 
-[node name="CollisionPolygon2D" parent="." index="1"]
-polygon = PoolVector2Array( -7, 16, 8, 16, 8, -6, -10, -9 )
+[node name="Sprite3" type="Sprite" parent="Spawns" index="0"]
+position = Vector2( -112, 10 )
+texture = ExtResource( 2 )
+
+[node name="Sprite4" type="Sprite" parent="Spawns" index="1"]
+position = Vector2( -14, -120 )
+texture = ExtResource( 2 )
+
+[node name="Sprite5" type="Sprite" parent="Spawns" index="2"]
+position = Vector2( 99, -44 )
+texture = ExtResource( 2 )
+
+[node name="Sprite6" type="Sprite" parent="Spawns" index="3"]
+position = Vector2( 45, 32 )
+texture = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="1"]
+position = Vector2( -2, -1 )
+scale = Vector2( 0.1496, 0.1496 )
+texture = ExtResource( 4 )
+
+[node name="CollisionPolygon2D" parent="." index="2"]
+visible = false
+polygon = PoolVector2Array( -72, 11, -17, 17, 13, 16, 31, 4, 45, -6, 71, -21, 49, -32, 24, -19, -15, -27, -53, -58, -118, -16 )
+
+[node name="HPbar" parent="." index="3"]
+margin_left = -43.0
+margin_top = -141.0
+margin_right = 597.0
+margin_bottom = -41.0
+
+[node name="Hitbox" parent="." index="5"]
+visible = false
+position = Vector2( 27.0411, 45 )
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2( -2, -4 )
+position = Vector2( -50.0411, -67.5 )
 scale = Vector2( 0.960596, 1.05311 )
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="." index="5"]
-position = Vector2( 2.5, -9 )
-scale = Vector2( 51.5, 113 )
-mesh = SubResource( 1 )
+[node name="Menu" type="Control" parent="." index="6"]
+margin_left = -12.0
+margin_top = 33.0
+margin_right = 28.0
+margin_bottom = 73.0
 
-[node name="Spawns" type="Node2D" parent="." index="6"]
+[node name="TextureRect" type="TextureRect" parent="Menu" index="0"]
+margin_left = -133.0
+margin_top = -397.0
+margin_right = 1787.0
+margin_bottom = 1075.0
+rect_scale = Vector2( 0.154644, 0.155138 )
+texture = ExtResource( 6 )
 
-[node name="Sprite2" type="Sprite" parent="Spawns" index="0"]
-position = Vector2( -165, 0 )
-texture = ExtResource( 2 )
+[node name="Worker0" type="TextureButton" parent="Menu" index="1"]
+margin_left = -110.0
+margin_top = -349.0
+margin_right = -70.0
+margin_bottom = -309.0
+rect_scale = Vector2( 1.93622, 1.99229 )
+expand = true
+stretch_mode = 5
 
-[node name="Sprite3" type="Sprite" parent="Spawns" index="1"]
-position = Vector2( -126, -100 )
-texture = ExtResource( 2 )
+[node name="Worker1" type="TextureButton" parent="Menu" index="2"]
+margin_left = -27.0
+margin_top = -349.0
+margin_right = 13.0
+margin_bottom = -309.0
+rect_scale = Vector2( 1.8635, 1.8635 )
+stretch_mode = 3
 
-[node name="Sprite4" type="Sprite" parent="Spawns" index="2"]
-position = Vector2( -4, -166 )
-texture = ExtResource( 2 )
+[node name="Worker2" type="TextureButton" parent="Menu" index="3"]
+margin_left = 56.0
+margin_top = -349.0
+margin_right = 96.0
+margin_bottom = -309.0
+rect_scale = Vector2( 1.8635, 1.8635 )
+stretch_mode = 3
 
-[node name="Sprite5" type="Sprite" parent="Spawns" index="3"]
-position = Vector2( 133, -93 )
-texture = ExtResource( 2 )
+[node name="Wall" type="Button" parent="Menu" index="4"]
+visible = false
+margin_left = 118.0
+margin_top = -187.0
+margin_right = 130.0
+margin_bottom = -167.0
+rect_scale = Vector2( 4.17973, 2.48471 )
 
-[node name="Sprite6" type="Sprite" parent="Spawns" index="4"]
-position = Vector2( 158, 4 )
-texture = ExtResource( 2 )
+[node name="Catapult" type="Button" parent="Menu" index="5"]
+visible = false
+margin_left = 181.0
+margin_top = -187.0
+margin_right = 193.0
+margin_bottom = -167.0
+rect_scale = Vector2( 4.17973, 2.48471 )
+
+[node name="Tower" type="Button" parent="Menu" index="6"]
+visible = false
+margin_left = 248.0
+margin_top = -187.0
+margin_right = 260.0
+margin_bottom = -167.0
+rect_scale = Vector2( 4.17973, 2.48471 )
+
+[node name="Bridge" type="Button" parent="Menu" index="7"]
+visible = false
+margin_left = 308.0
+margin_top = -187.0
+margin_right = 320.0
+margin_bottom = -167.0
+rect_scale = Vector2( 4.17973, 2.48471 )
+
+[node name="WoodCount" type="Label" parent="Menu" index="8"]
+margin_left = -9.0
+margin_top = -388.0
+margin_right = 45.0
+margin_bottom = -357.0
+custom_fonts/font = ExtResource( 8 )
+text = "300"
+
+[node name="TreeIcon" type="TextureRect" parent="Menu" index="9"]
+margin_left = 35.0
+margin_top = -384.0
+margin_right = 335.0
+margin_bottom = 29.0
+rect_scale = Vector2( 0.0388727, 0.0388727 )
+texture = ExtResource( 5 )
+
+[node name="ItemList" type="ItemList" parent="Menu" index="10"]
+visible = false
+margin_left = 203.0
+margin_top = -250.0
+margin_right = 243.0
+margin_bottom = -169.0
+rect_scale = Vector2( 1.7577, 1.7577 )
+items = [ "Item 0", null, false, "Item 1", null, false, "Item 2", null, false, "Item 3", null, false ]
+auto_height = true
+
+[node name="Menubox" type="Area2D" parent="." index="7"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Menubox" index="0"]
+scale = Vector2( 21.8868, -16.0703 )
+shape = SubResource( 1 )
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="pressed" from="Menu/Worker0" to="." method="_on_Worker0_pressed"]
+[connection signal="pressed" from="Menu/Worker1" to="." method="_on_Worker1_pressed"]
+[connection signal="pressed" from="Menu/Worker2" to="." method="_on_Worker2_pressed"]
+[connection signal="item_selected" from="Menu/ItemList" to="." method="_on_ItemList_item_selected"]
+[connection signal="body_entered" from="Menubox" to="." method="_on_Menubox_body_entered"]
+[connection signal="body_exited" from="Menubox" to="." method="_on_Menubox_body_exited"]

@@ -3,33 +3,32 @@ extends "res://scenes/objects/buildings/Building.gd"
 export(int) var wood = 4000
 export(int) var slots = 3
 
-const worker_scene = preload("res://scenes/characters/worker/Worker.tscn")
-
 var contains : int
 var spawn_node: Node
+var resource_type = Global.Resource.WOOD
 
 func _ready():
 	spawn_node = get_node("/root/world/YSort")
 
+func relevant_orders() -> Array:
+	return [Global.WorkOrder.FORESTRY]
+
 func available_slot() -> bool:
 	return contains < slots
 
-func enter_forest(unit_data: Dictionary, gather_time: float, gather_amount: float) -> void:
+func enter(body: Node, gather_time: float, gather_amount: float) -> void:
 	contains += 1
-
+	body.enter_building(self)
 	yield(get_tree().create_timer(gather_time), "timeout")
-	leave_forest(unit_data, gather_amount)
+	leave(body, gather_amount)
 
-func leave_forest(unit_data: Dictionary, gather_amount: float) -> void:
-	contains += 1
-	
-	# create worker
-	var worker = worker_scene.instance()
-	worker.load(unit_data)
+func leave(body: Node, gather_amount: float) -> void:
+	contains -= 1
 	# add resource
-	worker.add_resource(take_resource(gather_amount), "WOOD")
+	body.add_resource(take_resource(gather_amount), resource_type)
 	# add to world
-	spawn_node.add_child(worker)
+	spawn_node.add_child(body)
+	body.respawn()
 
 func take_resource(gather_amount: float) -> float:
 	if wood < gather_amount:
@@ -54,6 +53,5 @@ func _on_Hitbox_mouse_exited():
 	Mouse.reset()
 
 func _on_Hitbox_body_entered(body:Node):
-	if body.is_in_group("worker") and body.has_method("data") and not body.has_resources():
-		enter_forest(body.data(), body.gather_time, body.gather_amount)
-		body.queue_free()
+	if body.is_in_group("worker") and body.wants_to_enter(self):
+		enter(body, body.gather_time, body.gather_amount)

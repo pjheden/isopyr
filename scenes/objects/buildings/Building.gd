@@ -13,6 +13,8 @@ func _ready():
 	$HPbar.visible = false
 	$HPbar.max_value = max_hitpoints
 	hitpoints = max_hitpoints
+	add_to_group("team_%s" % team)
+	add_to_group("building")
 
 sync func destroy() -> void:
 	$HPbar.value = 0

@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/ui/FCTManager.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 55.75, 110 )
+extents = Vector2( 97.8559, 39.4071 )
 
 [node name="Building" type="StaticBody2D"]
 position = Vector2( 2, 0 )

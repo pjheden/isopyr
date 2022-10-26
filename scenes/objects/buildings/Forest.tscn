@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/objects/buildings/Forest.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/buildings/Building.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/forest.png" type="Texture" id=3]
+[ext_resource path="res://resources/forest3.png" type="Texture" id=3]
 
 [sub_resource type="Shader" id=8]
 code = "shader_type canvas_item;
@@ -25,14 +25,18 @@ slots = 3
 position = Vector2( 26, 16 )
 texture = ExtResource( 3 )
 
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PoolVector2Array( -924, -43, 223, 614, 998, 166, -160, -507 )
+
 [node name="HPbar" parent="." index="2"]
 visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox" index="0"]
+visible = false
 position = Vector2( 11.7551, 26.0077 )
 rotation = 0.63879
 scale = Vector2( 2.83252, 1.4931 )
-polygon = PoolVector2Array( -85.1924, 70.8, -45.0608, -81.6796, 84.8213, -122.848, 45.4024, 26.9595 )
+polygon = PoolVector2Array( -316.454, 389.947, -181.544, -253.955, 342.386, -371.436, 202.942, 278.856 )
 
 [node name="CollisionShape2D" parent="Hitbox" index="1"]
 visible = false

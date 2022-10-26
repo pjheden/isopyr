@@ -8,6 +8,8 @@ var move_button = "left_click"
 enum Hero {MAXIMUS, BEDUIN, GOOLOCK, PLAGUEDOCTOR}
 enum Team {NONE, TEAM1, TEAM2, TEAM3, TEAM4, TEAM5, TEAM6, TEAM7, TEAM8, TEAM9}
 enum GameMode {SIEGE, TDM, FFA}
+enum WorkOrder {NONE, HOME, FORESTRY}
+enum Resource {UNDEFINED, WOOD}
 
 # Utils methods
 func get_hero_icon(hero: int) -> Texture:
