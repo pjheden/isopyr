@@ -176,8 +176,12 @@ margin_bottom = 40.0
 script = ExtResource( 12 )
 
 [node name="Button" type="Button" parent="Control"]
-margin_right = 12.0
-margin_bottom = 20.0
+margin_left = 134.0
+margin_top = 13.0
+margin_right = 288.0
+margin_bottom = 33.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Spawn enemy workers"
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]

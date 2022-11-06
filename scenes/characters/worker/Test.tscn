@@ -31,7 +31,8 @@ navpoly = SubResource( 1 )
 [node name="Forests" type="Node" parent="Resources"]
 
 [node name="Forest" parent="Resources/Forests" instance=ExtResource( 1 )]
-position = Vector2( -408, -164 )
+position = Vector2( -684, -2.00002 )
+scale = Vector2( 0.345919, 0.345919 )
 
 [node name="Bases" type="Node" parent="Resources"]
 
