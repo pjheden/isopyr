@@ -6,6 +6,7 @@
 
 [sub_resource type="Animation" id=7]
 resource_name = "AttackDown"
+length = 1.5
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -14,24 +15,22 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.7 ),
+"times": PoolRealArray( 0, 0.4, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 10, 11, 12 ]
+"values": [ 6, 7, 8 ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("../StateMachine/Attack")
+tracks/1/type = "value"
+tracks/1/path = NodePath("Basicattack/CollisionPolygon2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "attack_player"
-} ]
+"times": PoolRealArray( 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -201,7 +200,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=16]
 resource_name = "SpellQ"
-length = 0.8
+length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -209,10 +208,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 9, 10, 11 ]
+"values": [ 6, 7, 8 ]
 }
 
 [sub_resource type="Animation" id=17]
@@ -234,13 +233,26 @@ tracks/0/keys = {
 [node name="PlagueDoctor" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 attack_distance = 150
-attack_damage = 10
 
-[node name="CollisionPolygon2D" parent="." index="1"]
-position = Vector2( 0.783699, -2.3511 )
+[node name="Sprite" parent="." index="1"]
+position = Vector2( 8.62069, -4.70219 )
+scale = Vector2( -0.112609, 0.112609 )
+texture = ExtResource( 2 )
+offset = Vector2( 39.5179, 4.96136 )
+vframes = 3
+
+[node name="Basicattack" parent="Sprite" index="0"]
+position = Vector2( 76.5542, 41.7568 )
+
+[node name="CollisionPolygon2D" parent="Sprite/Basicattack" index="0"]
+position = Vector2( -44.4014, 8.88028 )
+scale = Vector2( -2.10495, 2.10495 )
+
+[node name="CollisionPolygon2D" parent="." index="4"]
+position = Vector2( -1.5674, 2.3511 )
 polygon = PoolVector2Array( -2.42522, 14.5309, 1.45513, 14.5309, 4.36539, 13.5288, 3.88035, 11.5245, 0.485043, 11.0235, -2.91026, 12.5267 )
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="AnimationPlayer" parent="." index="7"]
 anims/AttackDown = SubResource( 7 )
 anims/IdleDown = SubResource( 8 )
 anims/IdleTop = SubResource( 9 )
@@ -252,10 +264,3 @@ anims/RollFade = SubResource( 14 )
 anims/RollTop = SubResource( 15 )
 anims/SpellQ = SubResource( 16 )
 anims/SpellW = SubResource( 17 )
-
-[node name="Sprite" parent="." index="5"]
-position = Vector2( 7.83699, -4.70219 )
-scale = Vector2( -0.083, 0.083 )
-texture = ExtResource( 2 )
-offset = Vector2( 39.5179, 4.96136 )
-vframes = 3

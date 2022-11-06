@@ -232,12 +232,14 @@ tracks/0/keys = {
 
 [node name="Beduin" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-attack_damage = 10
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2( -2.7837, 1.7837 )
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="AnimationPlayer" parent="." index="7"]
 anims/AttackDown = SubResource( 1 )
 anims/IdleDown = SubResource( 2 )
 anims/IdleTop = SubResource( 3 )
@@ -249,6 +251,3 @@ anims/RollFade = SubResource( 8 )
 anims/RollTop = SubResource( 9 )
 anims/SpellQ = SubResource( 10 )
 anims/SpellW = SubResource( 11 )
-
-[node name="Sprite" parent="." index="5"]
-texture = ExtResource( 3 )

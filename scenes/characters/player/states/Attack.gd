@@ -1,62 +1,28 @@
 extends State
 
-var target_body
-var target_body_type
-
 onready var player = get_parent().get_parent()
 
-func enter(msg := {}) -> void:
+func enter(_msg := {}) -> void:
+	# TODO: check cd here?
 	player.play_animation(true, "Attack")
-	
-	if "targetBody" in msg:
-		target_body = msg["targetBody"]
-	if "targetBodyType" in msg:
-		target_body_type = msg["targetBodyType"]
 
 func update(_delta: float) -> void:
-	if target_dead():
-		state_machine.transition_to("Idle")
-		return
-	
-	# Check if target is too far away
-	var dir = target_body.global_position - player.global_position
-	if dir.length() > player.attack_distance:
-		state_machine.transition_to(
-			"Move",
-			{
-				"targetPosition": target_body.global_position,
-				"targetBody": target_body,
-				"targetBodyType": target_body_type,
-			}
-		)
-	
 	# attack_player() # called at the end of animation instead
+	pass
+
+func exit() -> void:
+	# If the attack animation is exited early the attack hitbox might still be enabled
+	# ensure the attack hitbox is turned off
+	player.get_node("Sprite/Basicattack/CollisionPolygon2D").disabled = true
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed(Global.move_button):
-		state_machine.transition_to(
-			"Move",
-			{
-				"targetPosition": Mouse.global_position,
-				"targetBody": Mouse.target_body,
-				"targetBodyType": Mouse.target_body_type,
-			}
-		)
+	if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_up") or event.is_action_pressed("ui_right") or event.is_action_pressed("ui_down"):
+		state_machine.transition_to("Move", {"event": event})
 	elif event.is_action_pressed("shift"):
 		if player.roll_cooldown.get_time_left() == 0.0:
 			state_machine.transition_to("Roll")
-	
-func target_dead() -> bool:
-	# check if body is freed
-	if not is_instance_valid(target_body):
-		return true
 
-	if not target_body:
-		return true
-	
-	#TODO: call method to check if body is dead
-	return false
+func _on_Basicattack_body_entered(body:Node):
+	if body.has_method("hit_by_physical_damager"):
+		body.hit_by_physical_damager(player.attack_damage)
 
-func attack_player() -> void:
-	if target_body and target_body.has_method("hit_by_physical_damager"):
-		target_body.hit_by_physical_damager(player.attack_damage)

@@ -1,76 +1,59 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://resources/fonts/new_dynamicfont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://tools/StateMachine.gd" type="Script" id=2]
+[ext_resource path="res://scenes/characters/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/worker/states/Idle.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/worker/Worker.gd" type="Script" id=4]
 [ext_resource path="res://scenes/characters/worker/states/Dead.gd" type="Script" id=5]
 [ext_resource path="res://scenes/characters/worker/states/Move.gd" type="Script" id=6]
-[ext_resource path="res://scenes/characters/State.gd" type="Script" id=7]
 [ext_resource path="res://resources/sprites/simple_guy_sheetpng.png" type="Texture" id=8]
-[ext_resource path="res://scenes/ui/FCTManager.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 34.0
 
-[node name="Worker" type="KinematicBody2D"]
+[node name="Worker" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Idle" parent="StateMachine" index="0"]
+script = ExtResource( 3 )
+
+[node name="Dead" type="Node" parent="StateMachine" index="1"]
+script = ExtResource( 5 )
+
+[node name="Move" type="Node" parent="StateMachine" index="2"]
+script = ExtResource( 6 )
+
+[node name="Sprite" parent="." index="1"]
 position = Vector2( 3, 4 )
 scale = Vector2( 0.20339, 0.20339 )
 texture = ExtResource( 8 )
-hframes = 6
 vframes = 2
-region_rect = Rect2( 462.09, 290.343, 21.766, 81.6224 )
+frame = 1
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="FCTManager" parent="." instance=ExtResource( 9 )]
-position = Vector2( 0, -36.8339 )
+[node name="Basicattack" parent="Sprite" index="0"]
+visible = false
 
-[node name="State" type="Label" parent="."]
-margin_left = -29.0
-margin_top = -57.0
-margin_right = 29.0
-margin_bottom = -32.0
-custom_fonts/font = ExtResource( 1 )
-text = "State"
-script = ExtResource( 7 )
+[node name="CollisionPolygon2D" parent="Sprite/Basicattack" index="0"]
+disabled = false
 
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 2 )
-initial_state = NodePath("Idle")
+[node name="Hitbox" parent="." index="6"]
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource( 3 )
-
-[node name="Dead" type="Node" parent="StateMachine"]
-script = ExtResource( 5 )
-
-[node name="Move" type="Node" parent="StateMachine"]
-script = ExtResource( 6 )
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
-position = Vector2( -1, 4 )
-scale = Vector2( 1.61573, 1.56406 )
-polygon = PoolVector2Array( -4, 17, 1, 17, 7, 14, 5, 10, 0, 9, -4, 12 )
-
-[node name="HitTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
-[node name="Hitbox" type="Area2D" parent="."]
-position = Vector2( 2, -1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2( -1, 6 )
 shape = SubResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+[node name="AnimationPlayer" parent="." index="7"]
+root_node = NodePath("..")
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[connection signal="transitioned" from="StateMachine" to="State" method="_on_StateMachine_transitioned"]
-[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
-[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
-[connection signal="mouse_entered" from="Hitbox" to="." method="_on_Hitbox_mouse_entered"]
-[connection signal="mouse_exited" from="Hitbox" to="." method="_on_Hitbox_mouse_exited"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="8"]

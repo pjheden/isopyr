@@ -1,9 +1,4 @@
-extends State
-
-onready var player = get_parent().get_parent()
-
-func enter(_msg := {}) -> void:
-	player.play_animation(player.get_rotation() > 0, "Idle")
+extends "res://scenes/characters/states/Idle.gd"
 
 func update(_delta: float) -> void:
 	if player.active_order:

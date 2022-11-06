@@ -1,341 +1,47 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/characters/player/states/Cast.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/player/states/Move.gd" type="Script" id=3]
-[ext_resource path="res://tools/StateMachine.gd" type="Script" id=4]
+[ext_resource path="res://scenes/characters/Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/characters/player/states/Idle.gd" type="Script" id=5]
-[ext_resource path="res://scenes/characters/State.gd" type="Script" id=6]
 [ext_resource path="res://scenes/characters/player/states/Roll.gd" type="Script" id=7]
 [ext_resource path="res://scenes/characters/player/states/Attack.gd" type="Script" id=8]
-[ext_resource path="res://scenes/ui/FCTManager.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/characters/player/states/Dead.gd" type="Script" id=10]
 
-[sub_resource type="CapsuleShape2D" id=1]
-height = 40.0
-
-[sub_resource type="Animation" id=2]
-resource_name = "AttackDown"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 10, 11, 12 ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("../StateMachine/Attack")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "attack_player"
-} ]
-}
-
-[sub_resource type="Animation" id=3]
-resource_name = "IdleDown"
-length = 1.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 0, 1 ]
-}
-
-[sub_resource type="Animation" id=4]
-resource_name = "IdleTop"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"update": 1,
-"values": [  ]
-}
-
-[sub_resource type="Animation" id=5]
-resource_name = "MoveTop"
-length = 0.6
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 2, 3, 4, 5, 6, 7 ]
-}
-
-[sub_resource type="Animation" id=6]
-resource_name = "MoveTop"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8, 9, 10, 11 ]
-}
-
-[sub_resource type="Animation" id=7]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0 ]
-}
-
-[sub_resource type="Animation" id=8]
-resource_name = "RollDown"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 2,
-"values": [ 12, 13, 14 ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.3 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "roll_animation_finished"
-} ]
-}
-
-[sub_resource type="Animation" id=9]
-resource_name = "RollFade"
-tracks/0/type = "method"
-tracks/0/path = NodePath("../StateMachine/Roll")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "spawn_fade"
-}, {
-"args": [  ],
-"method": "spawn_fade"
-}, {
-"args": [  ],
-"method": "roll_finished"
-} ]
-}
-
-[sub_resource type="Animation" id=10]
-resource_name = "RollTop"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 15, 16, 17 ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.3 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "roll_animation_finished"
-} ]
-}
-
-[sub_resource type="Animation" id=11]
-resource_name = "SpellQ"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 9, 10, 11 ]
-}
-
-[sub_resource type="Animation" id=12]
-resource_name = "SpellW"
-length = 0.9
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"update": 1,
-"values": [  ]
-}
-
-[node name="Player" type="KinematicBody2D" groups=["Player"]]
-scale = Vector2( 1.276, 1.276 )
+[node name="Player" instance=ExtResource( 4 )]
 script = ExtResource( 2 )
-attack_damage = 40
 
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 4 )
-initial_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource( 5 )
-
-[node name="Dead" type="Node" parent="StateMachine"]
+[node name="Dead" type="Node" parent="StateMachine" index="0"]
 script = ExtResource( 10 )
 
-[node name="Roll" type="Node" parent="StateMachine"]
+[node name="Roll" type="Node" parent="StateMachine" index="1"]
 script = ExtResource( 7 )
 
-[node name="Move" type="Node" parent="StateMachine"]
+[node name="Move" type="Node" parent="StateMachine" index="2"]
 script = ExtResource( 3 )
 
-[node name="Attack" type="Node" parent="StateMachine"]
+[node name="Attack" type="Node" parent="StateMachine" index="3"]
 script = ExtResource( 8 )
 
-[node name="Cast" type="Node" parent="StateMachine"]
+[node name="Cast" type="Node" parent="StateMachine" index="4"]
 script = ExtResource( 1 )
 
-[node name="CastTime" type="Timer" parent="StateMachine/Cast"]
+[node name="CastTime" type="Timer" parent="StateMachine/Cast" index="0"]
 one_shot = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( -2, 4 )
-scale = Vector2( 1.61573, 1.56406 )
-polygon = PoolVector2Array( -4, 17, 1, 17, 7, 14, 5, 10, 0, 9, -4, 12 )
+[node name="Idle" parent="StateMachine" index="5"]
+script = ExtResource( 5 )
 
-[node name="HitTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
-[node name="Hitbox" type="Area2D" parent="."]
-position = Vector2( 2, -1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( -2, 1 )
-shape = SubResource( 1 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Sprite")
-anims/AttackDown = SubResource( 2 )
-anims/IdleDown = SubResource( 3 )
-anims/IdleTop = SubResource( 4 )
-anims/MoveDown = SubResource( 5 )
-anims/MoveTop = SubResource( 6 )
-anims/RESET = SubResource( 7 )
-anims/RollDown = SubResource( 8 )
-anims/RollFade = SubResource( 9 )
-anims/RollTop = SubResource( 10 )
-anims/SpellQ = SubResource( 11 )
-anims/SpellW = SubResource( 12 )
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 1, 0 )
-scale = Vector2( 0.3, 0.3 )
-hframes = 6
-vframes = 4
-region_rect = Rect2( 462.09, 290.343, 21.766, 81.6224 )
-
-[node name="State" type="Label" parent="."]
-margin_left = -18.0
-margin_top = -57.0
-margin_right = 22.0
-margin_bottom = -43.0
-text = "State"
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NetworkTickRate" type="Timer" parent="."]
+[node name="NetworkTickRate" type="Timer" parent="." index="8"]
 wait_time = 0.05
 autostart = true
 
-[node name="MoveTween" type="Tween" parent="."]
+[node name="MoveTween" type="Tween" parent="." index="9"]
 
-[node name="RollCooldown" type="Timer" parent="."]
+[node name="RollCooldown" type="Timer" parent="." index="10"]
 wait_time = 4.0
 one_shot = true
 
-[node name="FCTManager" parent="." instance=ExtResource( 9 )]
-position = Vector2( 0, -36.8339 )
-
-[connection signal="transitioned" from="StateMachine" to="." method="_on_StateMachine_transitioned"]
-[connection signal="transitioned" from="StateMachine" to="State" method="_on_StateMachine_transitioned"]
 [connection signal="timeout" from="StateMachine/Cast/CastTime" to="StateMachine/Cast" method="_on_CastTime_timeout"]
-[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
-[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
-[connection signal="mouse_entered" from="Hitbox" to="." method="_on_Hitbox_mouse_entered"]
-[connection signal="mouse_exited" from="Hitbox" to="." method="_on_Hitbox_mouse_exited"]
-[connection signal="timeout" from="NetworkTickRate" to="." method="_on_NetworkTickRate_timeout"]
+[connection signal="body_entered" from="Sprite/Basicattack" to="StateMachine/Attack" method="_on_Basicattack_body_entered"]

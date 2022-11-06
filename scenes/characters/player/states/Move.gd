@@ -59,5 +59,9 @@ func move_player(_delta: float) -> void:
 	player.flip_sprite(vel.x < 0)
 	player.play_animation(vel.y > 0, "Move")
 
-	#var x_vector = Vector2(1,0)
-	#player.set_rotation(x_vector.angle_to(player.dir))
+	# Keep last direction
+	if vel:
+		player.dir = vel.normalized()
+
+	# var x_vector = Vector2(1,0)
+	# player.set_rotation(x_vector.angle_to(vel))
