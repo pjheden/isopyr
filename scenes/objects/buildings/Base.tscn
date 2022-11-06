@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/objects/buildings/Building.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/sprites/selection_ringpng.png" type="Texture" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://resources/fonts/new_dynamicfont.tres" type="DynamicFont" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 25.4035, 22.6046 )
+
+[sub_resource type="SphereMesh" id=2]
 
 [node name="Base" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -58,10 +61,11 @@ position = Vector2( -50.0411, -67.5 )
 scale = Vector2( 0.960596, 1.05311 )
 
 [node name="Menu" type="Control" parent="." index="6"]
-margin_left = -12.0
-margin_top = 33.0
-margin_right = 28.0
-margin_bottom = 73.0
+visible = false
+margin_left = 86.0
+margin_top = 177.0
+margin_right = 126.0
+margin_bottom = 217.0
 
 [node name="TextureRect" type="TextureRect" parent="Menu" index="0"]
 margin_left = -133.0
@@ -98,34 +102,34 @@ stretch_mode = 3
 
 [node name="Wall" type="Button" parent="Menu" index="4"]
 visible = false
-margin_left = 118.0
-margin_top = -187.0
-margin_right = 130.0
-margin_bottom = -167.0
+margin_left = -109.0
+margin_top = -240.0
+margin_right = -97.0
+margin_bottom = -220.0
 rect_scale = Vector2( 4.17973, 2.48471 )
 
 [node name="Catapult" type="Button" parent="Menu" index="5"]
 visible = false
-margin_left = 181.0
-margin_top = -187.0
-margin_right = 193.0
-margin_bottom = -167.0
+margin_left = -42.0
+margin_top = -240.0
+margin_right = -30.0
+margin_bottom = -220.0
 rect_scale = Vector2( 4.17973, 2.48471 )
 
 [node name="Tower" type="Button" parent="Menu" index="6"]
 visible = false
-margin_left = 248.0
-margin_top = -187.0
-margin_right = 260.0
-margin_bottom = -167.0
+margin_left = 25.0
+margin_top = -240.0
+margin_right = 37.0
+margin_bottom = -220.0
 rect_scale = Vector2( 4.17973, 2.48471 )
 
 [node name="Bridge" type="Button" parent="Menu" index="7"]
 visible = false
-margin_left = 308.0
-margin_top = -187.0
-margin_right = 320.0
-margin_bottom = -167.0
+margin_left = 85.0
+margin_top = -240.0
+margin_right = 97.0
+margin_bottom = -220.0
 rect_scale = Vector2( 4.17973, 2.48471 )
 
 [node name="WoodCount" type="Label" parent="Menu" index="8"]
@@ -146,20 +150,25 @@ texture = ExtResource( 5 )
 
 [node name="ItemList" type="ItemList" parent="Menu" index="10"]
 visible = false
-margin_left = 203.0
-margin_top = -250.0
-margin_right = 243.0
-margin_bottom = -169.0
+margin_left = -20.0
+margin_top = -263.0
+margin_right = 20.0
+margin_bottom = -182.0
 rect_scale = Vector2( 1.7577, 1.7577 )
 items = [ "Item 0", null, false, "Item 1", null, false, "Item 2", null, false, "Item 3", null, false ]
 auto_height = true
 
 [node name="Menubox" type="Area2D" parent="." index="7"]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Menubox" index="0"]
-scale = Vector2( 21.8868, -16.0703 )
+position = Vector2( -64, 75 )
 shape = SubResource( 1 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." index="8"]
+modulate = Color( 0.176471, 0.87451, 0.215686, 0.541176 )
+position = Vector2( -64, 76 )
+scale = Vector2( 29.0492, 19.6672 )
+mesh = SubResource( 2 )
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="pressed" from="Menu/Worker0" to="." method="_on_Worker0_pressed"]
