@@ -28,9 +28,10 @@ func update(delta: float) -> void:
 		# if we haven't got a network packet in a while, update player pos
 		# based on last recieved velocity
 		if not player.tween.is_active():
-			var _vel = player.move_and_slide(player.puppet_velocity * player.speed)
+			var _vel = player.move_and_slide(player.puppet_velocity * player.move_speed)
 
 func handle_input(event: InputEvent) -> void:
+	# Handle movement input
 	done_moving = true
 	player.velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
@@ -45,15 +46,18 @@ func handle_input(event: InputEvent) -> void:
 	if Input.is_action_pressed("ui_up"):
 		player.velocity.y -= 1
 		done_moving = false
+	# Handle transitioning input
 	if event.is_action_pressed("shift"):
 		if player.roll_cooldown.get_time_left() == 0.0:
 			state_machine.transition_to("Roll")
+	elif event.is_action_pressed("space"):
+		state_machine.transition_to("Attack")
 
 func want_and_can_attack() -> bool:
 	return false
 
 func move_player(_delta: float) -> void:
-	var vel = player.move_and_slide(player.velocity.normalized() * player.speed)
+	var vel = player.move_and_slide(player.velocity.normalized() * player.move_speed)
 	
 	# Check how to rotate the player
 	player.flip_sprite(vel.x < 0)

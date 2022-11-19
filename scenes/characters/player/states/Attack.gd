@@ -2,18 +2,28 @@ extends State
 
 onready var player = get_parent().get_parent()
 
+var autoattack: Node2D
+var direction_arrow: Node2D
+
 func enter(_msg := {}) -> void:
 	# TODO: check cd here?
 	player.play_animation(true, "Attack")
+	direction_arrow = player.get_node("DirectionArrow")
+	direction_arrow.visible = true
+	if player.dir.x == 1:
+		direction_arrow.min_max_rotation_set(-PI/4, PI/4, player.dir.x)
+	else:
+		direction_arrow.min_max_rotation_set(-3*PI/4, 3*PI/4, player.dir.x)
+	
+	autoattack = player.get_node("Autoattack")
+
 
 func update(_delta: float) -> void:
-	# attack_player() # called at the end of animation instead
-	pass
+	# set rotation of autoattack
+	autoattack.set_rotation(direction_arrow.rotation)
 
 func exit() -> void:
-	# If the attack animation is exited early the attack hitbox might still be enabled
-	# ensure the attack hitbox is turned off
-	player.get_node("Sprite/Basicattack/CollisionPolygon2D").disabled = true
+	pass
 
 func handle_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_left") or event.is_action_pressed("ui_up") or event.is_action_pressed("ui_right") or event.is_action_pressed("ui_down"):

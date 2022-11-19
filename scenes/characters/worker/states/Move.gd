@@ -35,7 +35,7 @@ func move_player(_delta: float) -> bool:
 	
 	#player.velocity = player.dir.normalized()	
 
-	var vel = player.dir * player.speed
+	var vel = player.dir * player.move_speed
 	player.navigation_agent.set_velocity(vel)
 	vel = player.move_and_slide(vel)
 	

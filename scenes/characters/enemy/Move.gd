@@ -29,7 +29,7 @@ func move_player(_delta: float) -> void:
 		return
 	var velocity = dir.normalized()
 
-	var vel = owner.move_and_slide(velocity * owner.speed)
+	var vel = owner.move_and_slide(velocity * owner.move_speed)
 
 	# Check how to rotate the player
 	sprite.flip_h = vel.x < 0

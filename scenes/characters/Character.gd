@@ -43,11 +43,6 @@ func flip_sprite(flip: bool) -> void:
 	# if is_network_master():
 	# 	rset("puppet_flip", flip)
 	sprite.flip_h = flip
-	# Also flip the hitbox
-	if flip:
-		sprite.get_node("Basicattack").scale.x = -1.0
-	else:
-		sprite.get_node("Basicattack").scale.x = 1.0
 
 func set_team(new_team: int) -> void:
 	if is_in_group("team_%s" % team):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/ui/FCTManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/fonts/new_dynamicfont.tres" type="DynamicFont" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://scenes/characters/State.gd" type="Script" id=4]
 [ext_resource path="res://tools/StateMachine.gd" type="Script" id=5]
 [ext_resource path="res://scenes/characters/states/Idle.gd" type="Script" id=6]
+[ext_resource path="res://scenes/characters/DirectionArrow.gd" type="Script" id=7]
+
+[sub_resource type="PrismMesh" id=13]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 40.0
@@ -24,18 +27,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ 10, 11, 12 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Basicattack/CollisionPolygon2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -217,6 +208,16 @@ tracks/0/keys = {
 [node name="Character" type="KinematicBody2D"]
 script = ExtResource( 3 )
 
+[node name="DirectionArrow" type="Node2D" parent="."]
+position = Vector2( 0, 24 )
+script = ExtResource( 7 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="DirectionArrow"]
+position = Vector2( 38, 0 )
+rotation = -1.57429
+scale = Vector2( 5.32243, 33.9621 )
+mesh = SubResource( 13 )
+
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 5 )
 initial_state = NodePath("Idle")
@@ -229,11 +230,6 @@ scale = Vector2( 0.3, 0.3 )
 hframes = 6
 vframes = 4
 region_rect = Rect2( 462.09, 290.343, 21.766, 81.6224 )
-
-[node name="Basicattack" type="Area2D" parent="Sprite"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite/Basicattack"]
-polygon = PoolVector2Array( 25.4023, -109.718, 46.3009, -75.7576, 46.3009, 75.7576, 28.0146, 104.493, 182.142, 109.718, 223.939, 36.5726, 203.041, -80.9822, 93.3229, -125.392 )
 
 [node name="FCTManager" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, -36.8339 )

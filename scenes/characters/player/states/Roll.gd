@@ -10,7 +10,7 @@ func enter(_msg := {}) -> void:
 func update(_delta: float) -> void:
 	if is_network_master():
 		player.velocity = player.dir.normalized()
-		var _vel = player.move_and_slide(player.velocity * 3 * player.speed)
+		var _vel = player.move_and_slide(player.velocity * 3 * player.move_speed)
 
 	player.play_animation(player.dir.y > 0, "Roll")
 
