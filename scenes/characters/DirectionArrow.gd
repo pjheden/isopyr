@@ -25,9 +25,9 @@ func _process(_delta):
 	calculate_rotation()
 
 
-func min_max_rotation_set(new_min_rotation: float, new_max_rotation: float, new_dir_x: int) -> void:
+func min_max_rotation_set(new_min_rotation: float, new_max_rotation: float, dir_left: bool) -> void:
 	simple_mode = true
-	if new_dir_x < 0:
+	if dir_left:
 		simple_mode = false
 
 	min_rotation = clamp(new_min_rotation, -PI, PI)

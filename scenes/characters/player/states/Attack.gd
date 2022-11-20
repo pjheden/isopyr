@@ -10,10 +10,10 @@ func enter(_msg := {}) -> void:
 	player.play_animation(true, "Attack")
 	direction_arrow = player.get_node("DirectionArrow")
 	direction_arrow.visible = true
-	if player.dir.x == 1:
-		direction_arrow.min_max_rotation_set(-PI/4, PI/4, player.dir.x)
+	if not player.sprite.flip_h:
+		direction_arrow.min_max_rotation_set(-PI/4, PI/4, player.sprite.flip_h)
 	else:
-		direction_arrow.min_max_rotation_set(-3*PI/4, 3*PI/4, player.dir.x)
+		direction_arrow.min_max_rotation_set(-3*PI/4, 3*PI/4, player.sprite.flip_h)
 	
 	autoattack = player.get_node("Autoattack")
 
