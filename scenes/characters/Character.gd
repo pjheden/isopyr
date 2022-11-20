@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # constants
-export var speed = Vector2(128, 128)
+export var move_speed = Vector2(128, 128) setget , move_speed_get
 export var move_distance = 16
 export var attack_distance = 30
 export var attack_damage = 10
@@ -9,7 +9,7 @@ export var attack_damage = 10
 # variables 
 var hp: float = 100.0 setget set_hp
 var team: int
-var character_rotation : float = 0.0
+var character_rotation: float setget set_rotation, get_rotation # rotation is reserved, hence the weird name
 var velocity: Vector2
 var dir: Vector2
 
@@ -32,6 +32,7 @@ onready var fct_manager = $FCTManager
 
 func _ready() -> void:
 	add_to_group("team_%s" % team)
+	dir = Vector2(1,0)
 
 func set_rotation(r: float) -> void:
 	character_rotation = r
