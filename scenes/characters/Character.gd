@@ -12,6 +12,7 @@ var team: int
 var character_rotation: float setget set_rotation, get_rotation # rotation is reserved, hence the weird name
 var velocity: Vector2
 var dir: Vector2
+var debuffs: Array
 
 var defined_animations: Dictionary = {
 	"IdleDown": "IdleDown",
@@ -39,6 +40,13 @@ func set_rotation(r: float) -> void:
 
 func get_rotation() -> float:
 	return character_rotation
+
+func move_speed_get() -> Vector2:
+	var calculated_speed = move_speed
+	for debuff in debuffs:
+		if debuff == "SLOW":
+			calculated_speed *= 0.2
+	return calculated_speed
 
 func flip_sprite(flip: bool) -> void:
 	# if is_network_master():
@@ -136,6 +144,7 @@ sync func hit_by_damager(damage):
 	hp -= damage
 	modulate = Color(5, 5, 5, 1)
 	hit_timer.start()
+	debuffs.append("SLOW")
 
 	if hp <= 0:
 		queue_free()

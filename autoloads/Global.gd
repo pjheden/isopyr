@@ -11,6 +11,8 @@ enum Team {NONE, TEAM1, TEAM2, TEAM3, TEAM4, TEAM5, TEAM6, TEAM7, TEAM8, TEAM9}
 enum GameMode {SIEGE, TDM, FFA}
 enum WorkOrder {NONE, HOME, FORESTRY}
 enum Resource {UNDEFINED, WOOD}
+# TODO: type should be Speed, health etc. Need another keyword for "good or bad"
+enum StatusEffectType {NONE, DEBUFF, BUFF}
 
 # Utils methods
 func get_hero_icon(hero: int) -> Texture:
